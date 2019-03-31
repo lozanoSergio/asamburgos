@@ -1,0 +1,10 @@
+const routes = require('next-routes')
+
+module.exports = routes()
+.add('dashboard', '/dashboard')
+.add('user', '/user')
+.add('table', '/table')
+.add('typography', '/typography')
+.add('icons', '/icons')
+.add('maps', '/maps')
+.add('notifications', '/notifications')
