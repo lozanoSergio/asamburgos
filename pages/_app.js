@@ -7,7 +7,6 @@ const Admin = dynamic(import("../src/layouts/Admin.jsx"), { ssr: false });
 const RTL = dynamic(import("../src/layouts/RTL.jsx"), { ssr: false }) ;
 
 import "../src/assets/css/material-dashboard-react.css?v=1.6.0";
-import '../styles/main.scss';
 
 export default class MyApp extends App {
   static async getInitialProps({ Component, router, ctx, asPath }) {
