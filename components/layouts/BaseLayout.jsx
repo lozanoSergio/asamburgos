@@ -8,10 +8,15 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 
-// import dynamic from "next/dynamic";
-// const Dashboard = dynamic(import("../../src/views/Dashboard/Dashboard"), {
-//   ssr: false
-// });
+// @material-ui/icons
+import Dashboard from "@material-ui/icons/Dashboard";
+import Person from "@material-ui/icons/Person";
+import LibraryBooks from "@material-ui/icons/LibraryBooks";
+import BubbleChart from "@material-ui/icons/BubbleChart";
+import LocationOn from "@material-ui/icons/LocationOn";
+import Notifications from "@material-ui/icons/Notifications";
+import Unarchive from "@material-ui/icons/Unarchive";
+import Language from "@material-ui/icons/Language";
 
 import TableList from "../../src/views/TableList/TableList"
 
@@ -19,6 +24,65 @@ import dashboardStyle from "../../src/assets/jss/material-dashboard-react/layout
 
 import image from "../../src/assets/img/sidebar-2.jpg";
 import logo from "../../src/assets/img/reactlogo.png";
+
+
+const dashboardRoutes = [
+  {
+    path: "/",
+    name: "Dashboard",
+    rtlName: "لوحة القيادة",
+    icon: Dashboard
+  },
+  {
+    path: "/user",
+    name: "User Profile",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: Person
+  },
+  {
+    path: "/table",
+    name: "Table List",
+    rtlName: "قائمة الجدول",
+    icon: "content_paste"
+  },
+  {
+    path: "/typography",
+    name: "Typography",
+    rtlName: "طباعة",
+    icon: LibraryBooks
+  },
+  {
+    path: "/icons",
+    name: "Icons",
+    rtlName: "الرموز",
+    icon: BubbleChart
+  },
+  {
+    path: "/maps",
+    name: "Maps",
+    rtlName: "خرائط",
+    icon: LocationOn
+  },
+  {
+    path: "/notifications",
+    name: "Notifications",
+    rtlName: "إخطارات",
+    icon: Notifications
+  },
+  {
+    path: "/upgrade-to-pro",
+    name: "Upgrade To PRO",
+    rtlName: "التطور للاحترافية",
+    icon: Unarchive
+  },
+  {
+    path: "/rtl-page",
+    name: "RTL Support",
+    rtlName: "پشتیبانی از راست به چپ",
+    icon: Language
+  }
+];
+
 
 class BaseLayout extends React.Component {
   constructor(props) {
@@ -78,7 +142,8 @@ class BaseLayout extends React.Component {
     return (
       <div className={classes.wrapper}>
         <Sidebar
-          logoText={"Creative Tim"}
+          customRoutes={dashboardRoutes}
+          logoText={"Asam Burgos"}
           logo={logo}
           image={image}
           handleDrawerToggle={this.handleDrawerToggle}

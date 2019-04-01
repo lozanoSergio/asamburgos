@@ -1,14 +1,21 @@
-import React from "react";
+import React from 'react';
 import App, { Container } from 'next/app';
-import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import JssProvider from 'react-jss/lib/JssProvider';
+import getPageContext from '../helpers/getPageContext';
 
-// core components
-const Admin = dynamic(import("../src/layouts/Admin.jsx"), { ssr: false });
-const RTL = dynamic(import("../src/layouts/RTL.jsx"), { ssr: false }) ;
 
 import "../src/assets/css/material-dashboard-react.css?v=1.6.0";
 
 export default class MyApp extends App {
+
+    constructor() {
+        super();
+        this.pageContext = getPageContext();
+      }
+
   static async getInitialProps({ Component, router, ctx, asPath }) {
       let pageProps = {};
       //const user = process.browser ? await auth0.clientAuth() : await auth0.serverAuth(ctx.req);
@@ -22,12 +29,40 @@ export default class MyApp extends App {
       return { pageProps }
   }
 
+  componentDidMount() {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles && jssStyles.parentNode) {
+      jssStyles.parentNode.removeChild(jssStyles);
+    }
+  }
+
   render (){
       const { Component, pageProps } = this.props;
       return (
-          <Container>
-              <Component {...pageProps} />
-          </Container>
+        <Container>
+        <Head>
+          <title>Asam Burgos</title>
+        </Head>
+        {/* Wrap every page in Jss and Theme providers */}
+        <JssProvider
+          registry={this.pageContext.sheetsRegistry}
+          generateClassName={this.pageContext.generateClassName}
+        >
+          {/* MuiThemeProvider makes the theme available down the React
+              tree thanks to React context. */}
+          <MuiThemeProvider
+            theme={this.pageContext.theme}
+            sheetsManager={this.pageContext.sheetsManager}
+          >
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            {/* Pass pageContext to the _document though the renderPage enhancer
+                to render collected styles on server-side. */}
+            <Component pageContext={this.pageContext} {...pageProps} />
+          </MuiThemeProvider>
+        </JssProvider>
+      </Container>
       )
   }
 }
