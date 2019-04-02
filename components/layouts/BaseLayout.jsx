@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 //import Header from "../shared/Header";
 import Sidebar from "../shared/Sidebar";
+import Navbar from "../shared/Navbar";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -12,77 +13,34 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
-import BubbleChart from "@material-ui/icons/BubbleChart";
-import LocationOn from "@material-ui/icons/LocationOn";
-import Notifications from "@material-ui/icons/Notifications";
-import Unarchive from "@material-ui/icons/Unarchive";
-import Language from "@material-ui/icons/Language";
-
-import TableList from "../../src/views/TableList/TableList"
 
 import dashboardStyle from "../../src/assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
 import image from "../../src/assets/img/sidebar-2.jpg";
 import logo from "../../src/assets/img/reactlogo.png";
 
-
 const dashboardRoutes = [
   {
     path: "/",
-    name: "Dashboard",
-    rtlName: "لوحة القيادة",
+    name: "Panel De Control",
     icon: Dashboard
   },
   {
-    path: "/user",
-    name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
+    path: "/notifications",
+    name: "Nuevo Alta",
     icon: Person
   },
   {
-    path: "/table",
-    name: "Table List",
-    rtlName: "قائمة الجدول",
+    path: "/registrar-servicios",
+    name: "Registrar Servicios",
     icon: "content_paste"
   },
   {
-    path: "/typography",
-    name: "Typography",
-    rtlName: "طباعة",
+    path: "/registrar-actividad",
+    name: "Registrar Actividad",
     icon: LibraryBooks
-  },
-  {
-    path: "/icons",
-    name: "Icons",
-    rtlName: "الرموز",
-    icon: BubbleChart
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    rtlName: "خرائط",
-    icon: LocationOn
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    rtlName: "إخطارات",
-    icon: Notifications
-  },
-  {
-    path: "/upgrade-to-pro",
-    name: "Upgrade To PRO",
-    rtlName: "التطور للاحترافية",
-    icon: Unarchive
-  },
-  {
-    path: "/rtl-page",
-    name: "RTL Support",
-    rtlName: "پشتیبانی از راست به چپ",
-    icon: Language
   }
 ];
-
 
 class BaseLayout extends React.Component {
   constructor(props) {
@@ -131,14 +89,13 @@ class BaseLayout extends React.Component {
     //     this.setState({ mobileOpen: false });
     //   }
     // }
-    
   }
   componentWillUnmount() {
     window.removeEventListener("resize", this.resizeFunction);
   }
 
   render() {
-    const { classes, ...rest } = this.props;
+    const { classes, children, ...rest } = this.props;
     return (
       <div className={classes.wrapper}>
         <Sidebar
@@ -152,9 +109,14 @@ class BaseLayout extends React.Component {
           {...rest}
         />
         <div className={classes.mainPanel} ref="mainPanel">
+          <Navbar
+            routes={dashboardRoutes}
+            handleDrawerToggle={this.handleDrawerToggle}
+            {...rest}
+          />
           <div className={classes.content}>
             <div className={classes.container}>
-              <TableList />
+              {children}
             </div>
           </div>
         </div>

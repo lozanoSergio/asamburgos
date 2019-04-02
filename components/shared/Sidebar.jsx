@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Link from "next/link";
 import { withRouter } from "next/router";
 import routes from "../../routes";
@@ -11,6 +12,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
+
+import AdminNavbarLinks from "../../src/components/Navbars/AdminNavbarLinks";
 
 import sidebarStyle from "../../src/assets/jss/material-dashboard-react/components/sidebarStyle";
 
@@ -98,7 +101,10 @@ const Sidebar = ({ ...props }) => {
           }}
         >
           {brand}
-          <div className={classes.sidebarWrapper}>{links}</div>
+          <div className={classes.sidebarWrapper}>
+            <AdminNavbarLinks />
+            {links}
+          </div>
           {image !== undefined ? (
             <div
               className={classes.background}
@@ -130,6 +136,10 @@ const Sidebar = ({ ...props }) => {
       </Hidden>
     </div>
   );
+};
+
+Sidebar.propTypes = {
+  classes: PropTypes.object.isRequired
 };
 
 export default withRouter(withStyles(sidebarStyle)(Sidebar));

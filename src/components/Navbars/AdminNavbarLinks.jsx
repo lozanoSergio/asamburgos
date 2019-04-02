@@ -22,7 +22,8 @@ import headerLinksStyle from "../../assets/jss/material-dashboard-react/componen
 
 class HeaderLinks extends React.Component {
   state = {
-    open: false
+    open: false,
+    innerWidth: 0
   };
   handleToggle = () => {
     this.setState(state => ({ open: !state.open }));
@@ -35,6 +36,13 @@ class HeaderLinks extends React.Component {
 
     this.setState({ open: false });
   };
+
+  componentDidMount() {
+    let innerWidth = window.innerWidth;
+    this.setState({
+      innerWidth: innerWidth
+    })
+  }
 
   render() {
     const { classes } = this.props;
@@ -58,9 +66,9 @@ class HeaderLinks extends React.Component {
           </Button>
         </div>
         <Button
-          color={window.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={window.innerWidth > 959}
-          simple={!(window.innerWidth > 959)}
+          color={this.state.innerWidth > 959 ? "transparent" : "white"}
+          justIcon={this.state.innerWidth > 959}
+          simple={!(this.state.innerWidth > 959)}
           aria-label="Dashboard"
           className={classes.buttonLink}
         >
@@ -74,9 +82,9 @@ class HeaderLinks extends React.Component {
             buttonRef={node => {
               this.anchorEl = node;
             }}
-            color={window.innerWidth > 959 ? "transparent" : "white"}
-            justIcon={window.innerWidth > 959}
-            simple={!(window.innerWidth > 959)}
+            color={this.state.innerWidth > 959 ? "transparent" : "white"}
+            justIcon={this.state.innerWidth > 959}
+            simple={!(this.state.innerWidth > 959)}
             aria-owns={open ? "menu-list-grow" : null}
             aria-haspopup="true"
             onClick={this.handleToggle}
@@ -151,9 +159,9 @@ class HeaderLinks extends React.Component {
           </Poppers>
         </div>
         <Button
-          color={window.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={window.innerWidth > 959}
-          simple={!(window.innerWidth > 959)}
+          color={this.state.innerWidth > 959 ? "transparent" : "white"}
+          justIcon={this.state.innerWidth > 959}
+          simple={!(this.state.innerWidth > 959)}
           aria-label="Person"
           className={classes.buttonLink}
         >

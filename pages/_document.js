@@ -21,10 +21,7 @@ class MyDocument extends Document {
               name="theme-color"
               content={pageContext ? pageContext.theme.palette.primary.main : null}
             />
-            <link
-              rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-            />
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
           </Head>
           <body>
             <Main />
@@ -36,29 +33,6 @@ class MyDocument extends Document {
   }
   
   MyDocument.getInitialProps = ctx => {
-    // Resolution order
-    //
-    // On the server:
-    // 1. app.getInitialProps
-    // 2. page.getInitialProps
-    // 3. document.getInitialProps
-    // 4. app.render
-    // 5. page.render
-    // 6. document.render
-    //
-    // On the server with error:
-    // 1. document.getInitialProps
-    // 2. app.render
-    // 3. page.render
-    // 4. document.render
-    //
-    // On the client
-    // 1. app.getInitialProps
-    // 2. page.getInitialProps
-    // 3. app.render
-    // 4. page.render
-  
-    // Render app and page and get the context of the page with collected side effects.
     let pageContext;
     const page = ctx.renderPage(Component => {
       const WrappedComponent = props => {
