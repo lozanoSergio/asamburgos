@@ -26,7 +26,7 @@ const dashboardRoutes = [
     icon: Dashboard
   },
   {
-    path: "/notifications",
+    path: "/nuevo-alta",
     name: "Nuevo Alta",
     icon: Person
   },

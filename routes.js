@@ -2,7 +2,7 @@ const routes = require('next-routes')
 
 module.exports = routes()
 .add('dashboard', '/dashboard')
-.add('user', '/user')
+.add('newUser', '/nuevo-alta')
 .add('table', '/table')
 .add('typography', '/typography')
 .add('icons', '/icons')
