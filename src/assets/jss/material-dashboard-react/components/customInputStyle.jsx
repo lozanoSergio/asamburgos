@@ -1,5 +1,7 @@
 import {
   primaryColor,
+  secondaryColor,
+  infoColor,
   dangerColor,
   successColor,
   grayColor,
@@ -12,13 +14,31 @@ const customInputStyle = {
       backgroundColor: "transparent !important"
     }
   },
-  underline: {
+  underlinePrimary: {
     "&:hover:not($disabled):before,&:before": {
       borderColor: grayColor[4] + " !important",
       borderWidth: "1px !important"
     },
     "&:after": {
       borderColor: primaryColor[0]
+    }
+  },
+  underlineSecondary: {
+    "&:hover:not($disabled):before,&:before": {
+      borderColor: grayColor[4] + " !important",
+      borderWidth: "1px !important"
+    },
+    "&:after": {
+      borderColor: secondaryColor[0]
+    }
+  },
+  underlineInfo: {
+    "&:hover:not($disabled):before,&:before": {
+      borderColor: grayColor[4] + " !important",
+      borderWidth: "1px !important"
+    },
+    "&:after": {
+      borderColor: infoColor[0]
     }
   },
   underlineError: {

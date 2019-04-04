@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 // @material-ui/core components
 import {
@@ -9,6 +10,8 @@ import {
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import green from "@material-ui/core/colors/green";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from '@material-ui/core/FormControl';
 // core components
 import GridItem from "../../src/components/Grid/GridItem";
 import GridContainer from "../../src/components/Grid/GridContainer.jsx";
@@ -20,29 +23,46 @@ import CardBody from "../../src/components/Card/CardBody.jsx";
 import CardFooter from "../../src/components/Card/CardFooter.jsx";
 
 const styles = theme => ({
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120,
+    float: "right",
+    minHeight: "auto",
+    marginBottom: "3px",
+    marginTop: "0px"
+  },
   cardCategoryWhite: {
-    color: "rgba(255,255,255,.62)",
+    opacity: "0.7",
     margin: "0",
     fontSize: "14px",
     marginTop: "0",
     marginBottom: "0"
   },
   cardTitleWhite: {
-    color: "#FFFFFF",
     marginTop: "0px",
     minHeight: "auto",
-    fontWeight: "300",
+    fontWeight: "400",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
     textDecoration: "none"
   },
   select: {
-    color: "#FFFFFF",
     marginTop: "0px",
     minHeight: "auto",
-    fontWeight: "300",
+    fontWeight: "400",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    float: "right"
+  },
+  lightWhite: {
+    color: "rgba(255,255,255,.62)"
+  },
+  darkWhite: {
+    color: "#FFFFFF"
+  },
+  lightBlack: {
+    color: "rgba(0,0,0,.62)"
+  },
+  darkBlack: {
+    color: "#000"
   },
   whiteSelect: {
     color: "#FFFFFF",
@@ -61,6 +81,23 @@ const styles = theme => ({
       borderBottom: "1px solid white"
     }
   },
+  darkSelect: {
+    color: "#000",
+    borderBottom: "1px solid rgba(0,0,0,.4)",
+    "&:before": {
+      borderBottom: "1px solid black"
+    },
+    "&:hover": {
+      borderBottom: "1px solid black",
+      transition: "border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms"
+    },
+    "&:after": {
+      borderBottom: "2px solid black"
+    },
+    "&:focus": {
+      borderBottom: "1px solid black"
+    }
+  },
   icon: {
     color: "#FFFFFF"
   },
@@ -71,15 +108,6 @@ const styles = theme => ({
     margin: "0",
     fontSize: "14px",
     textAlign: "right"
-  }
-});
-
-const theme = createMuiTheme({
-  typography: {
-    useNextVariants: true
-  },
-  palette: {
-    primary: green
   }
 });
 
@@ -120,7 +148,39 @@ const validateInputs = values => {
 const INITIAL_VALUES = {};
 
 function NewUserForm(props) {
-  const { classes, onSubmit, handleChange, selectValue, color } = props;
+  const {
+    classes,
+    onSubmit,
+    handleChange,
+    selectValue,
+    color,
+    inputColor
+  } = props;
+
+  const theme = createMuiTheme({
+    typography: {
+      useNextVariants: true
+    },
+    palette: {
+      primary: inputColor
+    }
+  });
+
+  const typoLightColors = classNames({
+    [classes.lightBlack]: color && color === "secondary",
+    [classes.lightWhite]: true
+  })
+
+  const typoDarkColors = classNames({
+    [classes.darkBlack]: color && color === "secondary",
+    [classes.darkWhite]: true
+  })
+
+  const selectColor = classNames({
+    [classes.darkSelect]: color && color === "secondary",
+    [classes.whiteSelect]: true
+  })
+
   return (
     <div>
       <GridContainer>
@@ -136,6 +196,7 @@ function NewUserForm(props) {
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
                   <MuiThemeProvider theme={theme}>
+                  <FormControl className={classes.formControl}>
                     <Select
                       id="userType"
                       className={classes.select}
@@ -143,9 +204,9 @@ function NewUserForm(props) {
                       onChange={handleChange("type")}
                       inputProps={{
                         classes: {
-                          root: classes.whiteSelect,
-                          select: classes.whiteSelect,
-                          icon: classes.icon
+                          root: selectColor,
+                          select: selectColor,
+                          icon: typoDarkColors
                         }
                       }}
                     >
@@ -155,9 +216,8 @@ function NewUserForm(props) {
                         </MenuItem>
                       ))}
                     </Select>
-                    <p className={classes.helpText}>
-                      Seleciona el tipo de usuario
-                    </p>
+                    <FormHelperText classes={{root: typoLightColors}}>Seleciona el tipo de perfil</FormHelperText>
+                    </FormControl>
                   </MuiThemeProvider>
                 </GridItem>
               </GridContainer>
@@ -174,7 +234,7 @@ function NewUserForm(props) {
                       <Field
                         labelText="Nombre"
                         id="firstName"
-                        theme={green}
+                        color={color}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -185,7 +245,7 @@ function NewUserForm(props) {
                       <Field
                         labelText="Apellido 1"
                         id="surName1"
-                        theme={green}
+                        color={color}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -197,7 +257,7 @@ function NewUserForm(props) {
                       <Field
                         labelText="Apellido 2"
                         id="surName2"
-                        theme={green}
+                        color={color}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -212,7 +272,7 @@ function NewUserForm(props) {
                       <Field
                         labelText="Email"
                         id="email"
-                        theme={green}
+                        color={color}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -225,7 +285,7 @@ function NewUserForm(props) {
                       <Field
                         labelText="Dirección"
                         id="street"
-                        theme={green}
+                        color={color}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -236,7 +296,7 @@ function NewUserForm(props) {
                       <Field
                         labelText="Población"
                         id="city"
-                        theme={green}
+                        color={color}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -247,7 +307,7 @@ function NewUserForm(props) {
                       <Field
                         labelText="Código Postal"
                         id="postalCode"
-                        theme={green}
+                        color={color}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -260,7 +320,7 @@ function NewUserForm(props) {
                       <Field
                         labelText="Teléfono"
                         id="numberPhone"
-                        theme={green}
+                        color={color}
                         formControlProps={{
                           fullWidth: true
                         }}
@@ -273,7 +333,7 @@ function NewUserForm(props) {
                       <CustomInput
                         labelText="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
                         id="about-me"
-                        theme={green}
+                        color={color}
                         formControlProps={{
                           fullWidth: true
                         }}

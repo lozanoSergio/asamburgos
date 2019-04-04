@@ -9,31 +9,21 @@ import Input from "@material-ui/core/Input";
 // @material-ui/icons
 import Clear from "@material-ui/icons/Clear";
 import Check from "@material-ui/icons/Check";
-import green from "@material-ui/core/colors/green";
 // core components
 import customInputStyle from "../../assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 
 function CustomInput({ ...props }) {
   const {
     classes,
-    color,
     formControlProps,
     labelText,
     id,
     labelProps,
     inputProps,
     error,
-    success
+    success,
+    color
   } = props;
-
-  const theme = createMuiTheme({
-    typography: {
-      useNextVariants: true
-    },
-    palette: {
-      primary: green
-    }
-  });
 
   const labelClasses = classNames({
     [" " + classes.labelRootError]: error,
@@ -42,13 +32,14 @@ function CustomInput({ ...props }) {
   const underlineClasses = classNames({
     [classes.underlineError]: error,
     [classes.underlineSuccess]: success && !error,
-    [classes.underline]: true
+    [classes.underlineSecondary]: color && color==="secondary",
+    [classes.underlineInfo]: color && color==="info",
+    [classes.underlinePrimary]: true
   });
   const marginTop = classNames({
     [classes.marginTop]: labelText === undefined
   });
   return (
-    <MuiThemeProvider theme={theme}>
     <FormControl
       {...formControlProps}
       className={formControlProps.className + " " + classes.formControl}
@@ -80,7 +71,6 @@ function CustomInput({ ...props }) {
         <Check className={classes.feedback + " " + classes.labelRootSuccess} />
       ) : null}
     </FormControl>
-    </MuiThemeProvider>
   );
 }
 

@@ -70,7 +70,8 @@ const defaultFont = {
   lineHeight: "1.5em"
 };
 
-const primaryColor = ["#9c27b0", "#ab47bc", "#8e24aa", "#af2cc5"];
+const primaryColor = ["#519D9E", "#60A5A6", "#70AEAF", "#80B7B8"];
+const secondaryColor = ["#D1B6E1", "#D5BCE3", "#D9C3E6", "#DDC9E9"];
 const warningColor = ["#ff9800", "#ffa726", "#fb8c00", "#ffa21a"];
 const dangerColor = ["#f44336", "#ef5350", "#e53935", "#f55a4e"];
 const successColor = ["#4caf50", "#66bb6a", "#43a047", "#5cb860"];
@@ -110,6 +111,14 @@ const primaryBoxShadow = {
     hexToRgb(blackColor) +
     ",.14), 0 7px 10px -5px rgba(" +
     hexToRgb(primaryColor[0]) +
+    ",.4)"
+};
+const secondaryBoxShadow = {
+  boxShadow:
+    "0 4px 20px 0 rgba(" +
+    hexToRgb(blackColor) +
+    ",.14), 0 7px 10px -5px rgba(" +
+    hexToRgb(secondaryColor[0]) +
     ",.4)"
 };
 const infoBoxShadow = {
@@ -177,6 +186,11 @@ const primaryCardHeader = {
   background:
     "linear-gradient(60deg, " + primaryColor[1] + ", " + primaryColor[2] + ")",
   ...primaryBoxShadow
+};
+const secondaryCardHeader = {
+  background:
+    "linear-gradient(60deg, " + secondaryColor[1] + ", " + secondaryColor[2] + ")",
+  ...secondaryBoxShadow
 };
 const roseCardHeader = {
   background:
@@ -272,6 +286,7 @@ export {
   card,
   defaultFont,
   primaryColor,
+  secondaryColor,
   warningColor,
   dangerColor,
   successColor,
@@ -291,6 +306,7 @@ export {
   dangerCardHeader,
   infoCardHeader,
   primaryCardHeader,
+  secondaryCardHeader,
   roseCardHeader,
   cardActions,
   cardHeader,
