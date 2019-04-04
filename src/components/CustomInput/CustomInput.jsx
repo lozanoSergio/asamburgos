@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 // @material-ui/core components
-import {withStyles, MuiThemeProvider, createMuiTheme} from "@material-ui/core/styles";
+import {withStyles} from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
@@ -22,7 +22,10 @@ function CustomInput({ ...props }) {
     inputProps,
     error,
     success,
-    color
+    color,
+    inputComponent,
+    placeholder,
+    value
   } = props;
 
   const labelClasses = classNames({
@@ -62,6 +65,9 @@ function CustomInput({ ...props }) {
           underline: underlineClasses
         }}
         id={id}
+        placeholder={placeholder}
+        inputComponent={inputComponent}
+        value={value}
         {...inputProps}
       />
       

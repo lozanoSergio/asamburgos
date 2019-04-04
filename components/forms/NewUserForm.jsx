@@ -9,9 +9,10 @@ import {
 } from "@material-ui/core/styles";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import green from "@material-ui/core/colors/green";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import FormControl from "@material-ui/core/FormControl";
 // core components
 import GridItem from "../../src/components/Grid/GridItem";
 import GridContainer from "../../src/components/Grid/GridContainer.jsx";
@@ -21,6 +22,10 @@ import Card from "../../src/components/Card/Card.jsx";
 import CardHeader from "../../src/components/Card/CardHeader.jsx";
 import CardBody from "../../src/components/Card/CardBody.jsx";
 import CardFooter from "../../src/components/Card/CardFooter.jsx";
+
+import InputDate from "./form-fields/InputDate";
+import InputCreditCard from "./form-fields/InputCreditCard";
+import InputNumber from "./form-fields/InputNumber";
 
 const styles = theme => ({
   formControl: {
@@ -39,7 +44,7 @@ const styles = theme => ({
     marginBottom: "0"
   },
   cardTitleWhite: {
-    marginTop: "0px",
+    marginTop: "6px",
     minHeight: "auto",
     fontWeight: "400",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
@@ -50,7 +55,7 @@ const styles = theme => ({
     marginTop: "0px",
     minHeight: "auto",
     fontWeight: "400",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif"
   },
   lightWhite: {
     color: "rgba(255,255,255,.62)"
@@ -169,17 +174,17 @@ function NewUserForm(props) {
   const typoLightColors = classNames({
     [classes.lightBlack]: color && color === "secondary",
     [classes.lightWhite]: true
-  })
+  });
 
   const typoDarkColors = classNames({
     [classes.darkBlack]: color && color === "secondary",
     [classes.darkWhite]: true
-  })
+  });
 
   const selectColor = classNames({
     [classes.darkSelect]: color && color === "secondary",
     [classes.whiteSelect]: true
-  })
+  });
 
   return (
     <div>
@@ -188,35 +193,37 @@ function NewUserForm(props) {
           <Card>
             <CardHeader color={color}>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={8}>
-                  <h4 className={classes.cardTitleWhite}>Edit Profile</h4>
+                <GridItem xs={8} sm={8} md={8}>
+                  <h4 className={classes.cardTitleWhite}>Editar Perfil</h4>
                   <p className={classes.cardCategoryWhite}>
-                    Complete your profile
+                    Completar el perfil
                   </p>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
+                <GridItem xs={4} sm={4} md={4}>
                   <MuiThemeProvider theme={theme}>
-                  <FormControl className={classes.formControl}>
-                    <Select
-                      id="userType"
-                      className={classes.select}
-                      value={selectValue}
-                      onChange={handleChange("type")}
-                      inputProps={{
-                        classes: {
-                          root: selectColor,
-                          select: selectColor,
-                          icon: typoDarkColors
-                        }
-                      }}
-                    >
-                      {userTypes.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                    <FormHelperText classes={{root: typoLightColors}}>Seleciona el tipo de perfil</FormHelperText>
+                    <FormControl className={classes.formControl}>
+                      <Select
+                        id="userType"
+                        className={classes.select}
+                        value={selectValue}
+                        onChange={handleChange("type")}
+                        inputProps={{
+                          classes: {
+                            root: selectColor,
+                            select: selectColor,
+                            icon: typoDarkColors
+                          }
+                        }}
+                      >
+                        {userTypes.map(option => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      <FormHelperText classes={{ root: typoLightColors }}>
+                        Seleciona el tipo de perfil
+                      </FormHelperText>
                     </FormControl>
                   </MuiThemeProvider>
                 </GridItem>
@@ -266,9 +273,9 @@ function NewUserForm(props) {
                     </GridItem>
                   </GridContainer>
                   <GridContainer />
-
+                  <GridContainer />
                   <GridContainer>
-                    <GridItem xs={12} sm={12} md={6}>
+                    <GridItem xs={12} sm={12} md={4}>
                       <Field
                         labelText="Email"
                         id="email"
@@ -277,6 +284,17 @@ function NewUserForm(props) {
                           fullWidth: true
                         }}
                         component={CustomInput}
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={4}>
+                      <Field
+                        labelText="Fecha de Nacimiento"
+                        id="birthDate"
+                        color={inputColor}
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        component={InputDate}
                       />
                     </GridItem>
                   </GridContainer>
@@ -331,15 +349,15 @@ function NewUserForm(props) {
                   <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                       <CustomInput
-                        labelText="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
-                        id="about-me"
+                        labelText="Notas"
+                        id="notes"
                         color={color}
                         formControlProps={{
                           fullWidth: true
                         }}
                         inputProps={{
                           multiline: true,
-                          rows: 5
+                          rows: 3
                         }}
                       />
                     </GridItem>
@@ -348,10 +366,80 @@ function NewUserForm(props) {
               </Formik>
             </CardBody>
             <CardFooter>
-              <Button color={color}>Update Profile</Button>
+              <Button color={color}>Actualizar Perfil</Button>
             </CardFooter>
           </Card>
         </GridItem>
+        {selectValue === "user" && (
+          <GridItem xs={12} sm={12} md={4}>
+            <Card>
+              <CardHeader color={color}>
+                <h4 className={classes.cardTitleWhite}>Cuota</h4>
+                <p className={classes.cardCategoryWhite}>
+                  Cuota del participante
+                </p>
+              </CardHeader>
+              <CardBody>
+                <Formik>
+                  <Form>
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={12}>
+                        <Field
+                          labelText="Cuota Adaptada"
+                          id="installments"
+                          color={color}
+                          component={InputNumber}
+                        />
+                      </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={12}>
+                        <Field
+                          labelText="Nº de cuenta"
+                          id="accountNumber"
+                          color={color}
+                          component={InputCreditCard}
+                        />
+                      </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={8}>
+                        <Field
+                          labelText="Fecha de alta"
+                          id="startDate"
+                          color={inputColor}
+                          formControlProps={{
+                            fullWidth: false
+                          }}
+                          component={InputDate}
+                        />
+                      </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={8}>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={true}
+                              //onChange={this.handleChange("checkedB")}
+                              value="checkedB"
+                              color="primary"
+                            />
+                          }
+                          label="Finalizar Cuota"
+                        />
+                      </GridItem>
+                    </GridContainer>
+                  </Form>
+                </Formik>
+                <p>Cuota finalizada el 5 de mayo de 2019</p>
+              </CardBody>
+              <CardFooter>
+                <Button color={color}>Actualizar Cuota</Button>
+              </CardFooter>
+            </Card>
+          </GridItem>
+        )}
       </GridContainer>
     </div>
   );
