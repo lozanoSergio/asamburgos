@@ -23,7 +23,7 @@ moment.locale("es");
 
 class InputDate extends React.Component {
   state = {
-    selectedDate: new Date("2000-01-01")
+    selectedDate: null
   };
 
   handleDateChange = date => {
@@ -31,7 +31,7 @@ class InputDate extends React.Component {
   };
 
   render() {
-    const { classes, labelText, color } = this.props;
+    const { classes, labelText, color, openTo, views } = this.props;
     const { selectedDate } = this.state;
 
     const theme = createMuiTheme({
@@ -77,9 +77,9 @@ class InputDate extends React.Component {
               keyboard
               margin="normal"
               disableFuture
-              openTo="year"
+              openTo={openTo}
               format="DD/MM/YYYY"
-              views={["day", "month", "year"]}
+              views={views}
               label={labelText}
               value={selectedDate}
               onChange={this.handleDateChange}

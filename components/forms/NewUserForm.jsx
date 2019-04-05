@@ -236,6 +236,7 @@ function NewUserForm(props) {
                 validate={validateInputs}
               >
                 <Form>
+                  <GridContainer></GridContainer>
                   <GridContainer>
                     <GridItem xs={12} sm={12} md={4}>
                       <Field
@@ -346,6 +347,63 @@ function NewUserForm(props) {
                       />
                     </GridItem>
                   </GridContainer>
+                  {selectValue === "user" && 
+                  <div>
+                  <GridContainer>
+                    <GridItem>
+                    <h4 style={{color:"#9e9e9e", marginBottom:"0", paddingTop: "16px"}}>Persona de contacto:</h4>
+                    </GridItem>
+                  </GridContainer>
+                  <GridContainer>
+                    <GridItem xs={12} sm={12} md={4}>
+                      <Field
+                        labelText="Nombre"
+                        id="parentName"
+                        color={color}
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        component={CustomInput}
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={4}>
+                      <Field
+                        labelText="Apellido 1"
+                        id="parentSurname1"
+                        color={color}
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        component={CustomInput}
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={4}>
+                      <Field
+                        labelText="Apellido 2"
+                        id="parentSurname2"
+                        color={color}
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        component={CustomInput}
+                      />
+                    </GridItem>
+                    
+                  </GridContainer>
+                  <GridContainer>
+                    <GridItem xs={12} sm={12} md={4}>
+                      <Field
+                        labelText="Telefono de contacto"
+                        id="contactPhone"
+                        color={color}
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        component={CustomInput}
+                      />
+                    </GridItem>
+                  </GridContainer>
+                      </div> }
                   <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                       <CustomInput
@@ -383,7 +441,7 @@ function NewUserForm(props) {
                 <Formik>
                   <Form>
                     <GridContainer>
-                      <GridItem xs={12} sm={12} md={12}>
+                      <GridItem xs={12} sm={12} md={6}>
                         <Field
                           labelText="Cuota Adaptada"
                           id="installments"
@@ -391,9 +449,7 @@ function NewUserForm(props) {
                           component={InputNumber}
                         />
                       </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={12}>
+                      <GridItem xs={12} sm={12} md={6}>
                         <Field
                           labelText="Nº de cuenta"
                           id="accountNumber"
@@ -409,7 +465,7 @@ function NewUserForm(props) {
                           id="startDate"
                           color={inputColor}
                           formControlProps={{
-                            fullWidth: false
+                            fullWidth: true
                           }}
                           component={InputDate}
                         />
@@ -430,9 +486,21 @@ function NewUserForm(props) {
                         />
                       </GridItem>
                     </GridContainer>
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={8}>
+                        <Field
+                          labelText="Fecha de baja"
+                          id="endDate"
+                          color={inputColor}
+                          formControlProps={{
+                            fullWidth: true
+                          }}
+                          component={InputDate}
+                        />
+                      </GridItem>
+                    </GridContainer>
                   </Form>
                 </Formik>
-                <p>Cuota finalizada el 5 de mayo de 2019</p>
               </CardBody>
               <CardFooter>
                 <Button color={color}>Actualizar Cuota</Button>

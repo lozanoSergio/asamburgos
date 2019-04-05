@@ -26,11 +26,11 @@ function InputNumber({ ...props }) {
   return (
     <CustomInput
       formControlProps={{
-        fullWidth: false
+        fullWidth: true
       }}
       id={id}
       placeholder={"€29,99"}
-      value="35,50"
+      value={null}
       color={color}
       inputComponent={NumberFormatCustom}
       labelText={labelText}
