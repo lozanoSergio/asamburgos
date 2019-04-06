@@ -12,20 +12,20 @@ import Check from "@material-ui/icons/Check";
 // core components
 import customInputStyle from "../../assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 
-function CustomInput({ ...props }) {
+function CustomInput({ field , ...props }) {
   const {
     classes,
     formControlProps,
     labelText,
     id,
+    name,
     labelProps,
     inputProps,
     error,
     success,
     color,
     inputComponent,
-    placeholder,
-    value
+    placeholder
   } = props;
 
   const labelClasses = classNames({
@@ -67,7 +67,8 @@ function CustomInput({ ...props }) {
         id={id}
         placeholder={placeholder}
         inputComponent={inputComponent}
-        value={value}
+        name={name}
+        {...field}
         {...inputProps}
       />
       
