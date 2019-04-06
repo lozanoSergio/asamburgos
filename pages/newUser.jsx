@@ -1,6 +1,7 @@
 import React from "react";
 import BaseLayout from "../components/layouts/BaseLayout";
 import NewUserForm from "../components/forms/NewUserForm";
+import { createPortfolio } from "../actions";
 
 import teal from '@material-ui/core/colors/teal';
 import purple from '@material-ui/core/colors/purple';
@@ -37,15 +38,27 @@ class newUser extends React.Component {
     this.state = {
       type: "user",
       color: "primary",
-      inputColor: teal
+      inputColor: teal,
+      error: undefined
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.saveProfileData = this.saveProfileData.bind(this);
   }
 
-  saveProfileData = (values, actions) => {
-    console.log(values)
+  saveProfileData = (userProfileData, { setSubmitting }) => {
+    setSubmitting(true);
+    createPortfolio(userProfileData)
+      .then(profile => {
+        setSubmitting(false);
+        this.setState({ error: undefined });
+        Router.pushRoute("/");
+      })
+      .catch(err => {
+        const error = err.message || "Server Error!";
+        setSubmitting(false);
+        this.setState({ error });
+      });
   }
 
   handleChange = type => event => {

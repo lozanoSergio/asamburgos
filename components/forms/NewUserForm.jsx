@@ -454,7 +454,7 @@ function NewUserForm(props) {
                     </GridContainer>
                   </CardBody>
                   <CardFooter>
-                    <Button type="submit" color={color}>
+                    <Button type="submit" color={color} disabled={isSubmitting}>
                       Actualizar Perfil
                     </Button>
                   </CardFooter>
