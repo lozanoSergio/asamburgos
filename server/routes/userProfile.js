@@ -5,4 +5,6 @@ const userProfileCtrl = require('../controllers/userProfile');
 
 router.post('', userProfileCtrl.saveUserProfile);
 
+router.get('', userProfileCtrl.getUserProfiles);
+
 module.exports = router;

@@ -18,8 +18,12 @@ const rejectPromise = (resError) => {
 }
 
 
-export const createPortfolio = async (userProfileData) => {
+export const createUserProfile = async (userProfileData) => {
     return axiosInstance.post('/userProfiles', userProfileData)
     .then(response => response.data)
     .catch(error => rejectPromise(error))
+}
+
+export const getUserProfiles = async(req) => {
+    return await axiosInstance.get('/userProfiles').then(response => response.data);
 }

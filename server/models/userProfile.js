@@ -5,6 +5,7 @@ const setStringType = (maxLength) => ({ type: String, required: true, maxlength:
 const setStringTypeNotRequired = (maxLength) => ({ type: String, maxlength: maxLength })
 
 const userProfileSchema = new Schema({
+    type: setStringType(32),
     firstName: setStringType(128),
     surName1: setStringTypeNotRequired(128),
     surName2: setStringTypeNotRequired(128),
@@ -18,7 +19,15 @@ const userProfileSchema = new Schema({
     parentSurname1: setStringTypeNotRequired(128),
     parentSurname2: setStringTypeNotRequired(128),
     contactPhone: setStringTypeNotRequired(11),
-    notes: setStringTypeNotRequired(2048)
+    notes: setStringTypeNotRequired(2048),
+    createdAt: Date,
+    updatedAt: Date,
+    installments: {
+        price: setStringTypeNotRequired(16),
+        account: setStringTypeNotRequired(24),
+        startDate: Date,
+        endDate: Date
+    }
 });
 
 module.exports = mongoose.model('UserProfile', userProfileSchema);

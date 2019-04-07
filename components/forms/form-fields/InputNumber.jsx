@@ -7,12 +7,19 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import Input from "@material-ui/core/Input";
 // @material-ui/icons
 import Clear from "@material-ui/icons/Clear";
 import Check from "@material-ui/icons/Check";
+import Phone from "@material-ui/icons/Phone";
+import Card from "@material-ui/icons/CreditCard";
+import Euro from "@material-ui/icons/EuroSymbol";
+
 // core components
 import customInputStyle from "../../../src/assets/jss/material-dashboard-react/components/customInputStyle.jsx";
+
+const iconStyle = { color: "rgba(0, 0, 0, 0.54)", marginRight: "12px" };
 
 function CreditCard(props) {
   const { id, mask, inputRef, onChange, ...other } = props;
@@ -25,6 +32,16 @@ function CreditCard(props) {
       }}
       onChange={onChange}
       mask={[
+        /[A-Z]/i,
+        /[A-Z]/i,
+        /\d/,
+        /\d/,
+        " ",
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+        " ",
         /\d/,
         /\d/,
         /\d/,
@@ -90,7 +107,7 @@ function NumberPhone(props) {
         inputRef(ref ? ref.inputElement : null);
       }}
       onChange={onChange}
-      mask={[/\d/, /\d/, /\d/,"-", /\d/, /\d/, /\d/,"-", /\d/, /\d/, /\d/]}
+      mask={[/\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/]}
       placeholderChar={"\u2000"}
     />
   );
@@ -143,13 +160,19 @@ function InputNumber({ field, form, ...props }) {
           classes={{
             root: marginTop,
             disabled: classes.disabled,
-            underline: underlineClasses
+            underline: underlineClasses,
+            input: classes.textUpperCase
           }}
           id={id}
           name={field.name}
           color={color}
           placeholder={placeholder}
           inputComponent={CreditCard}
+          endAdornment={
+            <InputAdornment position="end">
+              <Card style={iconStyle} />
+            </InputAdornment>
+          }
           {...field}
         />
       ) : maskType === "price" ? (
@@ -164,6 +187,11 @@ function InputNumber({ field, form, ...props }) {
           color={color}
           placeholder={placeholder}
           inputComponent={Price}
+          endAdornment={
+            <InputAdornment position="end">
+              <Euro style={iconStyle} />
+            </InputAdornment>
+          }
           {...field}
         />
       ) : maskType === "zipCode" ? (
@@ -192,6 +220,11 @@ function InputNumber({ field, form, ...props }) {
           color={color}
           placeholder={placeholder}
           inputComponent={NumberPhone}
+          endAdornment={
+            <InputAdornment position="end">
+              <Phone style={iconStyle} />
+            </InputAdornment>
+          }
           {...field}
         />
       ) : null}

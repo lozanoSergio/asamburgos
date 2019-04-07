@@ -11,8 +11,14 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Typography from "@material-ui/core/Typography";
 import Switch from "@material-ui/core/Switch";
 import FormControl from "@material-ui/core/FormControl";
+import InfoIcon from "@material-ui/icons/InfoOutlined";
+//@material-ui/core/colors
+import teal from "@material-ui/core/colors/teal";
+import purple from "@material-ui/core/colors/purple";
+import cyan from "@material-ui/core/colors/cyan";
 // core components
 import GridItem from "../../src/components/Grid/GridItem";
 import GridContainer from "../../src/components/Grid/GridContainer.jsx";
@@ -25,6 +31,7 @@ import CardFooter from "../../src/components/Card/CardFooter.jsx";
 
 import InputDate from "./form-fields/InputDate";
 import InputNumber from "./form-fields/InputNumber";
+import { Grid } from "@material-ui/core";
 
 const styles = theme => ({
   formControl: {
@@ -112,6 +119,12 @@ const styles = theme => ({
     margin: "0",
     fontSize: "14px",
     textAlign: "right"
+  },
+  infoIcon: {
+    position: "relative",
+    top: "5px",
+    width: theme.typography.h6.fontSize,
+    height: theme.typography.h6.fontSize
   }
 });
 
@@ -149,425 +162,521 @@ const validateInputs = values => {
   return errors;
 };
 
-function NewUserForm(props) {
-  const {
-    classes,
-    onSubmitProfile,
-    handleChange,
-    selectValue,
-    color,
-    inputColor,
-    initialProfileValues,
-    initialInstallmentsValues
-  } = props;
+const texts = {
+  createProfile: "Crear Perfil",
+  editProfile: "Editar Perfil",
+  fullfilProfile: "Completar el perfil",
+  editTheProfile: "Editar el perfil",
+  createProfile: "Crear Perfil",
+  updateProfile: "Actualizar Perfil",
+  createInstallment: "Crear Cuota",
+  updateInstallment: "Actualizar Cuota"
+};
 
-  const theme = createMuiTheme({
-    typography: {
-      useNextVariants: true
-    },
-    palette: {
-      primary: inputColor
+class NewUserForm extends React.Component {
+  constructor(props) {
+    super();
+
+    this.state = {
+      userType: "user",
+      color: "primary",
+      inputColor: teal,
+      switchCheck: false
+    };
+  }
+
+  handleSwitchToggle() {
+    this.setState({
+      switchCheck: !this.state.switchCheck
+    });
+  }
+
+  handleSelectChange = event => {
+    let color;
+    let inputColor;
+    let eventValue = event.target.value;
+    switch (eventValue) {
+      case "user": {
+        color = "primary";
+        inputColor = teal;
+        break;
+      }
+      case "voluntary": {
+        color = "secondary";
+        inputColor = purple;
+        break;
+      }
+      case "partner": {
+        color = "info";
+        inputColor = cyan;
+        break;
+      }
+      default: {
+        color = "primary";
+        inputColor = teal;
+        break;
+      }
     }
-  });
+    this.setState({
+      userType: event.target.value,
+      color: color,
+      inputColor: inputColor
+    });
+  };
 
-  const typoLightColors = classNames({
-    [classes.lightBlack]: color && color === "secondary",
-    [classes.lightWhite]: true
-  });
+  render() {
+    const {
+      classes,
+      onSubmitProfile,
+      initialProfileValues,
+      initialInstallmentsValues,
+      newUser
+    } = this.props;
 
-  const typoDarkColors = classNames({
-    [classes.darkBlack]: color && color === "secondary",
-    [classes.darkWhite]: true
-  });
+    const { color, inputColor, userType, switchCheck } = this.state;
 
-  const selectColor = classNames({
-    [classes.darkSelect]: color && color === "secondary",
-    [classes.whiteSelect]: true
-  });
+    const theme = createMuiTheme({
+      typography: {
+        useNextVariants: true
+      },
+      palette: {
+        primary: inputColor
+      }
+    });
 
-  return (
-    <div>
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={8}>
-          <Formik
-            initialValues={initialProfileValues}
-            onSubmit={onSubmitProfile}
-            validate={validateInputs}
-          >
-            {({ isSubmitting }) => (
-              <Form>
-                <Card>
-                  <CardHeader color={color}>
-                    <GridContainer>
-                      <GridItem xs={8} sm={8} md={8}>
-                        <h4 className={classes.cardTitleWhite}>
-                          Editar Perfil
-                        </h4>
+    const typoLightColors = classNames({
+      [classes.lightBlack]: color && color === "secondary",
+      [classes.lightWhite]: true
+    });
+
+    const typoDarkColors = classNames({
+      [classes.darkBlack]: color && color === "secondary",
+      [classes.darkWhite]: true
+    });
+
+    const selectColor = classNames({
+      [classes.darkSelect]: color && color === "secondary",
+      [classes.whiteSelect]: true
+    });
+    return (
+      <div>
+        <GridContainer>
+          <GridItem xs={12} sm={12} md={8}>
+            <Formik
+              initialValues={initialProfileValues}
+              onSubmit={onSubmitProfile}
+              validate={validateInputs}
+            >
+              {({ isSubmitting }) => (
+                <Form>
+                  <Card>
+                    <CardHeader color={color}>
+                      <GridContainer>
+                        <GridItem xs={8} sm={8} md={8}>
+                          <h4 className={classes.cardTitleWhite}>
+                            {newUser ? texts.createProfile : texts.editProfile}
+                          </h4>
+                          <p className={classes.cardCategoryWhite}>
+                            {newUser
+                              ? texts.fullfilProfile
+                              : texts.editTheProfile}
+                          </p>
+                        </GridItem>
+                        <GridItem xs={4} sm={4} md={4}>
+                          <MuiThemeProvider theme={theme}>
+                            <FormControl className={classes.formControl}>
+                              <Select
+                                id="userType"
+                                className={classes.select}
+                                value={userType}
+                                onChange={e => this.handleSelectChange(e)}
+                                inputProps={{
+                                  classes: {
+                                    root: selectColor,
+                                    select: selectColor,
+                                    icon: typoDarkColors
+                                  }
+                                }}
+                              >
+                                {userTypes.map(option => (
+                                  <MenuItem
+                                    key={option.value}
+                                    value={option.value}
+                                  >
+                                    {option.label}
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                              <FormHelperText
+                                classes={{ root: typoLightColors }}
+                              >
+                                Seleciona el tipo de perfil
+                              </FormHelperText>
+                            </FormControl>
+                          </MuiThemeProvider>
+                        </GridItem>
+                      </GridContainer>
+                    </CardHeader>
+                    <CardBody>
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <Field
+                            labelText="Nombre"
+                            name="firstName"
+                            id="firstName"
+                            color={color}
+                            formControlProps={{
+                              fullWidth: true
+                            }}
+                            component={CustomInput}
+                          />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <Field
+                            labelText="Apellido 1"
+                            name="surName1"
+                            id="surName1"
+                            color={color}
+                            formControlProps={{
+                              fullWidth: true
+                            }}
+                            component={CustomInput}
+                          />
+                        </GridItem>
+
+                        <GridItem xs={12} sm={12} md={4}>
+                          <Field
+                            labelText="Apellido 2"
+                            name="surName2"
+                            id="surName2"
+                            color={color}
+                            formControlProps={{
+                              fullWidth: true
+                            }}
+                            component={CustomInput}
+                          />
+                        </GridItem>
+                      </GridContainer>
+                      <GridContainer />
+                      <GridContainer />
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <Field
+                            labelText="Email"
+                            name="email"
+                            id="email"
+                            color={color}
+                            formControlProps={{
+                              fullWidth: true
+                            }}
+                            component={CustomInput}
+                          />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <Field
+                            labelText="Fecha de Nacimiento"
+                            name="birthDate"
+                            id="birthDate"
+                            color={inputColor}
+                            formControlProps={{
+                              fullWidth: false
+                            }}
+                            component={InputDate}
+                          />
+                        </GridItem>
+                      </GridContainer>
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <Field
+                            labelText="Dirección"
+                            name="address"
+                            id="address"
+                            color={color}
+                            formControlProps={{
+                              fullWidth: true
+                            }}
+                            component={CustomInput}
+                          />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <Field
+                            labelText="Población"
+                            name="city"
+                            id="city"
+                            color={color}
+                            formControlProps={{
+                              fullWidth: true
+                            }}
+                            component={CustomInput}
+                          />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <Field
+                            labelText="Código Postal"
+                            name="zipCode"
+                            id="zipCode"
+                            placeholder={"09000"}
+                            maskType="zipCode"
+                            color={color}
+                            formControlProps={{
+                              fullWidth: true
+                            }}
+                            component={InputNumber}
+                          />
+                        </GridItem>
+                      </GridContainer>
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <Field
+                            labelText="Teléfono"
+                            name="numberPhone"
+                            id="numberPhone"
+                            placeholder={"645-593-693"}
+                            maskType="numberPhone"
+                            color={color}
+                            formControlProps={{
+                              fullWidth: false
+                            }}
+                            component={InputNumber}
+                          />
+                        </GridItem>
+                      </GridContainer>
+                      {userType === "user" && (
+                        <div>
+                          <GridContainer>
+                            <GridItem>
+                              <h4
+                                style={{
+                                  color: "#9e9e9e",
+                                  marginBottom: "0",
+                                  paddingTop: "16px"
+                                }}
+                              >
+                                Persona de contacto:
+                              </h4>
+                            </GridItem>
+                          </GridContainer>
+                          <GridContainer>
+                            <GridItem xs={12} sm={12} md={4}>
+                              <Field
+                                labelText="Nombre"
+                                name="parentName"
+                                id="parentName"
+                                color={color}
+                                formControlProps={{
+                                  fullWidth: true
+                                }}
+                                component={CustomInput}
+                              />
+                            </GridItem>
+                            <GridItem xs={12} sm={12} md={4}>
+                              <Field
+                                labelText="Apellido 1"
+                                name="parentSurname1"
+                                id="parentSurname1"
+                                color={color}
+                                formControlProps={{
+                                  fullWidth: true
+                                }}
+                                component={CustomInput}
+                              />
+                            </GridItem>
+                            <GridItem xs={12} sm={12} md={4}>
+                              <Field
+                                labelText="Apellido 2"
+                                name="parentSurname2"
+                                id="parentSurname2"
+                                color={color}
+                                formControlProps={{
+                                  fullWidth: true
+                                }}
+                                component={CustomInput}
+                              />
+                            </GridItem>
+                          </GridContainer>
+                          <GridContainer>
+                            <GridItem xs={12} sm={12} md={4}>
+                              <Field
+                                labelText="Telefono de contacto"
+                                name="contactPhone"
+                                id="contactPhone"
+                                placeholder={"645-593-693"}
+                                maskType="numberPhone"
+                                color={color}
+                                formControlProps={{
+                                  fullWidth: false
+                                }}
+                                component={InputNumber}
+                              />
+                            </GridItem>
+                          </GridContainer>
+                        </div>
+                      )}
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={12}>
+                          <CustomInput
+                            labelText="Notas"
+                            name="notes"
+                            id="notes"
+                            color={color}
+                            formControlProps={{
+                              fullWidth: true
+                            }}
+                            inputProps={{
+                              multiline: true,
+                              rows: 3
+                            }}
+                          />
+                        </GridItem>
+                      </GridContainer>
+                    </CardBody>
+                    <CardFooter>
+                      <Button
+                        type="submit"
+                        color={color}
+                        disabled={isSubmitting}
+                      >
+                        {newUser ? texts.createProfile : texts.updateProfile}
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </Form>
+              )}
+            </Formik>
+          </GridItem>
+          {userType === "user" && (
+            <GridItem xs={12} sm={12} md={4}>
+              <Card>
+                <Formik
+                  initialValues={initialInstallmentsValues}
+                  onSubmit={onSubmitProfile}
+                  validate={validateInputs}
+                >
+                  {({ isSubmitting }) => (
+                    <Form>
+                      <CardHeader color={color}>
+                        <h4 className={classes.cardTitleWhite}>Cuota</h4>
                         <p className={classes.cardCategoryWhite}>
-                          Completar el perfil
+                          Cuota del participante
                         </p>
-                      </GridItem>
-                      <GridItem xs={4} sm={4} md={4}>
-                        <MuiThemeProvider theme={theme}>
-                          <FormControl className={classes.formControl}>
-                            <Select
-                              id="userType"
-                              className={classes.select}
-                              value={selectValue}
-                              onChange={handleChange("type")}
-                              inputProps={{
-                                classes: {
-                                  root: selectColor,
-                                  select: selectColor,
-                                  icon: typoDarkColors
-                                }
-                              }}
-                            >
-                              {userTypes.map(option => (
-                                <MenuItem
-                                  key={option.value}
-                                  value={option.value}
-                                >
-                                  {option.label}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                            <FormHelperText classes={{ root: typoLightColors }}>
-                              Seleciona el tipo de perfil
-                            </FormHelperText>
-                          </FormControl>
-                        </MuiThemeProvider>
-                      </GridItem>
-                    </GridContainer>
-                  </CardHeader>
-                  <CardBody>
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <Field
-                          labelText="Nombre"
-                          name="firstName"
-                          id="firstName"
-                          color={color}
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          component={CustomInput}
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <Field
-                          labelText="Apellido 1"
-                          name="surName1"
-                          id="surName1"
-                          color={color}
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          component={CustomInput}
-                        />
-                      </GridItem>
-
-                      <GridItem xs={12} sm={12} md={4}>
-                        <Field
-                          labelText="Apellido 2"
-                          name="surName2"
-                          id="surName2"
-                          color={color}
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          component={CustomInput}
-                        />
-                      </GridItem>
-                    </GridContainer>
-                    <GridContainer />
-                    <GridContainer />
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <Field
-                          labelText="Email"
-                          name="email"
-                          id="email"
-                          color={color}
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          component={CustomInput}
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <Field
-                          labelText="Fecha de Nacimiento"
-                          name="birthDate"
-                          id="birthDate"
-                          color={inputColor}
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          component={InputDate}
-                        />
-                      </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <Field
-                          labelText="Dirección"
-                          name="address"
-                          id="address"
-                          color={color}
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          component={CustomInput}
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <Field
-                          labelText="Población"
-                          name="city"
-                          id="city"
-                          color={color}
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          component={CustomInput}
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <Field
-                          labelText="Código Postal"
-                          name="zipCode"
-                          id="zipCode"
-                          placeholder={"09000"}
-                          maskType="zipCode"
-                          color={color}
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          component={InputNumber}
-                        />
-                      </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <Field
-                          labelText="Teléfono"
-                          name="numberPhone"
-                          id="numberPhone"
-                          placeholder={"645-593-693"}
-                          maskType="numberPhone"
-                          color={color}
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          component={InputNumber}
-                        />
-                      </GridItem>
-                    </GridContainer>
-                    {selectValue === "user" && (
-                      <div>
+                      </CardHeader>
+                      <CardBody>
                         <GridContainer>
-                          <GridItem>
-                            <h4
-                              style={{
-                                color: "#9e9e9e",
-                                marginBottom: "0",
-                                paddingTop: "16px"
-                              }}
-                            >
-                              Persona de contacto:
-                            </h4>
-                          </GridItem>
-                        </GridContainer>
-                        <GridContainer>
-                          <GridItem xs={12} sm={12} md={4}>
+                          <GridItem xs={12} sm={12} md={6}>
                             <Field
-                              labelText="Nombre"
-                              name="parentName"
-                              id="parentName"
-                              color={color}
-                              formControlProps={{
-                                fullWidth: true
-                              }}
-                              component={CustomInput}
-                            />
-                          </GridItem>
-                          <GridItem xs={12} sm={12} md={4}>
-                            <Field
-                              labelText="Apellido 1"
-                              name="parentSurname1"
-                              id="parentSurname1"
-                              color={color}
-                              formControlProps={{
-                                fullWidth: true
-                              }}
-                              component={CustomInput}
-                            />
-                          </GridItem>
-                          <GridItem xs={12} sm={12} md={4}>
-                            <Field
-                              labelText="Apellido 2"
-                              name="parentSurname2"
-                              id="parentSurname2"
-                              color={color}
-                              formControlProps={{
-                                fullWidth: true
-                              }}
-                              component={CustomInput}
-                            />
-                          </GridItem>
-                        </GridContainer>
-                        <GridContainer>
-                          <GridItem xs={12} sm={12} md={4}>
-                            <Field
-                              labelText="Telefono de contacto"
-                              name="contactPhone"
-                              id="contactPhone"
-                              placeholder={"645-593-693"}
-                              maskType="numberPhone"
+                              labelText="Cuota Adaptada"
+                              name="installments"
+                              id="installments"
+                              placeholder={"€29,99"}
+                              maskType="price"
                               color={color}
                               formControlProps={{
                                 fullWidth: true
                               }}
                               component={InputNumber}
                             />
+
+                            </GridItem>
+
+                        </GridContainer>
+                        <GridContainer>
+                        <GridItem xs={12} sm={12} md={6}>
+                        <Field
+                              labelText="Nº de cuenta"
+                              name="accountNumber"
+                              id="accountNumber"
+                              placeholder={"ES98 2038 5778 9830 0076 0236"}
+                              maskType="creditCard"
+                              color={color}
+                              formControlProps={{
+                                fullWidth: true
+                              }}
+                              component={InputNumber}
+                            />
+                            </GridItem>
+                        </GridContainer>
+                        <GridContainer>
+                          <GridItem xs={12} sm={12} md={8}>
+                            <Field
+                              labelText="Fecha de alta"
+                              name="startDate"
+                              id="startDate"
+                              color={inputColor}
+                              formControlProps={{
+                                fullWidth: false
+                              }}
+                              component={InputDate}
+                            />
                           </GridItem>
                         </GridContainer>
-                      </div>
-                    )}
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={12}>
-                        <CustomInput
-                          labelText="Notas"
-                          name="notes"
-                          id="notes"
-                          color={color}
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          inputProps={{
-                            multiline: true,
-                            rows: 3
-                          }}
-                        />
-                      </GridItem>
-                    </GridContainer>
-                  </CardBody>
-                  <CardFooter>
-                    <Button type="submit" color={color} disabled={isSubmitting}>
-                      Actualizar Perfil
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </Form>
-            )}
-          </Formik>
-        </GridItem>
-        {selectValue === "user" && (
-          <GridItem xs={12} sm={12} md={4}>
-            <Card>
-              <Formik
-                initialValues={initialInstallmentsValues}
-                onSubmit={onSubmitProfile}
-                validate={validateInputs}
-              >
-                {({ isSubmitting }) => (
-                  <Form>
-                    <CardHeader color={color}>
-                      <h4 className={classes.cardTitleWhite}>Cuota</h4>
-                      <p className={classes.cardCategoryWhite}>
-                        Cuota del participante
-                      </p>
-                    </CardHeader>
-                    <CardBody>
-                      <GridContainer>
-                        <GridItem xs={12} sm={12} md={6}>
-                          <Field
-                            labelText="Cuota Adaptada"
-                            name="installments"
-                            id="installments"
-                            placeholder={"€29,99"}
-                            maskType="price"
-                            color={color}
-                            formControlProps={{
-                              fullWidth: true
-                            }}
-                            component={InputNumber}
-                          />
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={6}>
-                          <Field
-                            labelText="Nº de cuenta"
-                            name="accountNumber"
-                            id="accountNumber"
-                            placeholder={"4242 4242 4242 4242"}
-                            maskType="creditCard"
-                            color={color}
-                            formControlProps={{
-                              fullWidth: true
-                            }}
-                            component={InputNumber}
-                          />
-                        </GridItem>
-                      </GridContainer>
-                      <GridContainer>
-                        <GridItem xs={12} sm={12} md={8}>
-                          <Field
-                            labelText="Fecha de alta"
-                            name="startDate"
-                            id="startDate"
-                            color={inputColor}
-                            formControlProps={{
-                              fullWidth: false
-                            }}
-                            component={InputDate}
-                          />
-                        </GridItem>
-                      </GridContainer>
-                      <GridContainer>
-                        <GridItem xs={12} sm={12} md={8}>
-                          <FormControlLabel
-                            control={
-                              <Switch
-                                checked={true}
-                                //onChange={this.handleChange("checkedB")}
-                                value="checkedB"
-                                color="primary"
+                        <GridContainer>
+                          <GridItem xs={12} sm={12} md={8}>
+                            <FormControlLabel
+                              control={
+                                <Switch
+                                  disabled={newUser}
+                                  checked={switchCheck}
+                                  onChange={() => this.handleSwitchToggle()}
+                                  color="primary"
+                                />
+                              }
+                              label="Finalizar Cuota"
+                            />
+                          </GridItem>
+                        </GridContainer>
+                        {switchCheck && (
+                          <GridContainer>
+                            <GridItem xs={12} sm={12} md={8}>
+                              <Field
+                                labelText="Fecha de baja"
+                                name="endDate"
+                                id="endDate"
+                                color={inputColor}
+                                formControlProps={{
+                                  fullWidth: false
+                                }}
+                                component={InputDate}
                               />
-                            }
-                            label="Finalizar Cuota"
-                          />
-                        </GridItem>
-                      </GridContainer>
-                      <GridContainer>
-                        <GridItem xs={12} sm={12} md={8}>
-                          <Field
-                            labelText="Fecha de baja"
-                            name="endDate"
-                            id="endDate"
-                            color={inputColor}
-                            formControlProps={{
-                              fullWidth: false
-                            }}
-                            component={InputDate}
-                          />
-                        </GridItem>
-                      </GridContainer>
-                    </CardBody>
-                    <CardFooter>
-                      <Button type="submit" color={color}>
-                        Actualizar Cuota
-                      </Button>
-                    </CardFooter>
-                  </Form>
-                )}
-              </Formik>
-            </Card>
-          </GridItem>
-        )}
-      </GridContainer>
-    </div>
-  );
+                            </GridItem>
+                          </GridContainer>
+                        )}
+                      </CardBody>
+                      <CardFooter>
+                        <GridContainer>
+                          <GridItem>
+                            <Button
+                              type="submit"
+                              color={color}
+                              disabled={isSubmitting || newUser}
+                            >
+                              {newUser
+                                ? texts.createInstallment
+                                : texts.updateInstallment}
+                            </Button>
+                          </GridItem>
+                          {newUser && (
+                            <GridItem>
+                              <Typography
+                                style={{ color: "#9e9e9e" }}
+                                variant="caption"
+                              >
+                                <InfoIcon className={classes.infoIcon} /> Crea
+                                primero un perfil para añadir una cuota
+                              </Typography>
+                            </GridItem>
+                          )}
+                        </GridContainer>
+                      </CardFooter>
+                    </Form>
+                  )}
+                </Formik>
+              </Card>
+            </GridItem>
+          )}
+        </GridContainer>
+      </div>
+    );
+  }
 }
 
 export default withStyles(styles)(NewUserForm);

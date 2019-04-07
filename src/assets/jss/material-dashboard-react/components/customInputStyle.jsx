@@ -83,7 +83,8 @@ const customInputStyle = {
     margin: "27px 0 0 0",
     position: "relative",
     verticalAlign: "unset"
-  }
+  },
+  textUpperCase: { textTransform: "uppercase !important" }
 };
 
 export default customInputStyle;

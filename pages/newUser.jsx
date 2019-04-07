@@ -1,11 +1,7 @@
 import React from "react";
 import BaseLayout from "../components/layouts/BaseLayout";
 import NewUserForm from "../components/forms/NewUserForm";
-import { createPortfolio } from "../actions";
-
-import teal from '@material-ui/core/colors/teal';
-import purple from '@material-ui/core/colors/purple';
-import cyan from '@material-ui/core/colors/cyan';
+import { createUserProfile } from "../actions";
 
 const INITIAL_PROFILE_VALUES = {
   firstName: "",
@@ -36,19 +32,17 @@ class newUser extends React.Component {
     super();
 
     this.state = {
-      type: "user",
-      color: "primary",
-      inputColor: teal,
       error: undefined
     };
 
-    this.handleChange = this.handleChange.bind(this);
     this.saveProfileData = this.saveProfileData.bind(this);
   }
 
   saveProfileData = (userProfileData, { setSubmitting }) => {
     setSubmitting(true);
-    createPortfolio(userProfileData)
+    userProfileData.type = "Participante"
+    console.log(userProfileData)
+    createUserProfile(userProfileData)
       .then(profile => {
         setSubmitting(false);
         this.setState({ error: undefined });
@@ -61,35 +55,6 @@ class newUser extends React.Component {
       });
   }
 
-  handleChange = type => event => {
-    let color;
-    let inputColor;
-    let eventValue = event.target.value;
-    switch (eventValue) {
-      case "user": {
-        color = "primary";
-        inputColor = teal;
-        break;
-      }
-      case "voluntary": {
-        color = "secondary";
-        inputColor = purple;
-        break;
-      }
-      case "partner": {
-        color = "info";
-        inputColor = cyan;
-        break;
-      }
-      default: {
-        color = "primary";
-        inputColor = teal;
-        break;
-      }
-    }
-    this.setState({ [type]: event.target.value, color: color, inputColor: inputColor });
-  };
-
   render() {
     return (
       <BaseLayout>
@@ -101,6 +66,7 @@ class newUser extends React.Component {
           initialProfileValues={INITIAL_PROFILE_VALUES}
           onSubmitProfile={this.saveProfileData}
           initialInstallmentsValues={INITIAL_INSTALLMENTS_VALUES}
+          newUser
         />
       </BaseLayout>
     );
