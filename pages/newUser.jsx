@@ -17,7 +17,8 @@ const INITIAL_PROFILE_VALUES = {
   parentSurname1: "",
   parentSurname2: "",
   contactPhone: "",
-  notes: ""
+  notes: "",
+  type: ""
 };
 
 const INITIAL_INSTALLMENTS_VALUES = {
@@ -29,19 +30,24 @@ const INITIAL_INSTALLMENTS_VALUES = {
 
 class newUser extends React.Component {
   constructor(props) {
-    super();
+    super(props);
 
     this.state = {
       error: undefined
     };
 
     this.saveProfileData = this.saveProfileData.bind(this);
+    this.handler = this.handler.bind(this);
+    
+  }
+
+  handler(type) {
+    this.state ={userType: type}
   }
 
   saveProfileData = (userProfileData, { setSubmitting }) => {
     setSubmitting(true);
-    userProfileData.type = "Participante"
-    console.log(userProfileData)
+    userProfileData.type = this.state.userType;
     createUserProfile(userProfileData)
       .then(profile => {
         setSubmitting(false);
@@ -60,6 +66,7 @@ class newUser extends React.Component {
       <BaseLayout>
         <NewUserForm
           handleChange={this.handleChange}
+          handlerAction={this.handler}
           selectValue={this.state.type}
           color={this.state.color}
           inputColor={this.state.inputColor}

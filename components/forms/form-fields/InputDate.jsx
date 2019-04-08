@@ -27,6 +27,7 @@ const InputDate = ({
   views,
   field,
   form,
+  disabled,
   ...other
 }) => {
   const currentError = form.errors[field.name];
@@ -82,6 +83,7 @@ const InputDate = ({
             value={field.value}
             views={views}
             label={labelText}
+            disabled={disabled}
             helperText={currentError}
             error={Boolean(currentError)}
             onError={(_, error) => form.setFieldError(field.name, error)}

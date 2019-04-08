@@ -20,6 +20,7 @@ import Euro from "@material-ui/icons/EuroSymbol";
 import customInputStyle from "../../../src/assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 
 const iconStyle = { color: "rgba(0, 0, 0, 0.54)", marginRight: "12px" };
+const iconStyleDisabled = { color: "rgba(0, 0, 0, 0.38)", marginRight: "12px" };
 
 function CreditCard(props) {
   const { id, mask, inputRef, onChange, ...other } = props;
@@ -124,7 +125,8 @@ function InputNumber({ field, form, ...props }) {
     success,
     color,
     placeholder,
-    maskType
+    maskType,
+    disabled
   } = props;
   const labelClasses = classNames({
     [" " + classes.labelRootError]: error,
@@ -140,6 +142,8 @@ function InputNumber({ field, form, ...props }) {
   const marginTop = classNames({
     [classes.marginTop]: labelText === undefined
   });
+
+  const iconClass = !disabled ? iconStyle : iconStyleDisabled
 
   return (
     <FormControl
@@ -168,9 +172,10 @@ function InputNumber({ field, form, ...props }) {
           color={color}
           placeholder={placeholder}
           inputComponent={CreditCard}
+          disabled={disabled}
           endAdornment={
             <InputAdornment position="end">
-              <Card style={iconStyle} />
+              <Card style={iconClass} />
             </InputAdornment>
           }
           {...field}
@@ -187,9 +192,10 @@ function InputNumber({ field, form, ...props }) {
           color={color}
           placeholder={placeholder}
           inputComponent={Price}
+          disabled={disabled}
           endAdornment={
             <InputAdornment position="end">
-              <Euro style={iconStyle} />
+              <Euro style={iconClass} />
             </InputAdornment>
           }
           {...field}
@@ -206,6 +212,7 @@ function InputNumber({ field, form, ...props }) {
           color={color}
           placeholder={placeholder}
           inputComponent={ZipCode}
+          disabled={disabled}
           {...field}
         />
       ) : maskType === "numberPhone" ? (
@@ -220,9 +227,10 @@ function InputNumber({ field, form, ...props }) {
           color={color}
           placeholder={placeholder}
           inputComponent={NumberPhone}
+          disabled={disabled}
           endAdornment={
             <InputAdornment position="end">
-              <Phone style={iconStyle} />
+              <Phone style={iconClass} />
             </InputAdornment>
           }
           {...field}

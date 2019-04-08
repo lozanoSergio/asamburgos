@@ -218,7 +218,7 @@ class NewUserForm extends React.Component {
       }
     }
     this.setState({
-      userType: event.target.value,
+      userType: eventValue,
       color: color,
       inputColor: inputColor
     });
@@ -261,7 +261,7 @@ class NewUserForm extends React.Component {
     return (
       <div>
         <GridContainer>
-          <GridItem xs={12} sm={12} md={8}>
+          <GridItem xs={12} sm={12} md={12} lg={8} xl={8}>
             <Formik
               initialValues={initialProfileValues}
               onSubmit={onSubmitProfile}
@@ -535,6 +535,7 @@ class NewUserForm extends React.Component {
                         type="submit"
                         color={color}
                         disabled={isSubmitting}
+                        onClick={ () => this.props.handlerAction(userType)}
                       >
                         {newUser ? texts.createProfile : texts.updateProfile}
                       </Button>
@@ -545,7 +546,7 @@ class NewUserForm extends React.Component {
             </Formik>
           </GridItem>
           {userType === "user" && (
-            <GridItem xs={12} sm={12} md={4}>
+            <GridItem xs={12} sm={12} md={12} lg={4} xl={4}>
               <Card>
                 <Formik
                   initialValues={initialInstallmentsValues}
@@ -562,7 +563,7 @@ class NewUserForm extends React.Component {
                       </CardHeader>
                       <CardBody>
                         <GridContainer>
-                          <GridItem xs={12} sm={12} md={6}>
+                          <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
                             <Field
                               labelText="Cuota Adaptada"
                               name="installments"
@@ -570,17 +571,19 @@ class NewUserForm extends React.Component {
                               placeholder={"€29,99"}
                               maskType="price"
                               color={color}
+                              disabled={newUser}
                               formControlProps={{
                                 fullWidth: true
                               }}
                               component={InputNumber}
+                              
                             />
 
                             </GridItem>
 
                         </GridContainer>
                         <GridContainer>
-                        <GridItem xs={12} sm={12} md={6}>
+                        <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
                         <Field
                               labelText="Nº de cuenta"
                               name="accountNumber"
@@ -588,6 +591,7 @@ class NewUserForm extends React.Component {
                               placeholder={"ES98 2038 5778 9830 0076 0236"}
                               maskType="creditCard"
                               color={color}
+                              disabled={newUser}
                               formControlProps={{
                                 fullWidth: true
                               }}
@@ -601,6 +605,7 @@ class NewUserForm extends React.Component {
                               labelText="Fecha de alta"
                               name="startDate"
                               id="startDate"
+                              disabled={newUser}
                               color={inputColor}
                               formControlProps={{
                                 fullWidth: false
@@ -631,6 +636,7 @@ class NewUserForm extends React.Component {
                                 labelText="Fecha de baja"
                                 name="endDate"
                                 id="endDate"
+                                disabled={newUser}
                                 color={inputColor}
                                 formControlProps={{
                                   fullWidth: false
