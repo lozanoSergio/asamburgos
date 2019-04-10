@@ -1,6 +1,6 @@
 import React from "react";
 import BaseLayout from "../components/layouts/BaseLayout";
-import NewUserForm from "../components/forms/NewUserForm";
+import UserForm from "../components/forms/UserForm";
 import { createUserProfile } from "../actions";
 
 const INITIAL_PROFILE_VALUES = {
@@ -21,8 +21,8 @@ const INITIAL_PROFILE_VALUES = {
   type: ""
 };
 
-const INITIAL_INSTALLMENTS_VALUES = {
-  installments: "",
+const INITIAL_FEE_VALUES = {
+  fee: "",
   accountNumber: "",
   startDate: null,
   endDate: null
@@ -50,6 +50,7 @@ class newUser extends React.Component {
     userProfileData.type = this.state.userType;
     createUserProfile(userProfileData)
       .then(profile => {
+        console.log(profile)
         setSubmitting(false);
         this.setState({ error: undefined });
         Router.pushRoute("/");
@@ -64,15 +65,11 @@ class newUser extends React.Component {
   render() {
     return (
       <BaseLayout>
-        <NewUserForm
-          handleChange={this.handleChange}
+        <UserForm
           handlerAction={this.handler}
-          selectValue={this.state.type}
-          color={this.state.color}
-          inputColor={this.state.inputColor}
           initialProfileValues={INITIAL_PROFILE_VALUES}
           onSubmitProfile={this.saveProfileData}
-          initialInstallmentsValues={INITIAL_INSTALLMENTS_VALUES}
+          initialFeeValues={INITIAL_FEE_VALUES}
           newUser
         />
       </BaseLayout>

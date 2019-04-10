@@ -27,3 +27,7 @@ export const createUserProfile = async (userProfileData) => {
 export const getUserProfiles = async(req) => {
     return await axiosInstance.get('/userProfiles').then(response => response.data);
 }
+
+export const getUserProfileById = async (id) => {
+    return await axiosInstance.get(`/userProfiles/${id}`).then(response => response.data);
+}

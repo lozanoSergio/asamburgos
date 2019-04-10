@@ -36,7 +36,7 @@ const Header = ({ ...props }) => {
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>
         <div className={classes.flex}>
-          <Button color="transparent" href="#" className={classes.title}>
+          <Button color="transparent" href="/" className={classes.title}>
             {makeBrand(router) || "Panel de control"}
           </Button>
         </div>

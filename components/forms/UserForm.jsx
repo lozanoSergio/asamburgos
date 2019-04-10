@@ -31,7 +31,6 @@ import CardFooter from "../../src/components/Card/CardFooter.jsx";
 
 import InputDate from "./form-fields/InputDate";
 import InputNumber from "./form-fields/InputNumber";
-import { Grid } from "@material-ui/core";
 
 const styles = theme => ({
   formControl: {
@@ -169,8 +168,8 @@ const texts = {
   editTheProfile: "Editar el perfil",
   createProfile: "Crear Perfil",
   updateProfile: "Actualizar Perfil",
-  createInstallment: "Crear Cuota",
-  updateInstallment: "Actualizar Cuota"
+  createFee: "Crear Cuota",
+  updateFee: "Actualizar Cuota"
 };
 
 class NewUserForm extends React.Component {
@@ -229,7 +228,7 @@ class NewUserForm extends React.Component {
       classes,
       onSubmitProfile,
       initialProfileValues,
-      initialInstallmentsValues,
+      initialFeeValues,
       newUser
     } = this.props;
 
@@ -549,7 +548,7 @@ class NewUserForm extends React.Component {
             <GridItem xs={12} sm={12} md={12} lg={4} xl={4}>
               <Card>
                 <Formik
-                  initialValues={initialInstallmentsValues}
+                  initialValues={initialFeeValues}
                   onSubmit={onSubmitProfile}
                   validate={validateInputs}
                 >
@@ -566,8 +565,8 @@ class NewUserForm extends React.Component {
                           <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
                             <Field
                               labelText="Cuota Adaptada"
-                              name="installments"
-                              id="installments"
+                              name="fee"
+                              id="fee"
                               placeholder={"€29,99"}
                               maskType="price"
                               color={color}
@@ -580,9 +579,6 @@ class NewUserForm extends React.Component {
                             />
 
                             </GridItem>
-
-                        </GridContainer>
-                        <GridContainer>
                         <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
                         <Field
                               labelText="Nº de cuenta"
@@ -656,8 +652,8 @@ class NewUserForm extends React.Component {
                               disabled={isSubmitting || newUser}
                             >
                               {newUser
-                                ? texts.createInstallment
-                                : texts.updateInstallment}
+                                ? texts.createFee
+                                : texts.updateFee}
                             </Button>
                           </GridItem>
                           {newUser && (

@@ -25,3 +25,14 @@ exports.getUserProfiles = (req, res) => {
         return res.json(allUserProfiles);
     });
 }
+
+exports.getUserProfileById = (req, res) => {
+    const profileId = req.params.id;
+
+    UserProfile.findById(profileId).select('-__v').exec((err, foundProfile) => {
+        if (err) {
+            return res.status(422).send(err);
+        }
+        return res.json(foundProfile);
+    });
+}
