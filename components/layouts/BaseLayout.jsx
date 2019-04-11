@@ -13,6 +13,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
+import Accessibility from "@material-ui/icons/AccessibilityNew"
 
 import dashboardStyle from "../../src/assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
@@ -33,12 +34,12 @@ const dashboardRoutes = [
   {
     path: "/registrar-servicios",
     name: "Registrar Servicios",
-    icon: "content_paste"
+    icon: LibraryBooks
   },
   {
     path: "/registrar-actividad",
     name: "Registrar Actividad",
-    icon: LibraryBooks
+    icon: Accessibility
   }
 ];
 

@@ -11,7 +11,9 @@ import Hidden from "@material-ui/core/Hidden";
 import Poppers from "@material-ui/core/Popper";
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
-import Notifications from "@material-ui/icons/Notifications";
+import Accessibility from "@material-ui/icons/AccessibilityNew"
+import PowerOff from "@material-ui/icons/PowerSettingsNew"
+import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import Dashboard from "@material-ui/icons/Dashboard";
 
 // core components
@@ -25,17 +27,6 @@ class HeaderLinks extends React.Component {
     open: false,
     innerWidth: 0
   };
-  handleToggle = () => {
-    this.setState(state => ({ open: !state.open }));
-  };
-
-  handleClose = event => {
-    if (this.anchorEl.contains(event.target)) {
-      return;
-    }
-
-    this.setState({ open: false });
-  };
 
   componentDidMount() {
     let innerWidth = window.innerWidth;
@@ -46,115 +37,11 @@ class HeaderLinks extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
     return (
       <div>
+
+        <Button  color="transparent"><PowerOff className={classes.icons} />Cerrar Sesión</Button>
         
-        <Button
-          color={this.state.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={this.state.innerWidth > 959}
-          simple={!(this.state.innerWidth > 959)}
-          aria-label="Dashboard"
-          className={classes.buttonLink}
-        >
-          <Dashboard className={classes.icons} />
-          <Hidden mdUp implementation="css">
-            <p className={classes.linkText}>Dashboard</p>
-          </Hidden>
-        </Button>
-        <div className={classes.manager}>
-          <Button
-            buttonRef={node => {
-              this.anchorEl = node;
-            }}
-            color={this.state.innerWidth > 959 ? "transparent" : "white"}
-            justIcon={this.state.innerWidth > 959}
-            simple={!(this.state.innerWidth > 959)}
-            aria-owns={open ? "menu-list-grow" : null}
-            aria-haspopup="true"
-            onClick={this.handleToggle}
-            className={classes.buttonLink}
-          >
-            <Notifications className={classes.icons} />
-            <span className={classes.notifications}>5</span>
-            <Hidden mdUp implementation="css">
-              <p onClick={this.handleClick} className={classes.linkText}>
-                Notification
-              </p>
-            </Hidden>
-          </Button>
-          <Poppers
-            open={open}
-            anchorEl={this.anchorEl}
-            transition
-            disablePortal
-            className={
-              classNames({ [classes.popperClose]: !open }) +
-              " " +
-              classes.pooperNav
-            }
-          >
-            {({ TransitionProps, placement }) => (
-              <Grow
-                {...TransitionProps}
-                id="menu-list-grow"
-                style={{
-                  transformOrigin:
-                    placement === "bottom" ? "center top" : "center bottom"
-                }}
-              >
-                <Paper>
-                  <ClickAwayListener onClickAway={this.handleClose}>
-                    <MenuList role="menu">
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={classes.dropdownItem}
-                      >
-                        Mike John responded to your email
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={classes.dropdownItem}
-                      >
-                        You have 5 new tasks
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={classes.dropdownItem}
-                      >
-                        You're now friend with Andrew
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={classes.dropdownItem}
-                      >
-                        Another Notification
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={classes.dropdownItem}
-                      >
-                        Another One
-                      </MenuItem>
-                    </MenuList>
-                  </ClickAwayListener>
-                </Paper>
-              </Grow>
-            )}
-          </Poppers>
-        </div>
-        <Button
-          color={this.state.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={this.state.innerWidth > 959}
-          simple={!(this.state.innerWidth > 959)}
-          aria-label="Person"
-          className={classes.buttonLink}
-        >
-          <Person className={classes.icons} />
-          <Hidden mdUp implementation="css">
-            <p className={classes.linkText}>Profile</p>
-          </Hidden>
-        </Button>
       </div>
     );
   }

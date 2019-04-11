@@ -70,7 +70,7 @@ function ActivityForm(props) {
             </CardHeader>
             <CardBody>
               <Field
-                labelText="Nombre del servicio"
+                labelText="Nombre de la actividad"
                 name="name"
                 id="name"
                 color={teal}

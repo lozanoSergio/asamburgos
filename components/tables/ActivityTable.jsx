@@ -45,9 +45,9 @@ function ActivityTable (props) {
     return (
       <Card>
         <CardHeader color="primary">
-          <h4 className={classes.cardTitleWhite}>Servicios</h4>
+          <h4 className={classes.cardTitleWhite}>Actividades</h4>
           <p className={classes.cardCategoryWhite}>
-            Servicios registrados
+            Actividades registradas
           </p>
         </CardHeader>
         <CardBody>
