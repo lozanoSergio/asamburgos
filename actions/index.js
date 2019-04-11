@@ -20,8 +20,8 @@ const rejectPromise = (resError) => {
 
 export const createUserProfile = async (userProfileData) => {
     return axiosInstance.post('/userProfiles', userProfileData)
-    .then(response => response.data)
-    .catch(error => rejectPromise(error))
+        .then(response => response.data)
+        .catch(error => rejectPromise(error))
 }
 
 export const getUserProfiles = async(req) => {
@@ -30,4 +30,16 @@ export const getUserProfiles = async(req) => {
 
 export const getUserProfileById = async (id) => {
     return await axiosInstance.get(`/userProfiles/${id}`).then(response => response.data);
+}
+
+export const updateProfile = async (userProfileData) => {
+    return await axiosInstance.patch(`/userProfiles/${userProfileData._id}`, userProfileData)
+        .then(response => response.data)
+        .catch(error => rejectPromise(error))
+}
+
+export const updateFee = async (userProfileData, feeData) => {
+    return await axiosInstance.patch(`/userProfiles/fee/${userProfileData._id}`, feeData)
+        .then(response => response.data)
+        .catch(error => rejectPromise(error))
 }

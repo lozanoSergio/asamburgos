@@ -129,15 +129,15 @@ const styles = theme => ({
 
 const userTypes = [
   {
-    value: "user",
+    value: "Participante",
     label: "Participante"
   },
   {
-    value: "voluntary",
+    value: "Voluntario",
     label: "Voluntario"
   },
   {
-    value: "partner",
+    value: "Socio",
     label: "Socio"
   }
 ];
@@ -174,14 +174,32 @@ const texts = {
 
 class NewUserForm extends React.Component {
   constructor(props) {
-    super();
+    super(props);
 
     this.state = {
-      userType: "user",
+      userType: "Participante",
       color: "primary",
       inputColor: teal,
       switchCheck: false
     };
+
+    if (props.initialProfileValues.type === "Voluntario") {
+      this.state = {
+      userType: props.initialProfileValues.type,
+      color: "secondary",
+      inputColor: teal,
+      switchCheck: false
+      }
+    }
+
+    if (props.initialProfileValues.type === "Socio") {
+      this.state = {
+      userType: props.initialProfileValues.type,
+      color: "info",
+      inputColor: teal,
+      switchCheck: false
+      }
+    }
   }
 
   handleSwitchToggle() {
@@ -195,17 +213,17 @@ class NewUserForm extends React.Component {
     let inputColor;
     let eventValue = event.target.value;
     switch (eventValue) {
-      case "user": {
+      case "Participante": {
         color = "primary";
         inputColor = teal;
         break;
       }
-      case "voluntary": {
+      case "Voluntario": {
         color = "secondary";
         inputColor = purple;
         break;
       }
-      case "partner": {
+      case "Socio": {
         color = "info";
         inputColor = cyan;
         break;
@@ -229,6 +247,7 @@ class NewUserForm extends React.Component {
       onSubmitProfile,
       initialProfileValues,
       initialFeeValues,
+      onSubmitFee,
       newUser
     } = this.props;
 
@@ -440,7 +459,7 @@ class NewUserForm extends React.Component {
                           />
                         </GridItem>
                       </GridContainer>
-                      {userType === "user" && (
+                      {userType === "Participante" && (
                         <div>
                           <GridContainer>
                             <GridItem>
@@ -544,12 +563,12 @@ class NewUserForm extends React.Component {
               )}
             </Formik>
           </GridItem>
-          {userType === "user" && (
+          {userType === "Participante" && (
             <GridItem xs={12} sm={12} md={12} lg={4} xl={4}>
               <Card>
                 <Formik
                   initialValues={initialFeeValues}
-                  onSubmit={onSubmitProfile}
+                  onSubmit={onSubmitFee}
                   validate={validateInputs}
                 >
                   {({ isSubmitting }) => (
@@ -565,8 +584,8 @@ class NewUserForm extends React.Component {
                           <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
                             <Field
                               labelText="Cuota Adaptada"
-                              name="fee"
-                              id="fee"
+                              name="price"
+                              id="price"
                               placeholder={"€29,99"}
                               maskType="price"
                               color={color}
@@ -582,8 +601,8 @@ class NewUserForm extends React.Component {
                         <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
                         <Field
                               labelText="Nº de cuenta"
-                              name="accountNumber"
-                              id="accountNumber"
+                              name="account"
+                              id="account"
                               placeholder={"ES98 2038 5778 9830 0076 0236"}
                               maskType="creditCard"
                               color={color}
@@ -596,7 +615,7 @@ class NewUserForm extends React.Component {
                             </GridItem>
                         </GridContainer>
                         <GridContainer>
-                          <GridItem xs={12} sm={12} md={8}>
+                          <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
                             <Field
                               labelText="Fecha de alta"
                               name="startDate"
@@ -611,7 +630,7 @@ class NewUserForm extends React.Component {
                           </GridItem>
                         </GridContainer>
                         <GridContainer>
-                          <GridItem xs={12} sm={12} md={8}>
+                          <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
                             <FormControlLabel
                               control={
                                 <Switch
@@ -650,6 +669,7 @@ class NewUserForm extends React.Component {
                               type="submit"
                               color={color}
                               disabled={isSubmitting || newUser}
+                              onClick={ () => this.props.handlerAction(userType)}
                             >
                               {newUser
                                 ? texts.createFee

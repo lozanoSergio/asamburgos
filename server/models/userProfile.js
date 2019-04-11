@@ -22,9 +22,9 @@ const userProfileSchema = new Schema({
     notes: setStringTypeNotRequired(2048),
     createdAt: Date,
     updatedAt: Date,
-    installments: {
-        price: setStringTypeNotRequired(16),
-        account: setStringTypeNotRequired(24),
+    fee: {
+        price: setStringTypeNotRequired(12),
+        account: setStringTypeNotRequired(29),
         startDate: Date,
         endDate: Date
     }

@@ -9,10 +9,9 @@ import Card from "../../components/Card/Card.jsx";
 import CardHeader from "../../components/Card/CardHeader.jsx";
 import CardBody from "../../components/Card/CardBody.jsx";
 import Link from "next/link";
-import Button from "../../components/CustomButtons/Button";
 import Search from "@material-ui/icons/Search";
 import CustomInput from "../../components/CustomInput/CustomInput.jsx";
-import SearchInput, { createFilter } from "react-search-input";
+import { createFilter } from "react-search-input";
 
 const styles = theme => ({
   cardCategoryWhite: {
@@ -31,7 +30,7 @@ const styles = theme => ({
     color: "#FFFFFF",
     marginTop: "0px",
     minHeight: "auto",
-    fontWeight: "300",
+    fontWeight: "400",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
     textDecoration: "none",
@@ -76,8 +75,8 @@ const styles = theme => ({
     margin: "0"
   },
   searchIcon: {
-    width: "17px",
-    zIndex: "4"
+    position: "relative",
+    top: "6px",
   }
 });
 
@@ -107,7 +106,7 @@ class TableList extends React.Component {
         item.surName1 + " " + item.surName2,
         item.email,
         item.numberPhone,
-        item.installments ? item.installments.price + "€" : "Sin cuota",
+        item.fee ? item.fee.price : "Sin cuota",
         <Link href={"/nuevo-alta"}>
           <a>Ver</a>
         </Link>,
@@ -143,9 +142,7 @@ class TableList extends React.Component {
                       }}
                       onChange={e => this.searchUpdated(e)}
                     />
-                    <Button color="white" aria-label="edit" justIcon round>
-                      <Search />
-                    </Button>
+                    <Search className={classes.searchIcon} />
                   </div>
                 </GridItem>
               </GridContainer>

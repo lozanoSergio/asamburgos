@@ -1,6 +1,7 @@
 import React from "react";
 import BaseLayout from "../components/layouts/BaseLayout";
 import UserForm from "../components/forms/UserForm";
+import { Router } from "../routes";
 import { createUserProfile } from "../actions";
 
 const INITIAL_PROFILE_VALUES = {
@@ -28,7 +29,7 @@ const INITIAL_FEE_VALUES = {
   endDate: null
 }
 
-class newUser extends React.Component {
+class NewUser extends React.Component {
   constructor(props) {
     super(props);
 
@@ -53,7 +54,7 @@ class newUser extends React.Component {
         console.log(profile)
         setSubmitting(false);
         this.setState({ error: undefined });
-        Router.pushRoute("/");
+        Router.pushRoute(`/editar-perfil/${profile._id}`);
       })
       .catch(err => {
         const error = err.message || "Server Error!";
@@ -77,4 +78,4 @@ class newUser extends React.Component {
   }
 }
 
-export default newUser;
+export default NewUser;

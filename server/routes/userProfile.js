@@ -9,4 +9,8 @@ router.get('', userProfileCtrl.getUserProfiles);
 
 router.get('/:id', userProfileCtrl.getUserProfileById);
 
+router.patch('/:id', userProfileCtrl.updateProfile);
+
+router.patch('/fee/:id', userProfileCtrl.updateFee);
+
 module.exports = router;

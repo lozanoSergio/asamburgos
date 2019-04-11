@@ -36,3 +36,39 @@ exports.getUserProfileById = (req, res) => {
         return res.json(foundProfile);
     });
 }
+
+exports.updateProfile = (req, res) => {
+    const profileId = req.params.id;
+    const profileData = req.body;
+    UserProfile.findById(profileId, (err, foundProfile) => {
+        if (err) {
+            return res.status(422).send(err);
+        }
+        foundProfile.set(profileData);
+        foundProfile.save((err, savedProfile) => {
+            if (err) {
+                return res.status(422).send(err);
+            }
+            return res.json(savedProfile);
+        })
+    })
+}
+
+exports.updateFee = (req, res) => {
+    const profileId = req.params.id;
+    const feeData = req.body;
+
+    UserProfile.findById(profileId, (err, foundProfile) => {
+        if (err) {
+            return res.status(422).send(err);
+        }
+        foundProfile.fee = feeData;
+        foundProfile.set(foundProfile);
+        foundProfile.save((err, savedProfile) => {
+            if (err) {
+                return res.status(422).send(err);
+            }
+            return res.json(savedProfile);
+        })
+    })
+}
