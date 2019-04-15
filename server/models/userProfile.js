@@ -11,6 +11,8 @@ const userProfileSchema = new Schema({
     surName2: setStringTypeNotRequired(128),
     email: setStringType(256),
     birthDate: Date,
+    disabilityLevel: setStringTypeNotRequired(128),
+    disabilityType: setStringTypeNotRequired(128),
     address: setStringTypeNotRequired(256),
     city: setStringTypeNotRequired(128),
     zipCode: setStringTypeNotRequired(5),
@@ -23,11 +25,19 @@ const userProfileSchema = new Schema({
     createdAt: Date,
     updatedAt: Date,
     fee: {
-        price: setStringTypeNotRequired(12),
+        subFee: setStringTypeNotRequired(12),
+        activityFee: setStringTypeNotRequired(12),
+        serviceFee: setStringTypeNotRequired(12),
         account: setStringTypeNotRequired(29),
         startDate: Date,
         endDate: Date
-    }
+    },
+    activities: [{
+        activityId: setStringTypeNotRequired(128)
+    }],
+    services: [{
+        serviceId: setStringTypeNotRequired(128)
+    }]
 });
 
 module.exports = mongoose.model('UserProfile', userProfileSchema);

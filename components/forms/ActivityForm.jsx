@@ -5,8 +5,15 @@ import CardHeader from "../../src/components/Card/CardHeader.jsx";
 import CardBody from "../../src/components/Card/CardBody.jsx";
 import CardFooter from "../../src/components/Card/CardFooter.jsx";
 import { withStyles } from "@material-ui/core/styles";
+import GridItem from "../../src/components/Grid/GridItem";
+import GridContainer from "../../src/components/Grid/GridContainer.jsx";
 import CustomInput from "../../src/components/CustomInput/CustomInput.jsx";
 import Button from "../../src/components/CustomButtons/Button.jsx";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Location from "@material-ui/icons/LocationOn";
+import InputTime from "./form-fields/InputTime.jsx";
+import InputDate from "./form-fields/InputDate";
+import InputWeekCheck from "./form-fields/InputWeekCheck.jsx";
 import teal from "@material-ui/core/colors/teal";
 
 const styles = {
@@ -29,6 +36,9 @@ const styles = {
   },
   button: {
     margingTop: "28px"
+  },
+  iconStyle: {
+    color: "rgba(0, 0, 0, 0.54)"
   }
 };
 
@@ -63,26 +73,154 @@ function ActivityForm(props) {
         {({ isSubmitting }) => (
           <Form>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Registro de actividades</h4>
-              {/* <p className={classes.cardCategoryWhite}>
-                Completa el formulario para añadir nuevos servicios.
-              </p> */}
+              <h4 className={classes.cardTitleWhite}>
+                Registro de actividades
+              </h4>
             </CardHeader>
             <CardBody>
-              <Field
-                labelText="Nombre de la actividad"
-                name="name"
-                id="name"
-                color={teal}
-                formControlProps={{
-                  fullWidth: true
-                }}
-                component={CustomInput}
-              />
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={6}>
+                  <Field
+                    labelText="Nombre de la actividad"
+                    name="activityName"
+                    id="activityName"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    component={CustomInput}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={6}>
+                  <Field
+                    labelText="Persona responsable"
+                    name="voluntaryName"
+                    id="voluntaryName"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    component={CustomInput}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={8}>
+                  <p
+                    style={{
+                      color: "#9e9e9e",
+                      marginBottom: "0",
+                      paddingTop: "16px"
+                    }}
+                  >
+                    Día de la semana:
+                  </p>
+                </GridItem>
+                <GridItem xs={1} sm={1} md={12}>
+                  <Field
+                    name="monday"
+                    labelText="L"
+                    component={InputWeekCheck}
+                  />
+
+                  <Field
+                    name="tuesday"
+                    labelText="M"
+                    component={InputWeekCheck}
+                  />
+
+                  <Field
+                    name="wednesday"
+                    labelText="M"
+                    component={InputWeekCheck}
+                  />
+
+                  <Field
+                    name="thursday"
+                    labelText="J"
+                    component={InputWeekCheck}
+                  />
+
+                  <Field
+                    name="friday"
+                    labelText="V"
+                    component={InputWeekCheck}
+                  />
+
+                  <Field
+                    name="saturday"
+                    labelText="S"
+                    component={InputWeekCheck}
+                  />
+                  <Field
+                    name="sunday"
+                    labelText="D"
+                    component={InputWeekCheck}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={12}>
+                  <Field
+                    labelText="Lugar de la actividad"
+                    name="place"
+                    id="place"
+                    formControlProps={{
+                      fullWidth: false
+                    }}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <Location className={classes.iconStyle} />
+                      </InputAdornment>
+                    }
+                    component={CustomInput}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={6}>
+                  <Field
+                    labelText="Hora de inicio"
+                    name="startTime"
+                    id="startTime"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    component={InputTime}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={6}>
+                  <Field
+                    labelText="Hora de finalización"
+                    name="endTime"
+                    id="endTime"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    component={InputTime}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={6}>
+                  <Field
+                    labelText="Fecha de inicio"
+                    name="startDate"
+                    id="endTime"
+                    color={teal}
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    component={InputDate}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={6}>
+                  <Field
+                    labelText="Fecha de finalización"
+                    name="endDate"
+                    id="endTime"
+                    color={teal}
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    component={InputDate}
+                  />
+                </GridItem>
+              </GridContainer>
             </CardBody>
             <CardFooter>
               <Button type="submit" color={"primary"} disabled={isSubmitting}>
-                Crear Servicio
+                Crear Actividad
               </Button>
             </CardFooter>
           </Form>

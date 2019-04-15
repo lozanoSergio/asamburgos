@@ -1,12 +1,10 @@
 import React from "react";
-import { MuiPickersUtilsProvider, DatePicker } from "material-ui-pickers";
-import PropTypes from "prop-types";
+import { MuiPickersUtilsProvider, TimePicker } from "material-ui-pickers";
 import { withStyles } from "@material-ui/core/styles";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
-import moment from "moment";
-import "moment/locale/es";
 import MomentUtils from "@date-io/moment";
+import customInputStyle from "../../../src/assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 
 import {
   primaryColor,
@@ -14,22 +12,14 @@ import {
   defaultFont
 } from "../../../src/assets/jss/material-dashboard-react";
 
-import customInputStyle from "../../../src/assets/jss/material-dashboard-react/components/customInputStyle.jsx";
-
-moment.locale("es");
-
-const InputDate = ({
+function InputTime({
   classes,
-  formControlProps,
-  labelText,
-  color,
-  openTo,
-  views,
   field,
   form,
-  disabled,
+  labelText,
+  formControlProps,
   ...other
-}) => {
+}) {
   const currentError = form.errors[field.name];
   const theme = createMuiTheme({
     typography: {
@@ -37,7 +27,7 @@ const InputDate = ({
     },
     palette: {
       primary: {
-        main: color[400]
+        main: primaryColor[0]
       }
     },
     overrides: {
@@ -49,7 +39,7 @@ const InputDate = ({
             borderWidth: "1px !important"
           },
           "&:after": {
-            borderColor: primaryColor[0] + " !important"
+            borderColor: primaryColor[0] + "!important"
           }
         }
       },
@@ -65,7 +55,6 @@ const InputDate = ({
       }
     }
   });
-
   return (
     <MuiThemeProvider theme={theme}>
       <MuiPickersUtilsProvider utils={MomentUtils}>
@@ -73,40 +62,24 @@ const InputDate = ({
           {...formControlProps}
           className={formControlProps.className + " " + classes.formControl}
         >
-          <DatePicker
+          <TimePicker
             keyboard
-            margin="normal"
-            disableFuture
-            openTo={openTo}
-            format="DD/MM/YYYY"
+            label={labelText}
+            mask={[/\d/, /\d/, ":", /\d/, /\d/, " ", /a|p/i, "M"]}
+            placeholder="08:00 AM"
             name={field.name}
             value={field.value}
-            views={views}
-            label={labelText}
-            disabled={disabled}
             helperText={currentError}
             error={Boolean(currentError)}
             onError={(_, error) => form.setFieldError(field.name, error)}
-            onChange={date => form.setFieldValue(field.name, date, true)}
-            mask={value =>
-              // handle clearing outside if value can be changed outside of the component
-              value
-                ? [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/]
-                : []
-            }
+            onChange={time => form.setFieldValue(field.name, time, true)}
             disableOpenOnEnter
-            animateYearScrolling={false}
             {...other}
           />
         </FormControl>
       </MuiPickersUtilsProvider>
     </MuiThemeProvider>
   );
-};
+}
 
-InputDate.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-
-export default withStyles(customInputStyle)(InputDate);
+export default withStyles(customInputStyle)(InputTime);

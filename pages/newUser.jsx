@@ -14,6 +14,8 @@ const INITIAL_PROFILE_VALUES = {
   city: "",
   zipCode: "",
   numberPhone: "",
+  disabilityType: "",
+  disabilityLevel: "",
   parentName: "",
   parentSurname1: "",
   parentSurname2: "",

@@ -26,7 +26,7 @@ function CustomInput({ field , ...props }) {
     color,
     inputComponent,
     placeholder,
-    onChange,
+    endAdornment
   } = props;
 
   const labelClasses = classNames({
@@ -69,7 +69,7 @@ function CustomInput({ field , ...props }) {
         placeholder={placeholder}
         inputComponent={inputComponent}
         name={name}
-        onChange={onChange}
+        endAdornment={endAdornment}
         {...field}
         {...inputProps}
       />

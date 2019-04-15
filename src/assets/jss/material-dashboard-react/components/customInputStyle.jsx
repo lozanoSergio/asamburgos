@@ -84,7 +84,8 @@ const customInputStyle = {
     position: "relative",
     verticalAlign: "unset"
   },
-  textUpperCase: { textTransform: "uppercase !important" }
+  textUpperCase: { textTransform: "uppercase !important" },
+  
 };
 
 export default customInputStyle;

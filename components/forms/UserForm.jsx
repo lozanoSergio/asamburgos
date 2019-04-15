@@ -185,20 +185,20 @@ class NewUserForm extends React.Component {
 
     if (props.initialProfileValues.type === "Voluntario") {
       this.state = {
-      userType: props.initialProfileValues.type,
-      color: "secondary",
-      inputColor: teal,
-      switchCheck: false
-      }
+        userType: props.initialProfileValues.type,
+        color: "secondary",
+        inputColor: teal,
+        switchCheck: false
+      };
     }
 
     if (props.initialProfileValues.type === "Socio") {
       this.state = {
-      userType: props.initialProfileValues.type,
-      color: "info",
-      inputColor: teal,
-      switchCheck: false
-      }
+        userType: props.initialProfileValues.type,
+        color: "info",
+        inputColor: teal,
+        switchCheck: false
+      };
     }
   }
 
@@ -460,6 +460,34 @@ class NewUserForm extends React.Component {
                         </GridItem>
                       </GridContainer>
                       {userType === "Participante" && (
+                        <GridContainer>
+                          <GridItem xs={12} sm={12} md={4}>
+                            <Field
+                              labelText="Tipo de discapacidad"
+                              name="disabilityType"
+                              id="disabilityType"
+                              color={color}
+                              formControlProps={{
+                                fullWidth: true
+                              }}
+                              component={CustomInput}
+                            />
+                          </GridItem>
+                          <GridItem xs={12} sm={12} md={4}>
+                            <Field
+                              labelText="Grado de discapacidad"
+                              name="disabilityLevel"
+                              id="disabilityLevel"
+                              color={color}
+                              formControlProps={{
+                                fullWidth: true
+                              }}
+                              component={CustomInput}
+                            />
+                          </GridItem>
+                        </GridContainer>
+                      )}
+                      {userType === "Participante" && (
                         <div>
                           <GridContainer>
                             <GridItem>
@@ -553,7 +581,7 @@ class NewUserForm extends React.Component {
                         type="submit"
                         color={color}
                         disabled={isSubmitting}
-                        onClick={ () => this.props.handlerAction(userType)}
+                        onClick={() => this.props.handlerAction(userType)}
                       >
                         {newUser ? texts.createProfile : texts.updateProfile}
                       </Button>
@@ -583,9 +611,9 @@ class NewUserForm extends React.Component {
                         <GridContainer>
                           <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
                             <Field
-                              labelText="Cuota Adaptada"
-                              name="price"
-                              id="price"
+                              labelText="Cuota Socio"
+                              name="subFee"
+                              id="subFee"
                               placeholder={"€29,99"}
                               maskType="price"
                               color={color}
@@ -594,12 +622,44 @@ class NewUserForm extends React.Component {
                                 fullWidth: true
                               }}
                               component={InputNumber}
-                              
                             />
-
-                            </GridItem>
+                          </GridItem>
+                        </GridContainer>
+                        <GridContainer>
                         <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
-                        <Field
+                            <Field
+                              labelText="Cuota Actividad"
+                              name="activityFee"
+                              id="activityFee"
+                              placeholder={"€29,99"}
+                              maskType="price"
+                              color={color}
+                              disabled={newUser}
+                              formControlProps={{
+                                fullWidth: true
+                              }}
+                              component={InputNumber}
+                            />
+                          </GridItem>
+                          <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
+                            <Field
+                              labelText="Cuota Servicios"
+                              name="serviceFee"
+                              id="serviceFee"
+                              placeholder={"€29,99"}
+                              maskType="price"
+                              color={color}
+                              disabled={newUser}
+                              formControlProps={{
+                                fullWidth: true
+                              }}
+                              component={InputNumber}
+                            />
+                          </GridItem>
+                        </GridContainer>
+                        <GridContainer>
+                          <GridItem xs={12} sm={12} md={12} lg={12} xl={8}>
+                            <Field
                               labelText="Nº de cuenta"
                               name="account"
                               id="account"
@@ -612,7 +672,7 @@ class NewUserForm extends React.Component {
                               }}
                               component={InputNumber}
                             />
-                            </GridItem>
+                          </GridItem>
                         </GridContainer>
                         <GridContainer>
                           <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
@@ -623,7 +683,7 @@ class NewUserForm extends React.Component {
                               disabled={newUser}
                               color={inputColor}
                               formControlProps={{
-                                fullWidth: false
+                                fullWidth: true
                               }}
                               component={InputDate}
                             />
@@ -669,11 +729,9 @@ class NewUserForm extends React.Component {
                               type="submit"
                               color={color}
                               disabled={isSubmitting || newUser}
-                              onClick={ () => this.props.handlerAction(userType)}
+                              onClick={() => this.props.handlerAction(userType)}
                             >
-                              {newUser
-                                ? texts.createFee
-                                : texts.updateFee}
+                              {newUser ? texts.createFee : texts.updateFee}
                             </Button>
                           </GridItem>
                           {newUser && (
