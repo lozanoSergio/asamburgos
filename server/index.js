@@ -5,7 +5,9 @@ const routes = require('../routes')
 const bodyParser = require('body-parser')
 
 //Routes
-const userProfileRoutes = require('./routes/userProfile')
+const userProfileRoutes = require('./routes/userProfile');
+const activityRoutes = require('./routes/activity');
+const serviceRoutes = require('./routes/service');
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({
@@ -24,6 +26,8 @@ app
         server.use(bodyParser.json());
 
         server.use('/api/v1/userProfiles', userProfileRoutes);
+        server.use('/api/v1/activity', activityRoutes);
+        server.use('/api/v1/service', serviceRoutes);
 
         server.get('*', (req, res) => {
             return handle(req, res)

@@ -7,6 +7,7 @@ import Card from "../../src/components/Card/Card.jsx";
 import CardHeader from "../../src/components/Card/CardHeader.jsx";
 import CardBody from "../../src/components/Card/CardBody.jsx";
 import Link from "next/link";
+import moment from "moment";
 
 const styles = {
   cardCategoryWhite: {
@@ -38,58 +39,80 @@ const styles = {
   }
 };
 
-function ActivityTable (props) {
+function weekDays(days) {
+  
+  let letters = [];
+  if (days.monday) {
+    letters.push(["L"])
+  }
+  if (days.tuesday) {
+    letters.push(["M"])
+  }
+  if (days.wednesday) {
+    letters.push(["Mi"])
+  }
+  if (days.thursday) {
+    letters.push(["J"])
+  }
+  if (days.friday) {
+    letters.push(["V"])
+  }
+  if (days.saturday) {
+    letters.push(["S"])
+  }
+  if (days.sunday) {
+    letters.push(["D"])
+  }
 
-    const { classes } = props;
+  let string = letters.join(', ')
 
-    return (
-      <Card>
-        <CardHeader color="primary">
-          <h4 className={classes.cardTitleWhite}>Actividades</h4>
-          <p className={classes.cardCategoryWhite}>
-            Actividades registradas
-          </p>
-        </CardHeader>
-        <CardBody>
-          <Table
-            tableHeaderColor="primary"
-            tableHead={["ID", "ACTIVIDAD", "EDITAR", "BORRAR"]}
-            tableData={[
-              [
-                "1",
-                "Psicologo",
-                <Link href={"/nuevo-alta"}>
-                  <a>Modificar</a>
-                </Link>,
-                <Link href={"/nuevo-alta"}>
-                  <a>Eliminar</a>
-                </Link>
-              ],
-              [
-                "2",
-                "Medicina General",
-                <Link href={"/nuevo-alta"}>
-                  <a>Modificar</a>
-                </Link>,
-                <Link href={"/nuevo-alta"}>
-                  <a>Eliminar</a>
-                </Link>
-              ],
-              [
-                "3",
-                "Asistencia Técnica",
-                <Link href={"/nuevo-alta"}>
-                  <a>Modificar</a>
-                </Link>,
-                <Link href={"/nuevo-alta"}>
-                  <a>Eliminar</a>
-                </Link>
-              ]
-            ]}
-          />
-        </CardBody>
-      </Card>
-    );
+  if (string == "") {
+    string = "No especificado"
+  }
+  
+  return string;
+}
+
+function ActivityTable(props) {
+  const { classes, activities } = props;
+
+  let tableData = [];
+
+  activities.forEach((item, i) => {
+    tableData.push([
+      i,
+      item.activityName,
+      item.voluntaryName,
+      weekDays({"monday": item.monday, "tuesday": item.tuesday, "wednesday": item.wednesday, "thursday": item.thursday, "friday": item.friday, "saturday": item.saturday, "sunday": item.sunday}),
+      item.place ? item.place : "No especificado",
+      item.startTime
+        ? moment(item.startTime).format("hh:mm A")
+        : "No especificado",
+      item.endTime ? moment(item.endTime).format("hh:mm A") : "No especificado",
+      <Link href={"/nuevo-alta"}>
+        <a>Modificar</a>
+      </Link>,
+      <Link href={"/nuevo-alta"}>
+        <a>Eliminar</a>
+      </Link>
+    ]);
+  });
+
+  return (
+    <Card>
+      <CardHeader color="primary">
+        <h4 className={classes.cardTitleWhite}>Actividades</h4>
+        <p className={classes.cardCategoryWhite}>Actividades registradas</p>
+      </CardHeader>
+      <CardBody>
+        <Table
+          tableHeaderColor="primary"
+          tableHead={["ID", "NOMBRE", "VOLUNTARIO", "DÍA/S", "LUGAR", "INICIO", "FINALIZACIÓN", "MODIFICAR", "ELIMINAR"]}
+          tableData={tableData}
+        />
+      </CardBody>
+    </Card>
+  );
 }
 
 export default withStyles(styles)(ActivityTable);

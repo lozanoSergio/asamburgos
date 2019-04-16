@@ -38,58 +38,43 @@ const styles = {
   }
 };
 
-function ServiceTable (props) {
+function ServiceTable(props) {
+  const { classes, servicies } = props;
+  console.log(servicies)
 
-    const { classes } = props;
+  let tableData = [];
 
-    return (
-      <Card>
-        <CardHeader color="primary">
-          <h4 className={classes.cardTitleWhite}>Servicios</h4>
-          <p className={classes.cardCategoryWhite}>
-            Servicios registrados
-          </p>
-        </CardHeader>
-        <CardBody>
-          <Table
-            tableHeaderColor="primary"
-            tableHead={["ID", "SERVICIO", "EDITAR", "BORRAR"]}
-            tableData={[
-              [
-                "1",
-                "Psicologo",
-                <Link href={"/nuevo-alta"}>
-                  <a>Modificar</a>
-                </Link>,
-                <Link href={"/nuevo-alta"}>
-                  <a>Eliminar</a>
-                </Link>
-              ],
-              [
-                "2",
-                "Medicina General",
-                <Link href={"/nuevo-alta"}>
-                  <a>Modificar</a>
-                </Link>,
-                <Link href={"/nuevo-alta"}>
-                  <a>Eliminar</a>
-                </Link>
-              ],
-              [
-                "3",
-                "Asistencia Técnica",
-                <Link href={"/nuevo-alta"}>
-                  <a>Modificar</a>
-                </Link>,
-                <Link href={"/nuevo-alta"}>
-                  <a>Eliminar</a>
-                </Link>
-              ]
-            ]}
-          />
-        </CardBody>
-      </Card>
-    );
+ servicies.forEach((item, i) => {
+    tableData.push([
+      i,
+      item.serviceName,
+      item.voluntaryName ? item.voluntaryName : "No especificado",
+      item.periodicity ? item.periodicity : "No especificado",
+      item.place ? item.place : "No especificado",
+      <Link href={"/nuevo-alta"}>
+        <a>Modificar</a>
+      </Link>,
+      <Link href={"/nuevo-alta"}>
+        <a>Eliminar</a>
+      </Link>
+    ]);
+  }); 
+
+  return (
+    <Card>
+      <CardHeader color="primary">
+        <h4 className={classes.cardTitleWhite}>Servicios</h4>
+        <p className={classes.cardCategoryWhite}>Servicios registrados</p>
+      </CardHeader>
+      <CardBody>
+        <Table
+          tableHeaderColor="primary"
+          tableHead={["ID", "SERVICIO", "RESPONSABLE", "PERIODICIDAD", "LUGAR", "EDITAR", "BORRAR"]}
+          tableData={tableData}
+        />
+      </CardBody>
+    </Card>
+  );
 }
 
 export default withStyles(styles)(ServiceTable);

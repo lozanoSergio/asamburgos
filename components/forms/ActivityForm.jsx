@@ -70,7 +70,7 @@ function ActivityForm(props) {
         validate={validateInputs}
         onSubmit={onSubmit}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, resetForm }) => (
           <Form>
             <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}>
@@ -196,7 +196,7 @@ function ActivityForm(props) {
                   <Field
                     labelText="Fecha de inicio"
                     name="startDate"
-                    id="endTime"
+                    id="startDate"
                     color={teal}
                     formControlProps={{
                       fullWidth: true
@@ -208,7 +208,7 @@ function ActivityForm(props) {
                   <Field
                     labelText="Fecha de finalización"
                     name="endDate"
-                    id="endTime"
+                    id="endDate"
                     color={teal}
                     formControlProps={{
                       fullWidth: true

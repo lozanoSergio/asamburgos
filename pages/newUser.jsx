@@ -53,7 +53,6 @@ class NewUser extends React.Component {
     userProfileData.type = this.state.userType;
     createUserProfile(userProfileData)
       .then(profile => {
-        console.log(profile)
         setSubmitting(false);
         this.setState({ error: undefined });
         Router.pushRoute(`/editar-perfil/${profile._id}`);
