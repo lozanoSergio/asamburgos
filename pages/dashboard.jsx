@@ -1,20 +1,21 @@
 import React from "react";
-import { getUserProfiles } from '../actions'
+import auth0 from "../services/auth0";
 
-class Dashboard extends Component {
-  static async getInitialProps({ req }) {
-    let profiles = [];
+const Login = () => {
+  return (
+    <span onClick={auth0.login}>
+      Login
+    </span>
+  );
+};
 
-    try {
-      profiles = await getUserProfiles(req);
-    } catch (err) {
-      console.log(err);
-    }
-
-    return { profiles };
-  }
+class Dashboard extends React.Component {
   render() {
-    return <div />;
+    return(
+      <div>
+        <Login />
+      </div>
+    );
   }
 }
 

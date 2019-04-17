@@ -21,6 +21,7 @@ class InputWeekCheck extends React.Component {
         <FormControlLabel
           control={
             <Checkbox
+              color="primary"
               checked={this.state.checked}
               onChange={this.handleChange}
               {...other}

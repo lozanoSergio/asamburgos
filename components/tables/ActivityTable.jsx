@@ -40,36 +40,35 @@ const styles = {
 };
 
 function weekDays(days) {
-  
   let letters = [];
   if (days.monday) {
-    letters.push(["L"])
+    letters.push(["L"]);
   }
   if (days.tuesday) {
-    letters.push(["M"])
+    letters.push(["M"]);
   }
   if (days.wednesday) {
-    letters.push(["Mi"])
+    letters.push(["X"]);
   }
   if (days.thursday) {
-    letters.push(["J"])
+    letters.push(["J"]);
   }
   if (days.friday) {
-    letters.push(["V"])
+    letters.push(["V"]);
   }
   if (days.saturday) {
-    letters.push(["S"])
+    letters.push(["S"]);
   }
   if (days.sunday) {
-    letters.push(["D"])
+    letters.push(["D"]);
   }
 
-  let string = letters.join(', ')
+  let string = letters.join(", ");
 
   if (string == "") {
-    string = "No especificado"
+    string = "No especificado";
   }
-  
+
   return string;
 }
 
@@ -82,8 +81,16 @@ function ActivityTable(props) {
     tableData.push([
       i,
       item.activityName,
-      item.voluntaryName,
-      weekDays({"monday": item.monday, "tuesday": item.tuesday, "wednesday": item.wednesday, "thursday": item.thursday, "friday": item.friday, "saturday": item.saturday, "sunday": item.sunday}),
+      item.voluntaryName ? item.voluntaryName : "No especificado",
+      weekDays({
+        monday: item.monday,
+        tuesday: item.tuesday,
+        wednesday: item.wednesday,
+        thursday: item.thursday,
+        friday: item.friday,
+        saturday: item.saturday,
+        sunday: item.sunday
+      }),
       item.place ? item.place : "No especificado",
       item.startTime
         ? moment(item.startTime).format("hh:mm A")
@@ -107,7 +114,17 @@ function ActivityTable(props) {
       <CardBody>
         <Table
           tableHeaderColor="primary"
-          tableHead={["ID", "NOMBRE", "VOLUNTARIO", "DÍA/S", "LUGAR", "INICIO", "FINALIZACIÓN", "MODIFICAR", "ELIMINAR"]}
+          tableHead={[
+            "ID",
+            "NOMBRE",
+            "VOLUNTARIO",
+            "DÍA/S",
+            "LUGAR",
+            "INICIO",
+            "FINALIZACIÓN",
+            "MODIFICAR",
+            "ELIMINAR"
+          ]}
           tableData={tableData}
         />
       </CardBody>

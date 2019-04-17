@@ -1,6 +1,7 @@
 import React from "react";
 import BaseLayout from "../components/layouts/BaseLayout";
 import TableList from "../src/views/TableList/TableList";
+import withAuth from '../components/hoc/withAuth'
 import { getUserProfiles } from "../actions"
 
 
@@ -25,4 +26,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index;
+export default withAuth('admin')(Index);
