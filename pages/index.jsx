@@ -1,6 +1,6 @@
 import React from "react";
 import BaseLayout from "../components/layouts/BaseLayout";
-import TableList from "../src/views/TableList/TableList";
+import ProfileTable from "../components/tables/ProfileTable";
 import withAuth from '../components/hoc/withAuth'
 import { getUserProfiles } from "../actions"
 
@@ -20,7 +20,7 @@ class Index extends React.Component {
     const {profiles} = this.props;
     return (
       <BaseLayout>
-        <TableList profiles={profiles} />
+        <ProfileTable profiles={profiles} />
       </BaseLayout>
     );
   }

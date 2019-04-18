@@ -48,18 +48,6 @@ const styles = theme => ({
   }
 });
 
-const validateInputs = values => {
-  let errors = {};
-
-  Object.entries(values).forEach(([key, value]) => {
-    if (!values[key] && key !== "endDate") {
-      errors[key] = `Field ${key} is required!`;
-    }
-  });
-
-  return errors;
-};
-
 function LoginForm(props) {
   const { classes, onSubmit, error } = props;
 
@@ -74,7 +62,6 @@ function LoginForm(props) {
         </Typography>
         <Formik
           initialValues={{ email: "", password: "" }}
-          validate={validateInputs}
           onSubmit={onSubmit}
         >
           {({ isSubmitting }) => (
@@ -95,10 +82,10 @@ function LoginForm(props) {
                 required
                 component={InputCustom}
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Recordar email"
-              />
+              /> */}
               {error && <Typography className={classes.error}>{error}</Typography>}
               <Button
                 type="submit"

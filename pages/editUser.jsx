@@ -36,6 +36,7 @@ class EditUser extends React.Component {
 
   updateProfile(userProfileData, { setSubmitting }) {
     setSubmitting(true);
+    console.log(userProfileData)
     userProfileData.type = this.state.userType;
     updateProfile(userProfileData)
       .then(profile => {

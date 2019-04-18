@@ -560,7 +560,7 @@ class NewUserForm extends React.Component {
                       )}
                       <GridContainer>
                         <GridItem xs={12} sm={12} md={12}>
-                          <CustomInput
+                          <Field
                             labelText="Notas"
                             name="notes"
                             id="notes"
@@ -572,6 +572,7 @@ class NewUserForm extends React.Component {
                               multiline: true,
                               rows: 3
                             }}
+                            component={CustomInput}
                           />
                         </GridItem>
                       </GridContainer>
