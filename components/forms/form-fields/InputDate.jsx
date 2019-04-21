@@ -10,6 +10,8 @@ import MomentUtils from "@date-io/moment";
 
 import {
   primaryColor,
+  secondaryColor,
+  infoColor,
   grayColor,
   defaultFont
 } from "../../../src/assets/jss/material-dashboard-react";
@@ -31,13 +33,24 @@ const InputDate = ({
   ...other
 }) => {
   const currentError = form.errors[field.name];
+  let updatedColor;
+
+  updatedColor =
+    color === "primary"
+      ? primaryColor[0]
+      : color === "secondary"
+      ? secondaryColor[0]
+      : color === "info"
+      ? infoColor[0]
+      : primaryColor[0];
+
   const theme = createMuiTheme({
     typography: {
       useNextVariants: true
     },
     palette: {
       primary: {
-        main: color[400]
+        main: updatedColor
       }
     },
     overrides: {
@@ -49,7 +62,7 @@ const InputDate = ({
             borderWidth: "1px !important"
           },
           "&:after": {
-            borderColor: primaryColor[0] + " !important"
+            borderColor: updatedColor + " !important"
           }
         }
       },
@@ -107,6 +120,5 @@ const InputDate = ({
 InputDate.propTypes = {
   classes: PropTypes.object.isRequired
 };
-
 
 export default withStyles(customInputStyle)(InputDate);

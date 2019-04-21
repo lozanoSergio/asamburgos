@@ -13,7 +13,7 @@ import Input from "@material-ui/core/Input";
 import Clear from "@material-ui/icons/Clear";
 import Check from "@material-ui/icons/Check";
 import Phone from "@material-ui/icons/Phone";
-import Card from "@material-ui/icons/CreditCard";
+import AccountBalance from "@material-ui/icons/AccountBalance";
 import Euro from "@material-ui/icons/EuroSymbol";
 
 // core components
@@ -175,7 +175,7 @@ function InputNumber({ field, form, ...props }) {
           disabled={disabled}
           endAdornment={
             <InputAdornment position="end">
-              <Card style={iconClass} />
+              <AccountBalance style={iconClass} />
             </InputAdornment>
           }
           {...field}

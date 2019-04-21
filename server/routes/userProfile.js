@@ -13,4 +13,6 @@ router.patch('/:id', userProfileCtrl.updateProfile);
 
 router.patch('/fee/:id', userProfileCtrl.updateFee);
 
+router.patch('/userActivitiesAndServicies/:id', userProfileCtrl.updateActivitiesAndServicies);
+
 module.exports = router;

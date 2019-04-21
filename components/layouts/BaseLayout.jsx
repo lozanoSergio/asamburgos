@@ -32,14 +32,14 @@ const dashboardRoutes = [
     icon: Person
   },
   {
+    path: "/registrar-actividades",
+    name: "Registrar Actividades",
+    icon: Accessibility
+  },
+  {
     path: "/registrar-servicios",
     name: "Registrar Servicios",
     icon: LibraryBooks
-  },
-  {
-    path: "/registrar-actividad",
-    name: "Registrar Actividad",
-    icon: Accessibility
   }
 ];
 

@@ -31,6 +31,7 @@ import CardFooter from "../../src/components/Card/CardFooter.jsx";
 
 import InputDate from "./form-fields/InputDate";
 import InputNumber from "./form-fields/InputNumber";
+import Autocomplete from "./form-fields/Autocomplete";
 
 const styles = theme => ({
   formControl: {
@@ -124,6 +125,10 @@ const styles = theme => ({
     top: "5px",
     width: theme.typography.h6.fontSize,
     height: theme.typography.h6.fontSize
+  },
+  metadataCard: {
+    marginTop: 48,
+    marginBottom: 48
   }
 });
 
@@ -172,7 +177,7 @@ const texts = {
   updateFee: "Actualizar Cuota"
 };
 
-class NewUserForm extends React.Component {
+class UserForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -187,7 +192,7 @@ class NewUserForm extends React.Component {
       this.state = {
         userType: props.initialProfileValues.type,
         color: "secondary",
-        inputColor: teal,
+        inputColor: purple,
         switchCheck: false
       };
     }
@@ -196,7 +201,7 @@ class NewUserForm extends React.Component {
       this.state = {
         userType: props.initialProfileValues.type,
         color: "info",
-        inputColor: teal,
+        inputColor: cyan,
         switchCheck: false
       };
     }
@@ -246,12 +251,40 @@ class NewUserForm extends React.Component {
       classes,
       onSubmitProfile,
       initialProfileValues,
+      handlerSelectType,
       initialFeeValues,
       onSubmitFee,
-      newUser
+      onSubmitActivitiesAndServicies,
+      initialActivitiesAndServiciesValues,
+      newUser,
+      activities,
+      services,
+      userActivities,
+      userServices,
+      handleActivityAutocomplete,
+      handleServiceAutocomplete
     } = this.props;
 
     const { color, inputColor, userType, switchCheck } = this.state;
+
+    let activitiesNames = [];
+    let servicesNames = [];
+
+    activities &&
+      activities.map(activity => {
+        activitiesNames.push({
+          id: activity._id,
+          name: activity.name
+        });
+      });
+
+    services &&
+      services.map(service => {
+        servicesNames.push({
+          id: service._id,
+          name: service.name
+        });
+      });
 
     const theme = createMuiTheme({
       typography: {
@@ -395,7 +428,7 @@ class NewUserForm extends React.Component {
                             labelText="Fecha de Nacimiento"
                             name="birthDate"
                             id="birthDate"
-                            color={inputColor}
+                            color={color}
                             formControlProps={{
                               fullWidth: false
                             }}
@@ -582,7 +615,7 @@ class NewUserForm extends React.Component {
                         type="submit"
                         color={color}
                         disabled={isSubmitting}
-                        onClick={() => this.props.handlerAction(userType)}
+                        onClick={() => this.props.handlerSelectType(userType)}
                       >
                         {newUser ? texts.createProfile : texts.updateProfile}
                       </Button>
@@ -592,172 +625,250 @@ class NewUserForm extends React.Component {
               )}
             </Formik>
           </GridItem>
-          {userType === "Participante" && (
-            <GridItem xs={12} sm={12} md={12} lg={4} xl={4}>
-              <Card>
-                <Formik
-                  initialValues={initialFeeValues}
-                  onSubmit={onSubmitFee}
-                  validate={validateInputs}
-                >
-                  {({ isSubmitting }) => (
-                    <Form>
-                      <CardHeader color={color}>
-                        <h4 className={classes.cardTitleWhite}>Cuota</h4>
-                        <p className={classes.cardCategoryWhite}>
-                          Cuota del participante
-                        </p>
-                      </CardHeader>
-                      <CardBody>
-                        <GridContainer>
-                          <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
-                            <Field
-                              labelText="Cuota Socio"
-                              name="subFee"
-                              id="subFee"
-                              placeholder={"€29,99"}
-                              maskType="price"
-                              color={color}
-                              disabled={newUser}
-                              formControlProps={{
-                                fullWidth: true
-                              }}
-                              component={InputNumber}
-                            />
-                          </GridItem>
-                        </GridContainer>
-                        <GridContainer>
-                        <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
-                            <Field
-                              labelText="Cuota Actividad"
-                              name="activityFee"
-                              id="activityFee"
-                              placeholder={"€29,99"}
-                              maskType="price"
-                              color={color}
-                              disabled={newUser}
-                              formControlProps={{
-                                fullWidth: true
-                              }}
-                              component={InputNumber}
-                            />
-                          </GridItem>
-                          <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
-                            <Field
-                              labelText="Cuota Servicios"
-                              name="serviceFee"
-                              id="serviceFee"
-                              placeholder={"€29,99"}
-                              maskType="price"
-                              color={color}
-                              disabled={newUser}
-                              formControlProps={{
-                                fullWidth: true
-                              }}
-                              component={InputNumber}
-                            />
-                          </GridItem>
-                        </GridContainer>
-                        <GridContainer>
-                          <GridItem xs={12} sm={12} md={12} lg={12} xl={8}>
-                            <Field
-                              labelText="Nº de cuenta"
-                              name="account"
-                              id="account"
-                              placeholder={"ES98 2038 5778 9830 0076 0236"}
-                              maskType="creditCard"
-                              color={color}
-                              disabled={newUser}
-                              formControlProps={{
-                                fullWidth: true
-                              }}
-                              component={InputNumber}
-                            />
-                          </GridItem>
-                        </GridContainer>
-                        <GridContainer>
-                          <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
-                            <Field
-                              labelText="Fecha de alta"
-                              name="startDate"
-                              id="startDate"
-                              disabled={newUser}
-                              color={inputColor}
-                              formControlProps={{
-                                fullWidth: true
-                              }}
-                              component={InputDate}
-                            />
-                          </GridItem>
-                        </GridContainer>
-                        <GridContainer>
-                          <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
-                            <FormControlLabel
-                              control={
-                                <Switch
-                                  disabled={newUser}
-                                  checked={switchCheck}
-                                  onChange={() => this.handleSwitchToggle()}
-                                  color="primary"
-                                />
-                              }
-                              label="Finalizar Cuota"
-                            />
-                          </GridItem>
-                        </GridContainer>
-                        {switchCheck && (
+
+          <GridItem xs={12} sm={12} md={12} lg={4} xl={4}>
+            {userType === "Participante" && (
+              <div>
+                <Card>
+                  <Formik
+                    initialValues={initialFeeValues}
+                    onSubmit={onSubmitFee}
+                    validate={validateInputs}
+                  >
+                    {({ isSubmitting }) => (
+                      <Form>
+                        <CardHeader color={color}>
+                          <h4 className={classes.cardTitleWhite}>Cuotas</h4>
+                          <p className={classes.cardCategoryWhite}>
+                            Cuotas del participante
+                          </p>
+                        </CardHeader>
+                        <CardBody>
                           <GridContainer>
-                            <GridItem xs={12} sm={12} md={8}>
+                            <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
                               <Field
-                                labelText="Fecha de baja"
-                                name="endDate"
-                                id="endDate"
+                                labelText="Nº de cuenta"
+                                name="account"
+                                id="account"
+                                placeholder={"ES98 2038 5778 9830 0076 0236"}
+                                maskType="creditCard"
+                                color={color}
                                 disabled={newUser}
-                                color={inputColor}
                                 formControlProps={{
-                                  fullWidth: false
+                                  fullWidth: true
+                                }}
+                                component={InputNumber}
+                              />
+                            </GridItem>
+                            <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
+                              <Field
+                                labelText="Cuota Socio"
+                                name="subFee"
+                                id="subFee"
+                                placeholder={"€29,99"}
+                                maskType="price"
+                                color={color}
+                                disabled={newUser}
+                                formControlProps={{
+                                  fullWidth: true
+                                }}
+                                component={InputNumber}
+                              />
+                            </GridItem>
+                          </GridContainer>
+                          <GridContainer>
+                            <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
+                              <Field
+                                labelText="Cuota Actividad"
+                                name="activityFee"
+                                id="activityFee"
+                                placeholder={"€29,99"}
+                                maskType="price"
+                                color={color}
+                                disabled={newUser}
+                                formControlProps={{
+                                  fullWidth: true
+                                }}
+                                component={InputNumber}
+                              />
+                            </GridItem>
+
+                            <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
+                              <Field
+                                labelText="Cuota Servicios"
+                                name="serviceFee"
+                                id="serviceFee"
+                                placeholder={"€29,99"}
+                                maskType="price"
+                                color={color}
+                                disabled={newUser}
+                                formControlProps={{
+                                  fullWidth: true
+                                }}
+                                component={InputNumber}
+                              />
+                            </GridItem>
+                          </GridContainer>
+                          <GridContainer>
+                            <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
+                              <Field
+                                labelText="Fecha de alta"
+                                name="startDate"
+                                id="startDate"
+                                disabled={newUser}
+                                color={color}
+                                formControlProps={{
+                                  fullWidth: true
                                 }}
                                 component={InputDate}
                               />
                             </GridItem>
                           </GridContainer>
-                        )}
-                      </CardBody>
-                      <CardFooter>
-                        <GridContainer>
-                          <GridItem>
-                            <Button
-                              type="submit"
-                              color={color}
-                              disabled={isSubmitting || newUser}
-                              onClick={() => this.props.handlerAction(userType)}
-                            >
-                              {newUser ? texts.createFee : texts.updateFee}
-                            </Button>
-                          </GridItem>
-                          {newUser && (
-                            <GridItem>
-                              <Typography
-                                style={{ color: "#9e9e9e" }}
-                                variant="caption"
-                              >
-                                <InfoIcon className={classes.infoIcon} /> Crea
-                                primero un perfil para añadir una cuota
-                              </Typography>
+                          <GridContainer>
+                            <GridItem xs={12} sm={12} md={12} lg={12} xl={6}>
+                              <FormControlLabel
+                                control={
+                                  <Switch
+                                    disabled={newUser}
+                                    checked={switchCheck}
+                                    onChange={() => this.handleSwitchToggle()}
+                                    color="primary"
+                                  />
+                                }
+                                label="Finalizar Cuota"
+                              />
                             </GridItem>
+                          </GridContainer>
+                          {switchCheck && (
+                            <GridContainer>
+                              <GridItem xs={12} sm={12} md={8}>
+                                <Field
+                                  labelText="Fecha de baja"
+                                  name="endDate"
+                                  id="endDate"
+                                  disabled={newUser}
+                                  color={color}
+                                  formControlProps={{
+                                    fullWidth: false
+                                  }}
+                                  component={InputDate}
+                                />
+                              </GridItem>
+                            </GridContainer>
                           )}
-                        </GridContainer>
-                      </CardFooter>
-                    </Form>
-                  )}
-                </Formik>
-              </Card>
-            </GridItem>
-          )}
+                        </CardBody>
+                        <CardFooter>
+                          <GridContainer>
+                            <GridItem>
+                              <Button
+                                type="submit"
+                                color={color}
+                                disabled={isSubmitting || newUser}
+                                onClick={() =>
+                                  this.props.handlerAction(userType)
+                                }
+                              >
+                                {newUser ? texts.createFee : texts.updateFee}
+                              </Button>
+                            </GridItem>
+                            {newUser && (
+                              <GridItem>
+                                <Typography
+                                  style={{ color: "#9e9e9e" }}
+                                  variant="caption"
+                                >
+                                  <InfoIcon className={classes.infoIcon} /> Crea
+                                  primero un perfil para añadir una cuota
+                                </Typography>
+                              </GridItem>
+                            )}
+                          </GridContainer>
+                        </CardFooter>
+                      </Form>
+                    )}
+                  </Formik>
+                </Card>{" "}
+              </div>
+            )}
+            <Card className={userType==="Participante" ? classes.metadataCard : null}>
+              <Formik
+                initialValues={initialActivitiesAndServiciesValues}
+                onSubmit={onSubmitActivitiesAndServicies}
+                validate={validateInputs}
+              >
+                {({ isSubmitting }) => (
+                  <Form>
+                    <CardHeader color={color}>
+                      <h4 className={classes.cardTitleWhite}>
+                        Actividades y Servicios
+                      </h4>
+                      <p className={classes.cardCategoryWhite}>
+                        Añade actividades y servicios al{" "}
+                        {userType.toLowerCase()}
+                      </p>
+                    </CardHeader>
+                    <CardBody>
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={12} lg={12} xl={12}>
+                          <Autocomplete
+                            suggestions={activitiesNames}
+                            initialValues={userActivities}
+                            id="activities-select"
+                            placeholder="Selecciona una o varias actividades"
+                            disabled={newUser}
+                            labelText="Actividades"
+                            color={color}
+                            handleAutocomplete={handleActivityAutocomplete}
+                          />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={12} lg={12} xl={12}>
+                          <Autocomplete
+                            suggestions={servicesNames}
+                            initialValues={userServices}
+                            id="services-select"
+                            placeholder="Selecciona uno o varios servicios"
+                            disabled={newUser}
+                            labelText="Servicios"
+                            color={color}
+                            handleAutocomplete={handleServiceAutocomplete}
+                          />
+                        </GridItem>
+                      </GridContainer>
+                    </CardBody>
+                    <CardFooter>
+                      <GridContainer>
+                        <GridItem>
+                          <Button
+                            type="submit"
+                            color={color}
+                            disabled={isSubmitting || newUser}
+                          >
+                            Actualizar
+                          </Button>
+                        </GridItem>
+                        {newUser && (
+                          <GridItem>
+                            <Typography
+                              style={{ color: "#9e9e9e" }}
+                              variant="caption"
+                            >
+                              <InfoIcon className={classes.infoIcon} /> Crea
+                              primero un perfil para añadir actividades y
+                              servicios
+                            </Typography>
+                          </GridItem>
+                        )}
+                      </GridContainer>
+                    </CardFooter>
+                  </Form>
+                )}
+              </Formik>
+            </Card>
+          </GridItem>
         </GridContainer>
       </div>
     );
   }
 }
 
-export default withStyles(styles)(NewUserForm);
+export default withStyles(styles)(UserForm);

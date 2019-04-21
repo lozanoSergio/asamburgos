@@ -18,11 +18,11 @@ exports.saveService = (req, res) => {
 }
 
 exports.getService = (req, res) => {
-    Service.find({}).sort({'createdAt': -1}).exec((err, allActivities) => {
+    Service.find({}).sort({'createdAt': -1}).exec((err, allServices) => {
         if (err) {
             return res.status(422).send(err);
         }
-        return res.json(allActivities);
+        return res.json(allServices);
     });
 }
 

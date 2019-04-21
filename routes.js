@@ -5,5 +5,7 @@ module.exports = routes()
 .add('newUser', '/nuevo-alta')
 .add('editUser', '/editar-perfil/:id')
 .add('serviceRegister', '/registrar-servicios')
-.add('activityRegister', '/registrar-actividad')
+.add('activityRegister', '/registrar-actividades')
+.add('editActivity', '/editar-actividad/:id')
+.add('editService', '/editar-servicio/:id')
 

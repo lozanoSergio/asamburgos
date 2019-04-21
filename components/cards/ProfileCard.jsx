@@ -11,6 +11,7 @@ import AccountBalance from "@material-ui/icons/AccountBalance";
 import Fab from "@material-ui/core/Fab";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
+import Chip from "@material-ui/core/Chip";
 // core components
 import GridItem from "../../src/components/Grid/GridItem.jsx";
 import GridContainer from "../../src/components/Grid/GridContainer.jsx";
@@ -233,6 +234,24 @@ function ProfileCard(props) {
           )}
         </div>
       )}
+
+      <Divider className={classes.strong} />
+      <GridContainer>
+        <GridItem>
+          {profileData.activities &&
+            profileData.activities.map(activity => {
+              // <Chip
+              //   key={}
+              //   label="Clickable Link Chip"
+              //   className={classes.chip}
+              //   component="a"
+              //   href="#chip"
+              //   clickable
+              // />;
+              console.log(activity)
+            })}
+        </GridItem>
+      </GridContainer>
 
       <div className={classes.closeBtn}>
         <Fab

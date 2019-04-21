@@ -62,7 +62,7 @@ const validateInputs = values => {
 };
 
 function ActivityForm(props) {
-  const { classes, initialValues, onSubmit } = props;
+  const { classes, initialValues, onSubmit, edit } = props;
   return (
     <Card>
       <Formik
@@ -74,7 +74,7 @@ function ActivityForm(props) {
           <Form>
             <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}>
-                Registro de actividades
+                {edit ? "Actualizar actividad" : "Registro de actividades"}
               </h4>
             </CardHeader>
             <CardBody>
@@ -82,8 +82,8 @@ function ActivityForm(props) {
                 <GridItem xs={12} sm={12} md={6}>
                   <Field
                     labelText="Nombre de la actividad"
-                    name="activityName"
-                    id="activityName"
+                    name="name"
+                    id="name"
                     formControlProps={{
                       fullWidth: true
                     }}
@@ -220,7 +220,7 @@ function ActivityForm(props) {
             </CardBody>
             <CardFooter>
               <Button type="submit" color={"primary"} disabled={isSubmitting}>
-                Crear Actividad
+                {edit ? "Actualizar Actividad" : "Crear Actividad"}
               </Button>
             </CardFooter>
           </Form>

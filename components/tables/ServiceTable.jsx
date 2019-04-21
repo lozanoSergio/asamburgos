@@ -1,6 +1,7 @@
 import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
+import Button from "@material-ui/core/Button";
 // core components
 import Table from "../../src/components/Table/Table.jsx";
 import Card from "../../src/components/Card/Card.jsx";
@@ -8,7 +9,7 @@ import CardHeader from "../../src/components/Card/CardHeader.jsx";
 import CardBody from "../../src/components/Card/CardBody.jsx";
 import Link from "next/link";
 
-const styles = {
+const styles = theme => ({
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
       color: "rgba(255,255,255,.62)",
@@ -35,30 +36,34 @@ const styles = {
       fontWeight: "400",
       lineHeight: "1"
     }
+  },
+  tableButton: {
+    color: theme.palette.secondary.main
   }
-};
+});
 
 function ServiceTable(props) {
   const { classes, servicies } = props;
-  console.log(servicies)
 
   let tableData = [];
 
- servicies.forEach((item, i) => {
+  servicies.forEach((item, i) => {
     tableData.push([
       i,
-      item.serviceName,
+      item.name,
       item.voluntaryName ? item.voluntaryName : "No especificado",
       item.periodicity ? item.periodicity : "No especificado",
       item.place ? item.place : "No especificado",
-      <Link href={"/nuevo-alta"}>
-        <a>Modificar</a>
+      <Link href={`/editar-servicio/${item._id}`}>
+        <Button size="small" className={classes.tableButton}>
+          Modificar
+        </Button>
       </Link>,
-      <Link href={"/nuevo-alta"}>
-        <a>Eliminar</a>
-      </Link>
+      <Button size="small" className={classes.tableButton}>
+        Eliminar
+      </Button>
     ]);
-  }); 
+  });
 
   return (
     <Card>
@@ -69,7 +74,15 @@ function ServiceTable(props) {
       <CardBody>
         <Table
           tableHeaderColor="primary"
-          tableHead={["ID", "SERVICIO", "RESPONSABLE", "PERIODICIDAD", "LUGAR", "EDITAR", "BORRAR"]}
+          tableHead={[
+            "ID",
+            "SERVICIO",
+            "RESPONSABLE",
+            "PERIODICIDAD",
+            "LUGAR",
+            "",
+            ""
+          ]}
           tableData={tableData}
         />
       </CardBody>

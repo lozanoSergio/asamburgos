@@ -33,6 +33,8 @@ class Auth0 {
         } else if (err) {
           reject(err);
           console.log(err);
+        } else {
+          reject()
         }
       });
     });

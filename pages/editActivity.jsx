@@ -5,28 +5,13 @@ import ActivityTable from "../components/tables/ActivityTable";
 import GridContainer from "../src/components/Grid/GridContainer";
 import GridItem from "../src/components/Grid/GridItem";
 import { Router } from "../routes";
-import { createActivity, getActivities } from "../actions";
+import { getActivities, getActivityById, updateActivity } from "../actions";
 
-const INITIAL_ACTIVITY_VALUES = {
-  activityName: "",
-  voluntaryName: "",
-  monday: false,
-  tuesday: false,
-  wednesday: false,
-  thursday: false,
-  friday: false,
-  saturday: false,
-  sunday: false,
-  place: "",
-  startTime: null,
-  endTime: null,
-  startDate: null,
-  endDate: null
-};
-
-class ActivityRegister extends React.Component {
-  static async getInitialProps({ req }) {
+class EditActivity extends React.Component {
+  static async getInitialProps({ query, req }) {
     let activities = [];
+
+    let activity = {};
 
     try {
       activities = await getActivities(req);
@@ -34,7 +19,13 @@ class ActivityRegister extends React.Component {
       console.log(err);
     }
 
-    return { activities };
+    try {
+      activity = await getActivityById(query.id);
+    } catch (err) {
+      console.log(err);
+    }
+
+    return { activities, activity };
   }
 
   constructor(props) {
@@ -44,12 +35,12 @@ class ActivityRegister extends React.Component {
       error: undefined
     };
 
-    this.saveActivity = this.saveActivity.bind(this);
+    this.updateActivity = this.updateActivity.bind(this);
   }
 
-  saveActivity = (activityData, { setSubmitting }) => {
+  updateActivity = (activityData, { setSubmitting }) => {
     setSubmitting(true);
-    createActivity(activityData)
+    updateActivity(activityData)
       .then(activity => {
         setSubmitting(false);
         this.setState({ error: undefined });
@@ -63,14 +54,16 @@ class ActivityRegister extends React.Component {
   };
 
   render() {
-    const { activities } = this.props;
+    const { activities, activity } = this.props;
+
     return (
       <BaseLayout>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12} lg={6} xl={4}>
             <ActivityForm
-              onSubmit={this.saveActivity}
-              initialValues={INITIAL_ACTIVITY_VALUES}
+              edit
+              onSubmit={this.updateActivity}
+              initialValues={activity}
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={12} lg={6} xl={8}>
@@ -82,4 +75,4 @@ class ActivityRegister extends React.Component {
   }
 }
 
-export default ActivityRegister;
+export default EditActivity;

@@ -40,11 +40,11 @@ class NewUser extends React.Component {
     };
 
     this.saveProfileData = this.saveProfileData.bind(this);
-    this.handler = this.handler.bind(this);
+    this.handlerSelectType = this.handlerSelectType.bind(this);
     
   }
 
-  handler(type) {
+  handlerSelectType(type) {
     this.state ={userType: type}
   }
 
@@ -68,7 +68,7 @@ class NewUser extends React.Component {
     return (
       <BaseLayout>
         <UserForm
-          handlerAction={this.handler}
+          handlerSelectType={this.handlerSelectType}
           initialProfileValues={INITIAL_PROFILE_VALUES}
           onSubmitProfile={this.saveProfileData}
           initialFeeValues={INITIAL_FEE_VALUES}

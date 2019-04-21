@@ -6,7 +6,7 @@ const setBooleanType = {type: Boolean, required: true}
 const setStringTypeNotRequired = (maxLength) => ({ type: String, maxlength: maxLength })
 
 const serviceSchema = new Schema({
-    serviceName: setStringType(128),
+    name: setStringType(128),
     voluntaryName: setStringTypeNotRequired(128),
     periodicity: setStringTypeNotRequired(128),
     place: setStringTypeNotRequired(256),

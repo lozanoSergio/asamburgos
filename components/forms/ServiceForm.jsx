@@ -79,8 +79,8 @@ function ServiceForm(props) {
                 <GridItem xs={12} sm={12} md={6}>
                   <Field
                     labelText="Nombre del servicio"
-                    name="serviceName"
-                    id="serviceName"
+                    name="name"
+                    id="name"
                     formControlProps={{
                       fullWidth: true
                     }}

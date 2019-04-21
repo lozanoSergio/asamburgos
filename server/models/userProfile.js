@@ -32,12 +32,8 @@ const userProfileSchema = new Schema({
         startDate: Date,
         endDate: Date
     },
-    activities: [{
-        activityId: setStringTypeNotRequired(128)
-    }],
-    services: [{
-        serviceId: setStringTypeNotRequired(128)
-    }]
+    activities: {type: Array, default: void 0},
+    services: {type: Array, default: void 0}
 });
 
 module.exports = mongoose.model('UserProfile', userProfileSchema);

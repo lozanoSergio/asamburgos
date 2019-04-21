@@ -72,3 +72,29 @@ exports.updateFee = (req, res) => {
         })
     })
 }
+
+exports.updateActivitiesAndServicies = (req, res) => {
+    const profileId = req.params.id;
+    const data = req.body;
+
+    const activities = data.activities;
+    const services = data.services;
+
+    console.log(activities)
+    console.log(services)
+
+    UserProfile.findById(profileId, (err, foundProfile) => {
+        if (err) {
+            return res.status(422).send(err);
+        }
+        foundProfile.activities = activities
+        foundProfile.services = services
+        foundProfile.set(foundProfile);
+        foundProfile.save((err, savedProfile) => {
+            if (err) {
+                return res.status(422).send(err);
+            }
+            return res.json(savedProfile);
+        })
+    })
+}

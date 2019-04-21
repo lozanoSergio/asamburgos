@@ -52,6 +52,13 @@ export const updateFee = async (userProfileData, feeData) => {
     .catch(error => rejectPromise(error));
 };
 
+export const updateUserActivitiesAndServices = async (userProfileData, data) => {
+  return await axiosInstance
+    .patch(`/userProfiles/userActivitiesAndServicies/${userProfileData._id}`, data)
+    .then(response => response.data)
+    .catch(error => rejectPromise(error));
+};
+
 //activities
 
 export const createActivity = async activityData => {

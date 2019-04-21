@@ -6,7 +6,7 @@ const setBooleanType = {type: Boolean, required: true}
 const setStringTypeNotRequired = (maxLength) => ({ type: String, maxlength: maxLength })
 
 const activitySchema = new Schema({
-    activityName: setStringType(128),
+    name: setStringType(128),
     voluntaryName: setStringTypeNotRequired(128),
     monday: setBooleanType,
     tuesday: setBooleanType,
