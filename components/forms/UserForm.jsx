@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import Switch from "@material-ui/core/Switch";
 import FormControl from "@material-ui/core/FormControl";
 import InfoIcon from "@material-ui/icons/InfoOutlined";
+import DeleteIcon from '@material-ui/icons/Delete';
 //@material-ui/core/colors
 import teal from "@material-ui/core/colors/teal";
 import purple from "@material-ui/core/colors/purple";
@@ -253,6 +254,7 @@ class UserForm extends React.Component {
       initialProfileValues,
       handlerSelectType,
       initialFeeValues,
+      deleteUserProfile,
       onSubmitFee,
       onSubmitActivitiesAndServicies,
       initialActivitiesAndServiciesValues,
@@ -615,10 +617,14 @@ class UserForm extends React.Component {
                         type="submit"
                         color={color}
                         disabled={isSubmitting}
-                        onClick={() => this.props.handlerSelectType(userType)}
+                        onClick={() => handlerSelectType(userType)}
                       >
                         {newUser ? texts.createProfile : texts.updateProfile}
                       </Button>
+                      {!newUser &&
+                      <Button justIcon round color={color} onClick={deleteUserProfile}>
+                          <DeleteIcon />
+                      </Button>}
                     </CardFooter>
                   </Card>
                 </Form>
@@ -763,10 +769,8 @@ class UserForm extends React.Component {
                               <Button
                                 type="submit"
                                 color={color}
-                                disabled={isSubmitting || newUser}
-                                onClick={() =>
-                                  this.props.handlerAction(userType)
-                                }
+                                disabled={isSubmitting || newUser }
+                                
                               >
                                 {newUser ? texts.createFee : texts.updateFee}
                               </Button>

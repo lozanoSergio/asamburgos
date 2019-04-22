@@ -11,4 +11,6 @@ router.get('/:id', serviceCtrl.getServiceById);
 
 router.patch('/:id', serviceCtrl.updateService);
 
+router.delete('/:id', serviceCtrl.deleteService);
+
 module.exports = router;

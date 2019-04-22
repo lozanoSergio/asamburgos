@@ -1,4 +1,5 @@
-const Service = require('../models/service')
+const Service = require('../models/service');
+const User = require("../models/userProfile");
 
 exports.saveService = (req, res) => {
     const serviceData = req.body;
@@ -53,3 +54,31 @@ exports.updateService = (req, res) => {
         })
     })
 }
+
+exports.deleteService = (req, res) => {
+    const serviceId = req.params.id;
+  
+    Service.deleteOne(
+      {
+        _id: serviceId
+      },
+      (err, deletedService) => {
+        if (err) {
+          return res.status(422).send(err);
+        }
+        User.find({ services: { $elemMatch: { id: serviceId } } })
+          .exec()
+          .then(users => {
+            users.forEach(user => {
+              user.services = user.services.filter(entry => {
+                if (entry.id !== serviceId) {
+                  return entry;
+                }
+              });
+              user.save();
+            });
+          });
+        return res.json({ status: "DELETED" });
+      }
+    );
+  };

@@ -33,7 +33,7 @@ function ProfileModal(props) {
 
   return (
     <Modal
-      aria-labelledby="Perfil dettalado el usuario"
+      aria-labelledby="Perfil detallado el usuario"
       open={handleOpen}
       onClose={handleClose}
     >

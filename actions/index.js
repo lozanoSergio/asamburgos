@@ -59,6 +59,10 @@ export const updateUserActivitiesAndServices = async (userProfileData, data) => 
     .catch(error => rejectPromise(error));
 };
 
+export const deleteUserProfile = async (userProfileId) => {
+  return axiosInstance.delete(`/userProfiles/${userProfileId}`).then(response => response.data)
+}
+
 //activities
 
 export const createActivity = async activityData => {
@@ -85,6 +89,10 @@ export const updateActivity = async activityData => {
     .catch(error => rejectPromise(error));
 };
 
+export const deleteActivity = async (activityId) => {
+  return axiosInstance.delete(`/activity/${activityId}`).then(response => response.data)
+}
+
 //services
 
 export const createService = async serviceData => {
@@ -110,3 +118,7 @@ export const createService = async serviceData => {
       .then(response => response.data)
       .catch(error => rejectPromise(error));
   };
+
+  export const deleteService = async (serviceId) => {
+    return axiosInstance.delete(`/service/${serviceId}`).then(response => response.data)
+  }

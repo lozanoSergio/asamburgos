@@ -1,7 +1,8 @@
 import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 // core components
 import GridItem from "../../src/components/Grid/GridItem.jsx";
 import GridContainer from "../../src/components/Grid/GridContainer.jsx";
@@ -78,7 +79,7 @@ const styles = theme => ({
   },
   searchIcon: {
     position: "relative",
-    top: "6px",
+    top: "6px"
   },
   tableButton: {
     color: theme.palette.secondary.main
@@ -86,22 +87,60 @@ const styles = theme => ({
 });
 
 class ProfileTable extends React.Component {
-
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = {
-      searchTerm: '',
+      searchTerm: "",
       open: false,
-      profileData: {}
-    }
+      profileData: {},
+      tableData: []
+    };
 
-    this.searchUpdated = this.searchUpdated.bind(this)
-    this.handleClose = this.handleClose.bind(this)
+    const { classes, profiles } = this.props;
+
+    const KEYS_TO_FILTERS = [
+      "type",
+      "firstName",
+      "surName1",
+      "surName2",
+      "email",
+      "numberPhone",
+      "fee.subFee"
+    ];
+    const filteredData = profiles.filter(
+      createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
+    );
+
+    filteredData.forEach((item, i) => {
+      this.state.tableData.push([
+        item.type,
+        item.firstName,
+        item.surName1 + " " + item.surName2,
+        item.email,
+        item.numberPhone,
+        item.fee ? item.fee.subFee : "Sin cuota",
+        <Button
+          size="small"
+          onClick={() => this.handleOpen(item)}
+          className={classes.tableButton}
+        >
+          Ver
+        </Button>,
+        <Link href={`/editar-perfil/${item._id}`}>
+          <Button size="small" className={classes.tableButton}>
+            Editar
+          </Button>
+        </Link>
+      ]);
+    });
+
+    this.searchUpdated = this.searchUpdated.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
-  searchUpdated (term) {
-    this.setState({searchTerm: term.target.value})
+  searchUpdated(term) {
+    this.setState({ searchTerm: term.target.value });
   }
 
   handleOpen = item => {
@@ -113,28 +152,8 @@ class ProfileTable extends React.Component {
   };
 
   render() {
-    const { classes, profiles } = this.props;
-    const { open, profileData } = this.state;
-    
-    const KEYS_TO_FILTERS = ['type','firstName','surName1','surName2','email', 'numberPhone', 'installments.price']
-    const filteredData = profiles.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
-    const tableData = [];
-    filteredData.forEach((item, i) => {
-      tableData.push([
-        item.type,
-        item.firstName,
-        item.surName1 + " " + item.surName2,
-        item.email,
-        item.numberPhone,
-        item.fee ? item.fee.price : "Sin cuota",
-        <Button size="small" onClick={() => this.handleOpen(item)} className={classes.tableButton}>
-          Ver
-        </Button>,
-        <Link href={`/editar-perfil/${item._id}`}>
-          <Button size="small" className={classes.tableButton}>Editar</Button>
-        </Link>
-      ]);
-    });
+    const { classes } = this.props;
+    const { open, profileData, tableData } = this.state;
 
     return (
       <GridContainer>
@@ -182,7 +201,11 @@ class ProfileTable extends React.Component {
                 ]}
                 tableData={tableData}
               />
-              <ProfileModal handleOpen={open} handleClose={this.handleClose} profileData={profileData} />
+              <ProfileModal
+                handleOpen={open}
+                handleClose={this.handleClose}
+                profileData={profileData}
+              />
             </CardBody>
           </Card>
         </GridItem>

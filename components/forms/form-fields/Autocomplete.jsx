@@ -106,8 +106,6 @@ class DownshiftMultiple extends React.Component {
     let { selectedItem, chipTorender } = this.state;
     const { suggestions } = this.props;
 
-    console.log(item)
-
     if (selectedItem.indexOf(item) === -1) {
       selectedItem = [...selectedItem, item];
       suggestions.filter(suggestion => {
@@ -124,15 +122,17 @@ class DownshiftMultiple extends React.Component {
       chipTorender
     });
 
-    this.props.handleAutocomplete(selectedItem, "add");
+    this.props.handleAutocomplete(chipTorender);
   };
 
   handleDelete = item => () => {
     this.setState(state => {
       const selectedItem = [...state.selectedItem];
+      const chipTorender = [...state.chipTorender];
       selectedItem.splice(selectedItem.indexOf(item), 1);
-      this.props.handleAutocomplete(selectedItem, "remove");
-      return { selectedItem };
+      chipTorender.splice(chipTorender.indexOf(item), 1)
+      this.props.handleAutocomplete(chipTorender);
+      return { selectedItem, chipTorender };
     });
   };
 
@@ -185,7 +185,6 @@ class DownshiftMultiple extends React.Component {
                   <Link href={`/editar-actividad/${item.id}`} key={item.id}>
                     <Chip
                       clickable
-                      
                       tabIndex={-1}
                       label={item.name}
                       className={classes.chip}

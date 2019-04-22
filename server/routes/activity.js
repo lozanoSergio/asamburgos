@@ -11,4 +11,6 @@ router.get('/:id', activityCtrl.getActivityById);
 
 router.patch('/:id', activityCtrl.updateActivity);
 
+router.delete('/:id', activityCtrl.deleteActivity)
+
 module.exports = router;

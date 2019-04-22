@@ -238,17 +238,39 @@ function ProfileCard(props) {
       <Divider className={classes.strong} />
       <GridContainer>
         <GridItem>
+          <p className={classes.description}>Actividades</p>
           {profileData.activities &&
-            profileData.activities.map(activity => {
-              // <Chip
-              //   key={}
-              //   label="Clickable Link Chip"
-              //   className={classes.chip}
-              //   component="a"
-              //   href="#chip"
-              //   clickable
-              // />;
-              console.log(activity)
+            profileData.activities.map((activity, index) => {
+              return (
+                <Link
+                  href={`/editar-actividad/${activity.id}`}
+                  key={activity.id}
+                >
+                  <Chip
+                    key={activity.id}
+                    label={activity.name}
+                    className={classes.chip}
+                    clickable
+                  />
+                </Link>
+              );
+            })}
+        </GridItem>
+      </GridContainer>
+      <GridContainer>
+        <GridItem>
+          <p className={classes.description}>Servicios</p>
+          {profileData.services &&
+            profileData.services.map((service, index) => {
+              return (
+                <Link href={`/editar-servicio/${service.id}`} key={service.id}>
+                  <Chip
+                    label={service.name}
+                    className={classes.chip}
+                    clickable
+                  />
+                </Link>
+              );
             })}
         </GridItem>
       </GridContainer>

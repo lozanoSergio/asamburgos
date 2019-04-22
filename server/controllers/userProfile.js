@@ -63,6 +63,7 @@ exports.updateFee = (req, res) => {
             return res.status(422).send(err);
         }
         foundProfile.fee = feeData;
+        foundProfile.type = "Participante"
         foundProfile.set(foundProfile);
         foundProfile.save((err, savedProfile) => {
             if (err) {
@@ -96,5 +97,18 @@ exports.updateActivitiesAndServicies = (req, res) => {
             }
             return res.json(savedProfile);
         })
+    })
+}
+
+exports.deleteUserProfile = (req, res) => {
+    const userProfileId = req.params.id;
+
+    UserProfile.deleteOne({
+        _id: userProfileId
+    }, (err, deletedUser) => {
+        if (err) {
+            return res.status(422).send(err);
+        }
+        return res.json({status: 'DELETED'});
     })
 }
