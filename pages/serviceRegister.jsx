@@ -8,7 +8,7 @@ import { Router } from "../routes";
 import { createService, getServices } from "../actions";
 
 const INITIAL_SERVICE_VALUES = {
-  serviceName: "",
+  name: "",
   voluntaryName: "",
   periodicity: "",
   place: "",

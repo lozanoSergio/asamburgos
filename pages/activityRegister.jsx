@@ -8,7 +8,7 @@ import { Router } from "../routes";
 import { createActivity, getActivities } from "../actions";
 
 const INITIAL_ACTIVITY_VALUES = {
-  activityName: "",
+  name: "",
   voluntaryName: "",
   monday: false,
   tuesday: false,
