@@ -133,6 +133,7 @@ class Auth0 {
   async serverAuth(req) {
     if (req.headers.cookie) {
       const token = getCookieFromReq(req, "jwt");
+      console.log(token)
       const verifiedToken = await this.verifyToken(token);
 
       return verifiedToken;
