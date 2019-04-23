@@ -30,7 +30,7 @@ const rejectPromise = resError => {
 
 //user profiles
 
-export const createUserProfile = async (userProfileData) => {
+export const createUserProfile = async userProfileData => {
   return axiosInstance
     .post("/userProfiles", userProfileData, setAuthHeader())
     .then(response => response.data)
@@ -49,7 +49,7 @@ export const getUserProfileById = async (req, id) => {
     .then(response => response.data);
 };
 
-export const updateProfile = async (userProfileData) => {
+export const updateProfile = async userProfileData => {
   return await axiosInstance
     .patch(
       `/userProfiles/${userProfileData._id}`,
@@ -62,11 +62,7 @@ export const updateProfile = async (userProfileData) => {
 
 export const updateFee = async (userProfileData, feeData) => {
   return await axiosInstance
-    .patch(
-      `/userProfiles/fee/${userProfileData._id}`,
-      feeData,
-      setAuthHeader()
-    )
+    .patch(`/userProfiles/fee/${userProfileData._id}`, feeData, setAuthHeader())
     .then(response => response.data)
     .catch(error => rejectPromise(error));
 };
@@ -85,7 +81,7 @@ export const updateUserActivitiesAndServices = async (
     .catch(error => rejectPromise(error));
 };
 
-export const deleteUserProfile = async (userProfileId) => {
+export const deleteUserProfile = async userProfileId => {
   return axiosInstance
     .delete(`/userProfiles/${userProfileId}`, setAuthHeader())
     .then(response => response.data);
@@ -93,7 +89,7 @@ export const deleteUserProfile = async (userProfileId) => {
 
 //activities
 
-export const createActivity = async (activityData) => {
+export const createActivity = async activityData => {
   return axiosInstance
     .post("/activity", activityData, setAuthHeader())
     .then(response => response.data)
@@ -112,14 +108,14 @@ export const getActivityById = async (req, id) => {
     .then(response => response.data);
 };
 
-export const updateActivity = async (activityData) => {
+export const updateActivity = async activityData => {
   return await axiosInstance
     .patch(`/activity/${activityData._id}`, activityData, setAuthHeader())
     .then(response => response.data)
     .catch(error => rejectPromise(error));
 };
 
-export const deleteActivity = async (activityId) => {
+export const deleteActivity = async activityId => {
   return axiosInstance
     .delete(`/activity/${activityId}`, setAuthHeader())
     .then(response => response.data);
@@ -127,7 +123,7 @@ export const deleteActivity = async (activityId) => {
 
 //services
 
-export const createService = async (serviceData) => {
+export const createService = async serviceData => {
   return axiosInstance
     .post("/service", serviceData, setAuthHeader())
     .then(response => response.data)
@@ -146,14 +142,14 @@ export const getServiceById = async (req, id) => {
     .then(response => response.data);
 };
 
-export const updateService = async (serviceData) => {
+export const updateService = async serviceData => {
   return await axiosInstance
     .patch(`/service/${serviceData._id}`, serviceData, setAuthHeader())
     .then(response => response.data)
     .catch(error => rejectPromise(error));
 };
 
-export const deleteService = async (serviceId) => {
+export const deleteService = async serviceId => {
   return axiosInstance
     .delete(`/service/${serviceId}`, setAuthHeader())
     .then(response => response.data);

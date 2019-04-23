@@ -17,4 +17,7 @@ yarn-error.log*
 
 # Next.js
 /.next
+/server/.next
+
+# Critical data
 server/config/dev.js
