@@ -37,6 +37,7 @@ export default role => Component =>
           this.setState({ error: undefined });
         })
         .catch(err => {
+          console.log(err)
           const error = translateError(err.code);
           setSubmitting(false);
           this.setState({ error });

@@ -43,16 +43,11 @@ class Auth0 {
   }
 
   setSession(authResult) {
-    const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
-    Cookies.set("user", authResult.idTokenPayload);
     Cookies.set("jwt", authResult.idToken);
-    Cookies.set("expireAt", expiresAt);
   }
 
   logout() {
-    Cookies.remove("user");
     Cookies.remove("jwt");
-    Cookies.remove("expireAt");
 
     this.auth0.logout({
       returnTo: BASE_URL,
