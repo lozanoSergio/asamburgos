@@ -1,8 +1,8 @@
 import React from "react";
 import BaseLayout from "../components/layouts/BaseLayout";
 import ProfileTable from "../components/tables/ProfileTable";
-import withAuth from '../components/hoc/withAuth'
-import { getUserProfiles } from "../actions"
+import withAuth from '../components/hoc/withAuth';
+import { getUserProfiles } from "../actions";
 
 
 class Index extends React.Component {

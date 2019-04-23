@@ -81,9 +81,6 @@ exports.updateActivitiesAndServicies = (req, res) => {
     const activities = data.activities;
     const services = data.services;
 
-    console.log(activities)
-    console.log(services)
-
     UserProfile.findById(profileId, (err, foundProfile) => {
         if (err) {
             return res.status(422).send(err);

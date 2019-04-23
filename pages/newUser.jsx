@@ -1,6 +1,7 @@
 import React from "react";
 import BaseLayout from "../components/layouts/BaseLayout";
 import UserForm from "../components/forms/UserForm";
+import withAuth from '../components/hoc/withAuth';
 import { Router } from "../routes";
 import { createUserProfile } from "../actions";
 
@@ -79,4 +80,4 @@ class NewUser extends React.Component {
   }
 }
 
-export default NewUser;
+export default withAuth('admin')(NewUser);

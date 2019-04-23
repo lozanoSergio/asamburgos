@@ -9,12 +9,15 @@ const options = {
   language: "es"
 };
 
+const CLIENT_ID = process.env.AUTH0_CLIENT_ID;
+const BASE_URL = process.env.BASE_URL;
+
 class Auth0 {
   constructor() {
     this.auth0 = new auth0.WebAuth({
       domain: "abcode.eu.auth0.com",
-      clientID: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
-      redirectUri: "http://localhost:3000/callback",
+      clientID: CLIENT_ID,
+      redirectUri: `${BASE_URL}/callback`,
       responseType: "token id_token",
       options
     });
@@ -32,7 +35,6 @@ class Auth0 {
           resolve();
         } else if (err) {
           reject(err);
-          console.log(err);
         } else {
           reject()
         }
@@ -41,22 +43,16 @@ class Auth0 {
   }
 
   setSession(authResult) {
-    // Set the time that the access token will expire at
     const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
-
-    Cookies.set("user", authResult.idTokenPayload);
     Cookies.set("jwt", authResult.idToken);
-    Cookies.set("expireAt", expiresAt);
   }
 
   logout() {
-    Cookies.remove("user");
     Cookies.remove("jwt");
-    Cookies.remove("expireAt");
 
     this.auth0.logout({
-      returnTo: "http://localhost:3000/",
-      clientID: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID
+      returnTo: BASE_URL,
+      clientID: CLIENT_ID
     });
   }
 
@@ -116,7 +112,6 @@ class Auth0 {
             ? verifiedToken
             : undefined;
         } catch (err) {
-          console.log(err);
           return undefined;
         }
       }

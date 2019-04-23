@@ -4,6 +4,7 @@ import ActivityForm from "../components/forms/ActivityForm";
 import ActivityTable from "../components/tables/ActivityTable";
 import GridContainer from "../src/components/Grid/GridContainer";
 import GridItem from "../src/components/Grid/GridItem";
+import withAuth from '../components/hoc/withAuth';
 import { Router } from "../routes";
 import { getActivities, getActivityById, updateActivity } from "../actions";
 
@@ -75,4 +76,4 @@ class EditActivity extends React.Component {
   }
 }
 
-export default EditActivity;
+export default withAuth("admin")(EditActivity);

@@ -111,7 +111,6 @@ class DownshiftMultiple extends React.Component {
       suggestions.filter(suggestion => {
         if (suggestion.name === item) {
           chipTorender = [...chipTorender, suggestion]
-          console.log(chipTorender)
         }
       });
     }

@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { getCookieFromReq } from "../helpers/utils";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/api/v1",
+  baseURL: `${process.env.BASE_URL}/api/v1`,
   timeout: 3000
 });
 
@@ -30,9 +30,9 @@ const rejectPromise = resError => {
 
 //user profiles
 
-export const createUserProfile = async userProfileData => {
+export const createUserProfile = async (userProfileData) => {
   return axiosInstance
-    .post("/userProfiles", userProfileData, setAuthHeader(req))
+    .post("/userProfiles", userProfileData, setAuthHeader())
     .then(response => response.data)
     .catch(error => rejectPromise(error));
 };
@@ -43,18 +43,18 @@ export const getUserProfiles = async req => {
     .then(response => response.data);
 };
 
-export const getUserProfileById = async id => {
+export const getUserProfileById = async (req, id) => {
   return await axiosInstance
     .get(`/userProfiles/${id}`, setAuthHeader(req))
     .then(response => response.data);
 };
 
-export const updateProfile = async userProfileData => {
+export const updateProfile = async (userProfileData) => {
   return await axiosInstance
     .patch(
       `/userProfiles/${userProfileData._id}`,
       userProfileData,
-      setAuthHeader(req)
+      setAuthHeader()
     )
     .then(response => response.data)
     .catch(error => rejectPromise(error));
@@ -65,7 +65,7 @@ export const updateFee = async (userProfileData, feeData) => {
     .patch(
       `/userProfiles/fee/${userProfileData._id}`,
       feeData,
-      setAuthHeader(req)
+      setAuthHeader()
     )
     .then(response => response.data)
     .catch(error => rejectPromise(error));
@@ -79,23 +79,23 @@ export const updateUserActivitiesAndServices = async (
     .patch(
       `/userProfiles/userActivitiesAndServicies/${userProfileData._id}`,
       data,
-      setAuthHeader(req)
+      setAuthHeader()
     )
     .then(response => response.data)
     .catch(error => rejectPromise(error));
 };
 
-export const deleteUserProfile = async userProfileId => {
+export const deleteUserProfile = async (userProfileId) => {
   return axiosInstance
-    .delete(`/userProfiles/${userProfileId}`, setAuthHeader(req))
+    .delete(`/userProfiles/${userProfileId}`, setAuthHeader())
     .then(response => response.data);
 };
 
 //activities
 
-export const createActivity = async activityData => {
+export const createActivity = async (activityData) => {
   return axiosInstance
-    .post("/activity", activityData, setAuthHeader(req))
+    .post("/activity", activityData, setAuthHeader())
     .then(response => response.data)
     .catch(error => rejectPromise(error));
 };
@@ -106,30 +106,30 @@ export const getActivities = async req => {
     .then(response => response.data);
 };
 
-export const getActivityById = async id => {
+export const getActivityById = async (req, id) => {
   return await axiosInstance
     .get(`/activity/${id}`, setAuthHeader(req))
     .then(response => response.data);
 };
 
-export const updateActivity = async activityData => {
+export const updateActivity = async (activityData) => {
   return await axiosInstance
-    .patch(`/activity/${activityData._id}`, activityData, setAuthHeader(req))
+    .patch(`/activity/${activityData._id}`, activityData, setAuthHeader())
     .then(response => response.data)
     .catch(error => rejectPromise(error));
 };
 
-export const deleteActivity = async activityId => {
+export const deleteActivity = async (activityId) => {
   return axiosInstance
-    .delete(`/activity/${activityId}`, setAuthHeader(req))
+    .delete(`/activity/${activityId}`, setAuthHeader())
     .then(response => response.data);
 };
 
 //services
 
-export const createService = async serviceData => {
+export const createService = async (serviceData) => {
   return axiosInstance
-    .post("/service", serviceData, setAuthHeader(req))
+    .post("/service", serviceData, setAuthHeader())
     .then(response => response.data)
     .catch(error => rejectPromise(error));
 };
@@ -140,21 +140,21 @@ export const getServices = async req => {
     .then(response => response.data);
 };
 
-export const getServiceById = async id => {
+export const getServiceById = async (req, id) => {
   return await axiosInstance
     .get(`/service/${id}`, setAuthHeader(req))
     .then(response => response.data);
 };
 
-export const updateService = async serviceData => {
+export const updateService = async (serviceData) => {
   return await axiosInstance
-    .patch(`/service/${serviceData._id}`, serviceData, setAuthHeader(req))
+    .patch(`/service/${serviceData._id}`, serviceData, setAuthHeader())
     .then(response => response.data)
     .catch(error => rejectPromise(error));
 };
 
-export const deleteService = async serviceId => {
+export const deleteService = async (serviceId) => {
   return axiosInstance
-    .delete(`/service/${serviceId}`, setAuthHeader(req))
+    .delete(`/service/${serviceId}`, setAuthHeader())
     .then(response => response.data);
 };

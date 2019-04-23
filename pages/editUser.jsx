@@ -2,6 +2,7 @@ import React from "react";
 import BaseLayout from "../components/layouts/BaseLayout";
 import UserForm from "../components/forms/UserForm";
 import AlertDialog from "../components/Alerts/AlertDialog"
+import withAuth from '../components/hoc/withAuth';
 import { Router } from "../routes";
 import {
   getUserProfileById,
@@ -29,7 +30,7 @@ class EditUser extends React.Component {
     let userServices = [];
 
     try {
-      profile = await getUserProfileById(query.id);
+      profile = await getUserProfileById(req, query.id);
     } catch (error) {
       console.log(error);
     }
@@ -224,4 +225,4 @@ class EditUser extends React.Component {
   }
 }
 
-export default EditUser;
+export default withAuth("admin")(EditUser);

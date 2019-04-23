@@ -4,6 +4,7 @@ import ServiceForm from "../components/forms/ServiceForm";
 import ServiceTable from "../components/tables/ServiceTable";
 import GridContainer from "../src/components/Grid/GridContainer";
 import GridItem from "../src/components/Grid/GridItem";
+import withAuth from '../components/hoc/withAuth';
 import { Router } from "../routes";
 import { createService, getServices } from "../actions";
 
@@ -75,4 +76,4 @@ class ServiceRegister extends React.Component {
   }
 }
 
-export default ServiceRegister;
+export default withAuth("admin")(ServiceRegister);

@@ -8,7 +8,6 @@ import JssProvider from "react-jss/lib/JssProvider";
 import getPageContext from "../helpers/getPageContext";
 
 import "../src/assets/css/material-dashboard-react.css?v=1.6.0";
-const namespace = "http://localhost:3000/";
 
 export default class MyApp extends App {
   constructor() {
@@ -24,7 +23,7 @@ export default class MyApp extends App {
       pageProps = await Component.getInitialProps(ctx);
     }
 
-    const isAdmin = user && user[namespace + 'role'] === 'admin';
+    const isAdmin = user && user[process.env.NAMESPACE + 'role'] === 'admin';
     const auth = { user, isAuthenticated: !!user, isAdmin };
 
     return { pageProps, auth };

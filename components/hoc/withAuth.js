@@ -3,8 +3,6 @@ import LoginForm from "../forms/LoginForm";
 import auth0 from "../../services/auth0";
 import { switchcase } from "../../helpers/utils";
 
-const namespace = "http://localhost:3000/";
-
 const translateError = switchcase({
   "access_denied": "Usuario o contraseña incorrectos.",
   "invalid_user_password": "Usuario o contraseña incorrectos.",
@@ -36,11 +34,9 @@ export default role => Component =>
       auth0.login(values)
         .then(res => {
           setSubmitting(false);
-          console.log(res)
           this.setState({ error: undefined });
         })
         .catch(err => {
-          console.log(err)
           const error = translateError(err.code);
           setSubmitting(false);
           this.setState({ error });
@@ -49,7 +45,7 @@ export default role => Component =>
 
     renderProtectedPage() {
       const { isAuthenticated, user } = this.props.auth;
-      const userRole = user && user[`${namespace}role`];
+      const userRole = user && user[`${process.env.NAMESPACE}/role`];
       let isAuthorized = false;
 
       if (role) {

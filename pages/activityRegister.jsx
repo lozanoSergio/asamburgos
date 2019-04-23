@@ -4,6 +4,7 @@ import ActivityForm from "../components/forms/ActivityForm";
 import ActivityTable from "../components/tables/ActivityTable";
 import GridContainer from "../src/components/Grid/GridContainer";
 import GridItem from "../src/components/Grid/GridItem";
+import withAuth from '../components/hoc/withAuth';
 import { Router } from "../routes";
 import { createActivity, getActivities } from "../actions";
 
@@ -49,7 +50,7 @@ class ActivityRegister extends React.Component {
 
   saveActivity = (activityData, { setSubmitting }) => {
     setSubmitting(true);
-    createActivity(activityData)
+    createActivity(this.props.req, activityData)
       .then(activity => {
         setSubmitting(false);
         this.setState({ error: undefined });
@@ -64,6 +65,7 @@ class ActivityRegister extends React.Component {
 
   render() {
     const { activities } = this.props;
+
     return (
       <BaseLayout>
         <GridContainer>
@@ -82,4 +84,4 @@ class ActivityRegister extends React.Component {
   }
 }
 
-export default ActivityRegister;
+export default withAuth("admin")(ActivityRegister);
