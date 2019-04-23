@@ -56,13 +56,15 @@ class Auth0 {
   }
 
   async login(values) {
+    if(!values){
+      return
+    }
     return new Promise((resolve, reject) => {
       this.auth0.login(
         {
           realm: "Username-Password-Authentication",
           username: values.email,
-          password: values.password,
-          options
+          password: values.password
         },
         function(err, authResult) {
           // Auth tokens in the result or an error
@@ -76,7 +78,6 @@ class Auth0 {
     });
   }
 
-  
   async getJWKS() {
     const res = await axios.get(
       "https://abcode.eu.auth0.com/.well-known/jwks.json"
@@ -106,6 +107,12 @@ class Auth0 {
         try {
           const verifiedToken = jwt.verify(token, cert);
           const expiresAt = verifiedToken.exp * 1000;
+
+          console.log(expiresAt)
+
+          const tok = verifiedToken && new Date().getTime() < expiresAt ? verifiedToken : undefined
+
+          console.log(tok)
 
           return verifiedToken && new Date().getTime() < expiresAt
             ? verifiedToken

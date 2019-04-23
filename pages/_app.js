@@ -15,7 +15,7 @@ export default class MyApp extends App {
     this.pageContext = getPageContext();
   }
 
-  static async getInitialProps({ Component, router, ctx, asPath }) {
+  static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
     const user = process.browser
       ? await auth0.clientAuth()
