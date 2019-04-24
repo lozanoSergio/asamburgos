@@ -44,6 +44,9 @@ app
     });
 
     server.get("*", (req, res) => {
+      if (!dev && !req.secure) {
+        res.redirect('https://' + req.headers.host + req.url);
+      }
       return handle(req, res);
     });
 

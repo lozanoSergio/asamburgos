@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import Modal from "@material-ui/core/Modal";
+import PropTypes from "prop-types";
 import Dialog from "@material-ui/core/Dialog";
-import DialogContent from '@material-ui/core/DialogContent';
+import DialogContent from "@material-ui/core/DialogContent";
 import { withStyles } from "@material-ui/core/styles";
 
 import ProfileCard from "../cards/ProfileCard";
@@ -27,12 +26,10 @@ function ProfileModal(props) {
       onClose={handleClose}
       scroll="paper"
     >
-    <DialogContent>
-    <ProfileCard handleClose={handleClose} profileData={profileData} />
-    </DialogContent>
-      
+      <DialogContent>
+        <ProfileCard handleClose={handleClose} profileData={profileData} />
+      </DialogContent>
     </Dialog>
-
   );
 }
 
@@ -40,4 +37,4 @@ ProfileModal.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles) (ProfileModal);
+export default withStyles(styles)(ProfileModal);
