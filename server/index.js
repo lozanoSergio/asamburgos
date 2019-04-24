@@ -43,10 +43,11 @@ app
       return res.status(200).sendFile("robots.txt", robotsOptions);
     });
 
-    server.get("*", (req, res) => {
-      if (!dev && !req.secure) {
-        res.redirect('https://' + req.headers.host + req.url);
+    server.get("*", (req, res, next) => {
+      if(!dev && req.headers['x-forwarded-proto']!='https') {
+        res.redirect('https://asam-burgos.herokuapp.com' + req.url);
       }
+      next();
       return handle(req, res);
     });
 
