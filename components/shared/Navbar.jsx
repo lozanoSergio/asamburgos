@@ -2,7 +2,6 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { withRouter } from "next/router";
-import { Router } from "../../routes";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppBar from "@material-ui/core/AppBar";
@@ -19,28 +18,25 @@ import auth0 from "../../services/auth0";
 
 import headerStyle from "../../src/assets/jss/material-dashboard-react/components/headerStyle.jsx";
 
-const Header = ({ ...props }) => {
-  const makeBrand = router => {
-    var name;
-    props.routes.map((prop, key) => {
-      if (prop.layout + prop.path === router.pathname) {
-        name = props.rtlActive ? prop.rtlName : prop.name;
-      }
-      return null;
-    });
-    return name;
-  };
-  const { classes, color, router } = props;
+const Header = ({ ...props }) => {  
+  const { classes, color, router, routes } = props;
+  
   const appBarClasses = classNames({
     [" " + classes[color]]: color
   });
+  let title = routes.find(route => {
+    if (route.path === router.asPath) {
+      return route.name
+    }
+  });
+
   return (
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>
         <div className={classes.flex}>
-          <Button color="transparent" href="/" className={classes.title}>
-            {makeBrand(router) || "Panel de control"}
-          </Button>
+          <h2 className={classes.title}>
+            {title && title.name || "Asam Burgos"}
+          </h2>
         </div>
         <Hidden smDown implementation="css">
         <Button  onClick={auth0.logout} color="transparent"><PowerOff className={classes.icons} />Cerrar Sesión</Button>
