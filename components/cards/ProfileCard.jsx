@@ -106,11 +106,13 @@ function ProfileCard(props) {
         <GridItem xs={12} sm={6} md={6}>
           <p className={classes.description}>
             <LocationCity className={classes.icon} />
-            {(profileData.address +
-              " " +
-              profileData.zipCode +
-              " " +
-              profileData.city) || "No especificado"}
+            {(profileData.adress &&
+              profileData.address +
+                " " +
+                profileData.zipCode +
+                " " +
+                profileData.city) ||
+              "No especificado"}
           </p>
         </GridItem>
         <GridItem xs={12} sm={6} md={6}>
@@ -126,7 +128,11 @@ function ProfileCard(props) {
             <GridItem xs={12} sm={6} md={6}>
               <p className={classes.description}>
                 <AccessibleForward className={classes.icon} />
-                {profileData.disabilityType + " " + profileData.disabilityLevel}
+                {(profileData.disabilityType &&
+                  profileData.disabilityType +
+                    " " +
+                    profileData.disabilityLevel) ||
+                  "No especificado"}
               </p>
             </GridItem>
           </GridContainer>
@@ -139,23 +145,23 @@ function ProfileCard(props) {
             <GridItem xs={12} sm={6} md={6}>
               <p className={classes.description}>
                 <Person className={classes.icon} />
-                {(profileData.parentName +
+                {(profileData.parentName &&
+                  profileData.parentName +
                     " " +
                     profileData.parentSurname1 +
                     " " +
-                    profileData.parentSurname2)
-                   || "No especificado"}
+                    profileData.parentSurname2) ||
+                  "No especificado"}
               </p>
             </GridItem>
             <GridItem xs={12} sm={6} md={6}>
               <p className={classes.description}>
                 <Phone className={classes.icon} />
-                {profileData.contactPhone
-                  || "No especificado"}
+                {profileData.contactPhone || "No especificado"}
               </p>
             </GridItem>
           </GridContainer>
-          <Divider className={classes.strong} />
+          {profileData.fee && <Divider className={classes.strong} />}
           {profileData.fee && (
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
@@ -164,29 +170,25 @@ function ProfileCard(props) {
               <GridItem xs={12} sm={12} md={12}>
                 <p className={classes.description}>
                   <AccountBalance className={classes.icon} />
-                  {profileData.fee.account
-                    || "No especificado"}
+                  {profileData.fee.account || "No especificado"}
                 </p>
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                 <p className={classes.description}>
                   <span className={classes.subTitle}>Participante: </span>
-                  {profileData.fee.subFee
-                    || "Sin cuota"}
+                  {profileData.fee.subFee || "Sin cuota"}
                 </p>
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                 <p className={classes.description}>
                   <span className={classes.subTitle}>Actividades: </span>
-                  {profileData.fee.activityFee
-                    || "Sin cuota"}
+                  {profileData.fee.activityFee || "Sin cuota"}
                 </p>
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                 <p className={classes.description}>
                   <span className={classes.subTitle}>Servicios: </span>
-                  {profileData.fee.serviceFee
-                    || "Sin cuota"}
+                  {profileData.fee.serviceFee || "Sin cuota"}
                 </p>
               </GridItem>
             </GridContainer>
@@ -194,12 +196,14 @@ function ProfileCard(props) {
         </div>
       )}
 
-      <Divider className={classes.strong} />
-      {profileData.activities &&
-      <GridContainer>
-        <GridItem>
-          <p className={classes.description}>Actividades</p>
-          
+      {(profileData.activities || profileData.services) && (
+        <Divider className={classes.strong} />
+      )}
+      {profileData.activities && (
+        <GridContainer>
+          <GridItem>
+            <p className={classes.description}>Actividades</p>
+
             {profileData.activities.map((activity, index) => {
               return (
                 <Link
@@ -215,8 +219,9 @@ function ProfileCard(props) {
                 </Link>
               );
             })}
-        </GridItem>
-      </GridContainer>}
+          </GridItem>
+        </GridContainer>
+      )}
       {profileData.services && (
         <GridContainer>
           <GridItem>
