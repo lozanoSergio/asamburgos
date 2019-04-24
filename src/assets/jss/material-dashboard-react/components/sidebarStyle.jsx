@@ -143,6 +143,16 @@ const sidebarStyle = theme => ({
       color: whiteColor
     }
   },
+  itemBtn: {
+    width: "auto",
+    margin: "10px 15px 0",
+    display: "block",
+    padding: "10px 15px",
+    position: "relative",
+    lineHeight: "1.5em",
+    borderRadius: "3px",
+    backgroundColor: "transparent"
+  },
   itemLink: {
     width: "auto",
     transition: "all 300ms linear",
@@ -165,6 +175,9 @@ const sidebarStyle = theme => ({
     verticalAlign: "middle",
     color: "rgba(" + hexToRgb(whiteColor) + ", 0.8)"
   },
+  divider: {
+    backgroundColor: "rgba(" + hexToRgb(grayColor[6]) + ", 0.3) !important"
+  },
   itemIconRTL: {
     marginRight: "3px",
     marginLeft: "15px",
@@ -176,6 +189,18 @@ const sidebarStyle = theme => ({
     lineHeight: "30px",
     fontSize: "14px",
     color: whiteColor
+  },
+  itemBtnText: {
+    ...defaultFont,
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "48px",
+    position: "absolute",
+    borderRadius: "inherit",
+    justifyContent: "left",
+    textTransform: "unset",
+    padding: "0 16px"
   },
   itemTextRTL: {
     textAlign: "right"

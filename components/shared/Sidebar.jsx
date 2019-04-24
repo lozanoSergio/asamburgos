@@ -12,13 +12,16 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
+import Divider from '@material-ui/core/Divider';
+import PowerOff from "@material-ui/icons/PowerSettingsNew";
+import Button from "@material-ui/core/Button";
 
-import AdminNavbarLinks from "../../src/components/Navbars/AdminNavbarLinks";
+import auth0 from "../../services/auth0";
 
 import sidebarStyle from "../../src/assets/jss/material-dashboard-react/components/sidebarStyle";
 
 const Sidebar = ({ ...props }) => {
-  const { classes, color, logo, logoText, customRoutes, router } = props;
+  const { classes, color, logo, customRoutes, router } = props;
 
   var brand = (
     <div className={classes.logo}>
@@ -79,6 +82,10 @@ const Sidebar = ({ ...props }) => {
           </Link>
         );
       })}
+      <Divider className={classes.divider} variant="middle" />
+      <ListItem className={classes.itemLink}>
+      <Button onClick={auth0.logout} className={classNames(classes.itemBtnText, classes.whiteFont)}><PowerOff className={classes.itemIcon} />Cerrar Sesión</Button>
+      </ListItem>
     </List>
   );
 
@@ -100,12 +107,8 @@ const Sidebar = ({ ...props }) => {
           }}
         >
           {brand}
-          <div className={classes.sidebarWrapper}>
-            {links}
-          </div>
-            <div
-              className={classes.background}
-            />
+          <div className={classes.sidebarWrapper}>{links}</div>
+          <div className={classes.background} />
         </Drawer>
       </Hidden>
       <Hidden smDown implementation="css">
@@ -121,9 +124,7 @@ const Sidebar = ({ ...props }) => {
         >
           {brand}
           <div className={classes.sidebarWrapper}>{links}</div>
-            <div
-              className={classes.background}
-            />
+          <div className={classes.background} />
         </Drawer>
       </Hidden>
     </div>

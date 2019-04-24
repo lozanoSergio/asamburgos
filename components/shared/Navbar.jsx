@@ -12,7 +12,6 @@ import Hidden from "@material-ui/core/Hidden";
 // @material-ui/icons
 import Menu from "@material-ui/icons/Menu";
 // core components
-import AdminNavbarLinks from "../../src/components/Navbars/AdminNavbarLinks";
 import PowerOff from "@material-ui/icons/PowerSettingsNew"
 import Button from "../../src/components/CustomButtons/Button.jsx";
 
