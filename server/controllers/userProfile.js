@@ -18,10 +18,11 @@ exports.saveUserProfile = (req, res) => {
 }
 
 exports.getUserProfiles = (req, res) => {
-    UserProfile.find({}).sort({'createdAt': -1}).exec((err, allUserProfiles) => {
+    UserProfile.find({}).sort({'createdAt':-1}).exec((err, allUserProfiles) => {
         if (err) {
             return res.status(422).send(err);
         }
+        allUserProfiles.reverse();
         return res.json(allUserProfiles);
     });
 }

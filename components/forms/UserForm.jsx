@@ -153,7 +153,6 @@ const validateInputs = values => {
 
   Object.entries(values).forEach(([key, value]) => {
     if (!values[key] && key !== "endDate") {
-      console.log("error")
       errors[key] = `Field ${key} is required!`;
     }
   });
