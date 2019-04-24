@@ -17,8 +17,7 @@ import Accessibility from "@material-ui/icons/AccessibilityNew"
 
 import dashboardStyle from "../../src/assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
-import image from "../../src/assets/img/sidebar-2.jpg";
-import logo from "../../src/assets/img/reactlogo.png";
+import logo from "../../static/images/logo_typo.png";
 
 const dashboardRoutes = [
   {
@@ -47,7 +46,6 @@ class BaseLayout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      image: image,
       color: "blue",
       hasImage: true,
       fixedClasses: "dropdown show",
@@ -96,7 +94,6 @@ class BaseLayout extends React.Component {
           customRoutes={dashboardRoutes}
           logoText={"Asam Burgos"}
           logo={logo}
-          image={image}
           handleDrawerToggle={this.handleDrawerToggle}
           open={this.state.mobileOpen}
           color="blue"

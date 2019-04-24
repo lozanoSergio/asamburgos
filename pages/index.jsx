@@ -26,4 +26,4 @@ class Index extends React.Component {
   }
 }
 
-export default withAuth('admin')(Index);
+export default (Index);

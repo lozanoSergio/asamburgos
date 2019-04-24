@@ -18,7 +18,7 @@ import AdminNavbarLinks from "../../src/components/Navbars/AdminNavbarLinks";
 import sidebarStyle from "../../src/assets/jss/material-dashboard-react/components/sidebarStyle";
 
 const Sidebar = ({ ...props }) => {
-  const { classes, color, logo, image, logoText, customRoutes, router } = props;
+  const { classes, color, logo, logoText, customRoutes, router } = props;
 
   var brand = (
     <div className={classes.logo}>
@@ -26,7 +26,6 @@ const Sidebar = ({ ...props }) => {
         <div className={classes.logoImage}>
           <img src={logo} alt="logo" className={classes.img} />
         </div>
-        {logoText}
       </a>
     </div>
   );
@@ -104,12 +103,9 @@ const Sidebar = ({ ...props }) => {
           <div className={classes.sidebarWrapper}>
             {links}
           </div>
-          {image !== undefined ? (
             <div
               className={classes.background}
-              //style={{ backgroundImage: "url(" + image + ")" }}
             />
-          ) : null}
         </Drawer>
       </Hidden>
       <Hidden smDown implementation="css">
@@ -125,12 +121,9 @@ const Sidebar = ({ ...props }) => {
         >
           {brand}
           <div className={classes.sidebarWrapper}>{links}</div>
-          {image !== undefined ? (
             <div
               className={classes.background}
-              //style={{ backgroundImage: "url(" + image + ")" }}
             />
-          ) : null}
         </Drawer>
       </Hidden>
     </div>

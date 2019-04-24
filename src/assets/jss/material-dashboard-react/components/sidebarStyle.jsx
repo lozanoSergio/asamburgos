@@ -68,7 +68,7 @@ const sidebarStyle = theme => ({
       content: '""',
       position: "absolute",
       bottom: "0",
-
+      top: 90,
       height: "1px",
       right: "15px",
       width: "calc(100% - 30px)",
@@ -83,7 +83,6 @@ const sidebarStyle = theme => ({
     fontSize: "18px",
     textAlign: "left",
     fontWeight: "400",
-    lineHeight: "30px",
     textDecoration: "none",
     backgroundColor: "transparent",
     "&,&:hover": {
@@ -94,14 +93,13 @@ const sidebarStyle = theme => ({
     textAlign: "right"
   },
   logoImage: {
-    width: "30px",
+    width: "100%",
     display: "inline-block",
-    maxHeight: "30px",
     marginLeft: "10px",
     marginRight: "15px"
   },
   img: {
-    width: "35px",
+    width: "10em",
     top: "22px",
     position: "absolute",
     verticalAlign: "middle",
@@ -286,6 +284,7 @@ const sidebarStyle = theme => ({
     height: "calc(100vh - 75px)",
     overflow: "auto",
     width: "260px",
+    marginTop: "25px",
     zIndex: "4",
     overflowScrolling: "touch"
   },

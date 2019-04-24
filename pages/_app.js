@@ -46,6 +46,7 @@ export default class MyApp extends App {
       <Container>
         <Head>
           <title>Asam Burgos</title>
+          <link rel="icon" type="image/ico" href="/static/favicon.ico"/>
         </Head>
         <JssProvider
           registry={this.pageContext.sheetsRegistry}

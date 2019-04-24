@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
+const config = require("../config");
 const Schema = mongoose.Schema;
 const encrypt = require("mongoose-encryption");
 
-const encKey = process.env.ENC_KEY;
-const sigKey = process.env.SIG_KEY;
+const encKey = config.ENC_KEY;
+const sigKey = config.SIG_KEY;
 
 const setStringType = maxLength => ({
   type: String,
