@@ -69,6 +69,7 @@ exports.updateFee = (req, res) => {
             if (err) {
                 return res.status(422).send(err);
             }
+            //console.log(savedProfile)
             return res.json(savedProfile);
         })
     })

@@ -16,21 +16,6 @@ const setStringTypeNotRequired = maxLength => ({
   maxlength: maxLength
 });
 
-const feeSchema = new Schema({
-  subFee: setStringTypeNotRequired(12),
-  activityFee: setStringTypeNotRequired(12),
-  serviceFee: setStringTypeNotRequired(12),
-  account: setStringTypeNotRequired(29),
-  startDate: Date,
-  endDate: Date
-});
-
-feeSchema.plugin(encrypt, {
-    encryptionKey: encKey,
-    signingKey: sigKey,
-    encryptedFields: ["account"]
-});
-
 const userProfileSchema = new Schema({
   type: setStringType(32),
   firstName: setStringType(128),
@@ -51,9 +36,21 @@ const userProfileSchema = new Schema({
   notes: setStringTypeNotRequired(2048),
   createdAt: Date,
   updatedAt: Date,
-  fee: {feeSchema},
+  fee: {
+    subFee: setStringTypeNotRequired(12),
+    activityFee: setStringTypeNotRequired(12),
+    serviceFee: setStringTypeNotRequired(12),
+    account: setStringTypeNotRequired(29),
+    startDate: Date,
+    endDate: Date
+  },
   activities: { type: Array, default: void 0 },
   services: { type: Array, default: void 0 }
+});
+
+userProfileSchema.plugin(encrypt, {
+    encryptionKey: encKey,
+    signingKey: sigKey
 });
 
 module.exports = mongoose.model("UserProfile", userProfileSchema);

@@ -50,7 +50,6 @@ class ActivityRegister extends React.Component {
 
   saveActivity = (activityData, { setSubmitting }) => {
     setSubmitting(true);
-    console.log(activityData)
     createActivity(activityData)
       .then(activity => {
         setSubmitting(false);

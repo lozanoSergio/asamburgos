@@ -50,7 +50,7 @@ class Auth0 {
     Cookies.remove("jwt");
 
     this.auth0.logout({
-      returnTo: "",
+      returnTo: process.env.BASE_URL,
       clientID: CLIENT_ID
     });
   }
@@ -108,11 +108,7 @@ class Auth0 {
           const verifiedToken = jwt.verify(token, cert);
           const expiresAt = verifiedToken.exp * 1000;
 
-          console.log(expiresAt)
-
           const tok = verifiedToken && new Date().getTime() < expiresAt ? verifiedToken : undefined
-
-          console.log(tok)
 
           return verifiedToken && new Date().getTime() < expiresAt
             ? verifiedToken
@@ -133,7 +129,6 @@ class Auth0 {
   async serverAuth(req) {
     if (req.headers.cookie) {
       const token = getCookieFromReq(req, "jwt");
-      console.log(token)
       const verifiedToken = await this.verifyToken(token);
 
       return verifiedToken;
