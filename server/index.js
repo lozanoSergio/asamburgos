@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require("express");
 const compression = require("compression");
 const path = require("path");
@@ -55,6 +56,8 @@ app
         });
       }
     });
+
+
 
     const PORT = process.env.PORT || 3000;
 
