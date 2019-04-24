@@ -47,7 +47,6 @@ app
       if(!dev && req.headers['x-forwarded-proto']!='https') {
         res.redirect('https://asam-burgos.herokuapp.com' + req.url);
       }
-      next();
       return handle(req, res);
     });
 
