@@ -119,7 +119,7 @@ class ProfileTable extends React.Component {
         (item.surName1 + " " + item.surName2) || "No especificado",
         item.email || "No especificado",
         item.numberPhone || "No especificado",
-        item.fee.subFee ? item.fee.subFee : "Sin cuota",
+        item.fee.subFee && item.fee.subFee || "Sin cuota",
         <Button
           size="small"
           onClick={() => this.handleOpen(item)}
