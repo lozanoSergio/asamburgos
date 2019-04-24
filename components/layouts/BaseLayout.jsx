@@ -103,6 +103,7 @@ class BaseLayout extends React.Component {
           <Navbar
             routes={dashboardRoutes}
             handleDrawerToggle={this.handleDrawerToggle}
+            routes={dashboardRoutes}
             {...rest}
           />
           <div className={classes.content}>

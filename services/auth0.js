@@ -50,7 +50,7 @@ class Auth0 {
     Cookies.remove("jwt");
 
     this.auth0.logout({
-      returnTo: process.env.BASE_URL,
+      returnTo: BASE_URL,
       clientID: CLIENT_ID
     });
   }

@@ -37,13 +37,13 @@ const headerStyle = theme => ({
     flex: 1
   },
   title: {
-    ...defaultFont,
     lineHeight: "30px",
     fontSize: "18px",
+    fontWeight: 400,
     borderRadius: "3px",
-    textTransform: "none",
     color: "inherit",
     margin: "0",
+    marginLeft: "1em",
     "&:hover,&:focus": {
       background: "transparent"
     }

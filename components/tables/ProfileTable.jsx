@@ -116,10 +116,10 @@ class ProfileTable extends React.Component {
       this.state.tableData.push([
         item.type,
         item.firstName,
-        item.surName1 + " " + item.surName2,
-        item.email,
-        item.numberPhone,
-        item.fee ? item.fee.subFee : "Sin cuota",
+        (item.surName1 + " " + item.surName2) || "No especificado",
+        item.email || "No especificado",
+        item.numberPhone || "No especificado",
+        item.fee.subFee ? item.fee.subFee : "Sin cuota",
         <Button
           size="small"
           onClick={() => this.handleOpen(item)}

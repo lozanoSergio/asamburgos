@@ -153,6 +153,7 @@ const validateInputs = values => {
 
   Object.entries(values).forEach(([key, value]) => {
     if (!values[key] && key !== "endDate") {
+      console.log("error")
       errors[key] = `Field ${key} is required!`;
     }
   });
@@ -374,9 +375,10 @@ class UserForm extends React.Component {
                       <GridContainer>
                         <GridItem xs={12} sm={12} md={4}>
                           <Field
-                            labelText="Nombre"
+                            labelText="Nombre *"
                             name="firstName"
                             id="firstName"
+                            required
                             color={color}
                             formControlProps={{
                               fullWidth: true

@@ -21,7 +21,7 @@ const userProfileSchema = new Schema({
   firstName: setStringType(128),
   surName1: setStringTypeNotRequired(128),
   surName2: setStringTypeNotRequired(128),
-  email: setStringType(256),
+  email: setStringTypeNotRequired(256),
   birthDate: Date,
   disabilityLevel: setStringTypeNotRequired(128),
   disabilityType: setStringTypeNotRequired(128),
