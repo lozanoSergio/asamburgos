@@ -33,4 +33,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index;
+export default withAuth('admin')(Index);
