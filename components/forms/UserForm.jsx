@@ -431,6 +431,7 @@ class UserForm extends React.Component {
                             labelText="Fecha de Nacimiento"
                             name="birthDate"
                             id="birthDate"
+                            disableFuture
                             color={color}
                             formControlProps={{
                               fullWidth: false

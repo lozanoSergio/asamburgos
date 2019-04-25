@@ -30,6 +30,7 @@ const InputDate = ({
   field,
   form,
   disabled,
+  disableFuture,
   ...other
 }) => {
   const currentError = form.errors[field.name];
@@ -89,7 +90,7 @@ const InputDate = ({
           <DatePicker
             keyboard
             margin="normal"
-            disableFuture
+            disableFuture={disableFuture}
             openTo={openTo}
             format="DD/MM/YYYY"
             name={field.name}
