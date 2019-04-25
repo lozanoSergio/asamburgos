@@ -86,6 +86,16 @@ const styles = theme => ({
   }
 });
 
+const KEYS_TO_FILTERS = [
+  "type",
+  "firstName",
+  "surName1",
+  "surName2",
+  "email",
+  "numberPhone",
+  "fee.subFee"
+];
+
 class ProfileTable extends React.Component {
   constructor(props) {
     super(props);
@@ -95,26 +105,36 @@ class ProfileTable extends React.Component {
       open: false,
       profileData: {},
       tableData: []
-    };
+    };    
 
     const { classes, profiles } = this.props;
 
-    const KEYS_TO_FILTERS = [
-      "type",
-      "firstName",
-      "surName1",
-      "surName2",
-      "email",
-      "numberPhone",
-      "fee.subFee"
-    ];
-    //console.log(profiles)
+  }
+
+  searchUpdated(term) {
+    this.setState({ searchTerm: term.target.value });
+  }
+
+  handleOpen = item => {
+    this.setState({ open: true, profileData: item });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  render() {
+    const { classes, profiles } = this.props;
+    const { open, profileData, searchTerm } = this.state;
+
+    let tableData = [];
+
     const filteredData = profiles.filter(
-      createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
+      createFilter(searchTerm, KEYS_TO_FILTERS)
     );
 
     filteredData.forEach((item, i) => {
-      this.state.tableData.push([
+      tableData.push([
         item.type,
         item.firstName,
         (item.surName1 + " " + item.surName2) || "No especificado",
@@ -135,26 +155,6 @@ class ProfileTable extends React.Component {
         </Link>
       ]);
     });
-
-    this.searchUpdated = this.searchUpdated.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-  }
-
-  searchUpdated(term) {
-    this.setState({ searchTerm: term.target.value });
-  }
-
-  handleOpen = item => {
-    this.setState({ open: true, profileData: item });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
-  render() {
-    const { classes } = this.props;
-    const { open, profileData, tableData } = this.state;
 
     return (
       <GridContainer>
