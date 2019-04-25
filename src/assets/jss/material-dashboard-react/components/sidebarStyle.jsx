@@ -23,6 +23,7 @@ const sidebarStyle = theme => ({
     bottom: "0",
     left: "0",
     zIndex: "1",
+    overflowY: "visible",
     ...boxShadow,
     width: drawerWidth,
     [theme.breakpoints.up("md")]: {
@@ -41,7 +42,6 @@ const sidebarStyle = theme => ({
       left: "auto",
       zIndex: "1032",
       visibility: "visible",
-      overflowY: "visible",
       borderTop: "none",
       textAlign: "left",
       paddingRight: "0px",
