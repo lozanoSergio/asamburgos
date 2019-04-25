@@ -1,7 +1,11 @@
 {
-  "name": "asam-burgos-dashboard",
+  "name": "asam-burgos",
   "version": "1.0.0",
-  "private": true,
+  "main": "index.js",
+  "keywords": [],
+  "author": "sergio lozano",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
     "@date-io/moment": "^1.3.5",
     "@material-ui/core": "3.9.2",

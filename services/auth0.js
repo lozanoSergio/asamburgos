@@ -63,7 +63,7 @@ class Auth0 {
       this.auth0.login(
         {
           realm: "Username-Password-Authentication",
-          username: values.email,
+          username: values.email.toLowerCase(),
           password: values.password
         },
         function(err, authResult) {
