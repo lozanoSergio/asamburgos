@@ -2,7 +2,6 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
 // core components
 import GridItem from "../../src/components/Grid/GridItem.jsx";
 import GridContainer from "../../src/components/Grid/GridContainer.jsx";
@@ -105,9 +104,7 @@ class ProfileTable extends React.Component {
       open: false,
       profileData: {},
       tableData: []
-    };    
-
-    const { classes, profiles } = this.props;
+    };
 
   }
 

@@ -11,6 +11,7 @@ const INITIAL_PROFILE_VALUES = {
   surName2: "",
   email: "",
   birthDate: null,
+  createdAt: new Date(),
   address: "",
   city: "",
   zipCode: "",

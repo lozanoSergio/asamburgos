@@ -434,7 +434,20 @@ class UserForm extends React.Component {
                             disableFuture
                             color={color}
                             formControlProps={{
-                              fullWidth: false
+                              fullWidth: true
+                            }}
+                            component={InputDate}
+                          />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <Field
+                            labelText="Fecha de Registro"
+                            name="createdAt"
+                            id="createdAt"
+                            disableFuture
+                            color={color}
+                            formControlProps={{
+                              fullWidth: true
                             }}
                             component={InputDate}
                           />
@@ -490,7 +503,7 @@ class UserForm extends React.Component {
                             maskType="numberPhone"
                             color={color}
                             formControlProps={{
-                              fullWidth: false
+                              fullWidth: true
                             }}
                             component={InputNumber}
                           />
@@ -587,7 +600,7 @@ class UserForm extends React.Component {
                                 maskType="numberPhone"
                                 color={color}
                                 formControlProps={{
-                                  fullWidth: false
+                                  fullWidth: true
                                 }}
                                 component={InputNumber}
                               />
@@ -757,7 +770,7 @@ class UserForm extends React.Component {
                                   disabled={newUser}
                                   color={color}
                                   formControlProps={{
-                                    fullWidth: false
+                                    fullWidth: true
                                   }}
                                   component={InputDate}
                                 />
