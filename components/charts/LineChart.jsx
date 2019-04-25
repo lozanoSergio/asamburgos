@@ -65,7 +65,7 @@ function LineChart({ classes, dates }) {
     labels: years,
     datasets: [
       {
-        label: "Personas Registradas",
+        label: "Total de registros",
         fill: false,
         lineTension: 0.1,
         backgroundColor: "rgba(75,192,192,0.4)",
@@ -95,9 +95,9 @@ function LineChart({ classes, dates }) {
           <CardHeader color="primary">
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
-                <h4 className={classes.cardTitleWhite}>Personas registradas</h4>
+                <h4 className={classes.cardTitleWhite}>Altas registradas</h4>
                 <p className={classes.cardCategoryWhite}>
-                  Personas registradas 
+                  Número de personas registradas y filtradas por años.
                 </p>
               </GridItem>
             </GridContainer>
