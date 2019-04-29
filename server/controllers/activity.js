@@ -49,18 +49,14 @@ exports.getUsersInActivity = (req, res) => {
     if (err) {
       return res.status(422).send(err);
     }
-
-    let users = [];
-
-    allUsers.filter(user => {
-      if (user.activities && user.activities.indexOf(activityId) === -1) {
-        users.push(user)
-      }
-    });
+    const users = allUsers.filter(
+      user =>
+        user.activities &&
+        user.activities.some(activity => activity.id === activityId)
+    );
     return res.json(users);
   });
-
-}
+};
 
 exports.updateActivity = (req, res) => {
   const activityId = req.params.id;

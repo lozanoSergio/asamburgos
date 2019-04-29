@@ -108,6 +108,12 @@ export const getActivityById = async (req, id) => {
     .then(response => response.data);
 };
 
+export const getUsersInActivity = async (req, id) => {
+  return await axiosInstance
+    .get(`/activity/users/${id}`, setAuthHeader(req))
+    .then(response => response.data);
+}
+
 export const updateActivity = async activityData => {
   return await axiosInstance
     .patch(`/activity/${activityData._id}`, activityData, setAuthHeader())
@@ -141,6 +147,12 @@ export const getServiceById = async (req, id) => {
     .get(`/service/${id}`, setAuthHeader(req))
     .then(response => response.data);
 };
+
+export const getUsersInService = async (req, id) => {
+  return await axiosInstance
+    .get(`/service/users/${id}`, setAuthHeader(req))
+    .then(response => response.data);
+}
 
 export const updateService = async serviceData => {
   return await axiosInstance

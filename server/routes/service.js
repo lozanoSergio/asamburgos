@@ -11,6 +11,8 @@ router.get('', authService.checkJWT, authService.checkRole('admin'), serviceCtrl
 
 router.get('/:id', authService.checkJWT, authService.checkRole('admin'), serviceCtrl.getServiceById);
 
+router.get('/users/:id', authService.checkJWT, authService.checkRole('admin'), serviceCtrl.getUsersInService);
+
 router.patch('/:id', authService.checkJWT, authService.checkRole('admin'), serviceCtrl.updateService);
 
 router.delete('/:id', authService.checkJWT, authService.checkRole('admin'), serviceCtrl.deleteService);

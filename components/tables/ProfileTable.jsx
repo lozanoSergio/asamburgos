@@ -103,9 +103,7 @@ class ProfileTable extends React.Component {
       searchTerm: "",
       open: false,
       profileData: {},
-      tableData: [],
-      page: 0,
-      rowsPerPage: 25
+      tableData: []
     };
 
   }
@@ -120,14 +118,6 @@ class ProfileTable extends React.Component {
 
   handleClose = () => {
     this.setState({ open: false });
-  };
-  
-  handleChangePage = (event, page) => {
-    this.setState({ page });
-  };
-
-  handleChangeRowsPerPage = event => {
-    this.setState({ rowsPerPage: event.target.value });
   };
 
   render() {
@@ -208,10 +198,8 @@ class ProfileTable extends React.Component {
                   ""
                 ]}
                 tableData={tableData}
-                page={page}
-                rowsPerPage={rowsPerPage}
-                handleChangePage={this.handleChangePage}
-                handleChangeRowsPerPage={this.handleChangeRowsPerPage}
+                lebelText="usuarios"
+                
               />
               <ProfileModal
                 handleOpen={open}

@@ -128,6 +128,7 @@ class ServiceTable extends React.Component {
               ""
             ]}
             tableData={tableData}
+            lebelText="servicios"
           />
         </CardBody>
         <AlertDialog

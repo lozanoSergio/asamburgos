@@ -38,6 +38,22 @@ exports.getServiceById = (req, res) => {
     });
 }
 
+exports.getUsersInService = (req, res) => {
+  const serviceId = req.params.id;
+
+  User.find({}).exec((err, allUsers) => {
+    if (err) {
+      return res.status(422).send(err);
+    }
+    const users = allUsers.filter(
+      user =>
+        user.services &&
+        user.services.some(service => service.id === serviceId)
+    );
+    return res.json(users);
+  });
+};
+
 exports.updateService = (req, res) => {
     const serviceId = req.params.id;
     const serviceData = req.body;
