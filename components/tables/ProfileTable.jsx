@@ -122,7 +122,7 @@ class ProfileTable extends React.Component {
 
   render() {
     const { classes, profiles } = this.props;
-    const { open, profileData, searchTerm } = this.state;
+    const { open, profileData, searchTerm, page, rowsPerPage } = this.state;
 
     let tableData = [];
 
@@ -172,9 +172,9 @@ class ProfileTable extends React.Component {
                         className: classes.margin + " " + classes.search
                       }}
                       inputProps={{
-                        placeholder: "Search",
+                        placeholder: "Buscar",
                         inputProps: {
-                          "aria-label": "Search"
+                          "aria-label": "Buscar"
                         }
                       }}
                       onChange={e => this.searchUpdated(e)}
@@ -198,6 +198,8 @@ class ProfileTable extends React.Component {
                   ""
                 ]}
                 tableData={tableData}
+                lebelText="usuarios"
+                
               />
               <ProfileModal
                 handleOpen={open}

@@ -11,6 +11,8 @@ router.get('', authService.checkJWT, authService.checkRole('admin'), activityCtr
 
 router.get('/:id', authService.checkJWT, authService.checkRole('admin'), activityCtrl.getActivityById);
 
+router.get('/users/:id', authService.checkJWT, authService.checkRole('admin'), activityCtrl.getUsersInActivity);
+
 router.patch('/:id', authService.checkJWT, authService.checkRole('admin'), activityCtrl.updateActivity);
 
 router.delete('/:id', authService.checkJWT, authService.checkRole('admin'), activityCtrl.deleteActivity)

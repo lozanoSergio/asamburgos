@@ -42,6 +42,22 @@ exports.getActivityById = (req, res) => {
     });
 };
 
+exports.getUsersInActivity = (req, res) => {
+  const activityId = req.params.id;
+
+  User.find({}).exec((err, allUsers) => {
+    if (err) {
+      return res.status(422).send(err);
+    }
+    const users = allUsers.filter(
+      user =>
+        user.activities &&
+        user.activities.some(activity => activity.id === activityId)
+    );
+    return res.json(users);
+  });
+};
+
 exports.updateActivity = (req, res) => {
   const activityId = req.params.id;
   const activityData = req.body;

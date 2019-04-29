@@ -61,7 +61,7 @@ const validateInputs = values => {
 };
 
 function ServiceForm(props) {
-  const { classes, initialValues, onSubmit } = props;
+  const { classes, initialValues, onSubmit, edit } = props;
   return (
     <Card>
       <Formik
@@ -72,7 +72,7 @@ function ServiceForm(props) {
         {({ isSubmitting }) => (
           <Form>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Registro de servicios</h4>
+              <h4 className={classes.cardTitleWhite}>{edit ? "Actualizar servicio" : "Registro de servicio"}</h4>
             </CardHeader>
             <CardBody>
               <GridContainer>
@@ -155,10 +155,28 @@ function ServiceForm(props) {
                   />
                 </GridItem>
               </GridContainer>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                  <Field
+                    labelText="Notas"
+                    name="notes"
+                    id="notes"
+                    color={teal}
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      multiline: true,
+                      rows: 3
+                    }}
+                    component={CustomInput}
+                  />
+                </GridItem>
+              </GridContainer>
             </CardBody>
             <CardFooter>
               <Button type="submit" color={"primary"} disabled={isSubmitting}>
-                Crear Servicio
+                {edit ? "actualizar servicio" : "crear servicio"}
               </Button>
             </CardFooter>
           </Form>

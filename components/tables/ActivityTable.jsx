@@ -180,6 +180,7 @@ class ActivityTable extends React.Component {
               ""
             ]}
             tableData={tableData}
+            lebelText="actividades"
           />
         </CardBody>
         <AlertDialog

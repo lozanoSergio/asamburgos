@@ -1,9 +1,9 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const setStringType = (maxLength) => ({ type: String, required: true, maxlength: maxLength })
+const setStringType = (maxLength) => ({ type: String, required: true, maxlength: maxLength });
 const setBooleanType = {type: Boolean, required: true}
-const setStringTypeNotRequired = (maxLength) => ({ type: String, maxlength: maxLength })
+const setStringTypeNotRequired = (maxLength) => ({ type: String, maxlength: maxLength });
 
 const activitySchema = new Schema({
     name: setStringType(128),

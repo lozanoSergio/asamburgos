@@ -8,7 +8,6 @@ exports.saveUserProfile = (req, res) => {
   if (profile.createdAt === null) {
     profile.createdAt = now;
   }
-
   profile.updatedAt = now;
 
   profile.save((err, createdProfile) => {
@@ -21,15 +20,14 @@ exports.saveUserProfile = (req, res) => {
 };
 
 exports.getUserProfiles = (req, res) => {
-  UserProfile.find({})
-    .sort({ createdAt: -1 })
-    .exec((err, allUserProfiles) => {
-      if (err) {
-        return res.status(422).send(err);
-      }
-      allUserProfiles.reverse();
-      return res.json(allUserProfiles);
+  let query = UserProfile.find({}).sort({createdAt: -1});
+  let promise = query.exec();
+  promise.then(users => {
+    users.sort((a, b) => {
+      return a.createdAt < b.createdAt;
     });
+    return res.json(users)
+  });
 };
 
 exports.getUserProfileById = (req, res) => {
@@ -48,6 +46,14 @@ exports.getUserProfileById = (req, res) => {
 exports.updateProfile = (req, res) => {
   const profileId = req.params.id;
   const profileData = req.body;
+  const now = new Date();
+
+  if (profileData.createdAt === null) {
+    profileData.createdAt = now;
+  }
+
+  profileData.updatedAt = now;
+
   UserProfile.findById(profileId, (err, foundProfile) => {
     if (err) {
       return res.status(422).send(err);
@@ -77,7 +83,6 @@ exports.updateFee = (req, res) => {
       if (err) {
         return res.status(422).send(err);
       }
-      //console.log(savedProfile)
       return res.json(savedProfile);
     });
   });
