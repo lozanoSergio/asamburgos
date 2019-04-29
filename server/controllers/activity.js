@@ -45,12 +45,21 @@ exports.getActivityById = (req, res) => {
 exports.getUsersInActivity = (req, res) => {
   const activityId = req.params.id;
 
-  User.find({},null, {"activities": [{$elemMatch:{"id": "5cbd0266a2ccb939142ef46c"}}]}).exec((err, users) => {
+  User.find({}).exec((err, allUsers) => {
     if (err) {
       return res.status(422).send(err);
     }
+
+    let users = [];
+
+    allUsers.filter(user => {
+      if (user.activities && user.activities.indexOf(activityId) === -1) {
+        users.push(user)
+      }
+    });
     return res.json(users);
-  })
+  });
+
 }
 
 exports.updateActivity = (req, res) => {

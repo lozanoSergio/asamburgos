@@ -59,13 +59,14 @@ class EditService extends React.Component {
     return (
       <BaseLayout>
         <GridContainer>
-          <GridItem xs={12} sm={12} md={12} lg={6} xl={4}>
+          <GridItem xs={12} sm={12} md={12} lg={12} xl={4}>
             <ServiceForm
+              edit
               onSubmit={this.updateService}
               initialValues={service}
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={12} lg={6} xl={8}>
+          <GridItem xs={12} sm={12} md={12} lg={12} xl={8}>
             <ServiceTable servicies={servicies} />
           </GridItem>
         </GridContainer>

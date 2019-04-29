@@ -172,9 +172,9 @@ class ProfileTable extends React.Component {
                         className: classes.margin + " " + classes.search
                       }}
                       inputProps={{
-                        placeholder: "Search",
+                        placeholder: "Buscar",
                         inputProps: {
-                          "aria-label": "Search"
+                          "aria-label": "Buscar"
                         }
                       }}
                       onChange={e => this.searchUpdated(e)}

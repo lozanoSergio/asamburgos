@@ -21,7 +21,7 @@ class EditActivity extends React.Component {
     }
 
     try {
-      activity = await getActivityById(query.id);
+      activity = await getActivityById(req, query.id);
     } catch (err) {
       console.log(err);
     }
@@ -60,14 +60,14 @@ class EditActivity extends React.Component {
     return (
       <BaseLayout>
         <GridContainer>
-          <GridItem xs={12} sm={12} md={12} lg={6} xl={4}>
+          <GridItem xs={12} sm={12} md={12} lg={12} xl={4}>
             <ActivityForm
               edit
               onSubmit={this.updateActivity}
               initialValues={activity}
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={12} lg={6} xl={8}>
+          <GridItem xs={12} sm={12} md={12} lg={12} xl={8}>
             <ActivityTable activities={activities} />
           </GridItem>
         </GridContainer>

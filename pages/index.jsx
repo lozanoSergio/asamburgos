@@ -8,7 +8,6 @@ import { getUserProfiles } from "../actions";
 class Index extends React.Component {
   static async getInitialProps({ req }) {
     let profiles = [];
-    let dates = [];
 
     try {
       profiles = await getUserProfiles(req);
@@ -16,18 +15,14 @@ class Index extends React.Component {
       console.log(err);
     }
 
-    if (profiles) {
-      profiles.filter(profile => dates.push(profile.createdAt));
-    }
-
-    return { profiles, dates };
+    return { profiles };
   }
   render() {
-    const { profiles, dates } = this.props;
+    const { profiles } = this.props;
     return (
       <BaseLayout>
-        <LineChart dates={dates} />
         <ProfileTable profiles={profiles} />
+        <LineChart profiles={profiles} />
       </BaseLayout>
     );
   }
