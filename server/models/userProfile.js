@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const config = require("../config");
-const Schema = mongoose.Schema;
 const encrypt = require("mongoose-encryption");
+const Schema = mongoose.Schema;
 
 const encKey = config.ENC_KEY;
 const sigKey = config.SIG_KEY;

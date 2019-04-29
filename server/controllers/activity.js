@@ -42,6 +42,17 @@ exports.getActivityById = (req, res) => {
     });
 };
 
+exports.getUsersInActivity = (req, res) => {
+  const activityId = req.params.id;
+
+  User.find({},null, {"activities": [{$elemMatch:{"id": "5cbd0266a2ccb939142ef46c"}}]}).exec((err, users) => {
+    if (err) {
+      return res.status(422).send(err);
+    }
+    return res.json(users);
+  })
+}
+
 exports.updateActivity = (req, res) => {
   const activityId = req.params.id;
   const activityData = req.body;

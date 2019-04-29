@@ -155,6 +155,24 @@ function ServiceForm(props) {
                   />
                 </GridItem>
               </GridContainer>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                  <Field
+                    labelText="Notas"
+                    name="notes"
+                    id="notes"
+                    color={teal}
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      multiline: true,
+                      rows: 3
+                    }}
+                    component={CustomInput}
+                  />
+                </GridItem>
+              </GridContainer>
             </CardBody>
             <CardFooter>
               <Button type="submit" color={"primary"} disabled={isSubmitting}>
