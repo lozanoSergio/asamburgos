@@ -44,9 +44,9 @@ app
     });
 
     server.get("*", (req, res, next) => {
-      if(!dev && req.headers['x-forwarded-proto']!='https') {
-        res.redirect('https://asam-burgos.herokuapp.com' + req.url);
-      }
+      // if(!dev && req.headers['x-forwarded-proto']!='https') {
+      //   res.redirect('https://asam-burgos.herokuapp.com' + req.url);
+      // }
       return handle(req, res);
     });
 
