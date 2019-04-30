@@ -1,4 +1,5 @@
 import React from "react";
+import Error from "./_error";
 import BaseLayout from "../components/layouts/BaseLayout";
 import ServiceForm from "../components/forms/ServiceForm";
 import ServiceTable from "../components/tables/ServiceTable";
@@ -67,7 +68,7 @@ class EditService extends React.Component {
     if (error) {
       return (
         <BaseLayout>
-          <Error status={error} />
+          <Error errorCode={error} />
         </BaseLayout>
       );
     }
