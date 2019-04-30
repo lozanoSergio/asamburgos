@@ -13,3 +13,7 @@ module.exports = withImages(withCSS(withSass({
       return config;
     }
 })));
+
+module.exports = {
+  target: 'serverless'
+}
