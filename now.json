@@ -1,7 +1,8 @@
 {
     "version": 2,
     "name": "asam-burgos",
+    "alias": "asam-burgos.now.sh",
     "builds": [
-    { "src": "server/index.js", "use": "@now/node-server" }
+    { "src": "server/index.js", "use": "@now/node" }
   ]
 }
