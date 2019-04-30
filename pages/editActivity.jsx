@@ -1,5 +1,5 @@
 import React from "react";
-import Error from "next/error";
+import Error from "./_error";
 import BaseLayout from "../components/layouts/BaseLayout";
 import ActivityForm from "../components/forms/ActivityForm";
 import ActivityTable from "../components/tables/ActivityTable";
@@ -70,7 +70,7 @@ class EditActivity extends React.Component {
     if (error) {
       return (
         <BaseLayout>
-          <Error status={error} />
+          <Error errorCode={error} />
         </BaseLayout>
       );
     }

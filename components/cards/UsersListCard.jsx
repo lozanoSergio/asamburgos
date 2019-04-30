@@ -53,7 +53,7 @@ function UsersListCard(props) {
             return (
               <Link key={key} href={`${process.env.BASE_URL}/editar-perfil/${user._id}`}>
                 <ListItem button>
-                  <ListItemText primary={user.firstName} />
+                  <ListItemText primary={`${user.firstName} ${user.surName1} ${user.surName2}`} />
                 </ListItem>
               </Link>
             );

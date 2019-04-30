@@ -3,6 +3,7 @@ import BaseLayout from "../components/layouts/BaseLayout";
 import UserForm from "../components/forms/UserForm";
 import AlertDialog from "../components/Alerts/AlertDialog"
 import withAuth from '../components/hoc/withAuth';
+import Error from "./_error"
 import { Router } from "../routes";
 import {
   getUserProfileById,
@@ -28,23 +29,24 @@ class EditUser extends React.Component {
     let services = {};
     let userActivities = [];
     let userServices = [];
+    let error;
 
     try {
       profile = await getUserProfileById(req, query.id);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      error = err.response.status;
     }
 
     try {
       activities = await getActivities(req);
     } catch (err) {
-      console.log(err);
+      error = err.response.status;
     }
 
     try {
       services = await getServices(req);
     } catch (err) {
-      console.log(err);
+      error = err.response.status;
     }
 
     if (
@@ -61,7 +63,7 @@ class EditUser extends React.Component {
       userServices = profile.services;
     }
 
-    return { profile, activities, services, userActivities, userServices };
+    return { profile, activities, services, userActivities, userServices, error };
   }
 
   constructor(props) {
@@ -192,8 +194,18 @@ class EditUser extends React.Component {
       activities,
       services,
       userActivities,
-      userServices
+      userServices,
+      error
     } = this.props;
+
+
+    if (error) {
+      return (
+        <BaseLayout>
+          <Error errorCode={error} />
+        </BaseLayout>
+      );
+    }
 
     return (
       <BaseLayout>
