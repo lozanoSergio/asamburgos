@@ -3,6 +3,6 @@
     "name": "asam-burgos",
     "alias": "asam-burgos.now.sh",
     "builds": [
-    { "src": "*/index.js", "use": "@now/node-server" }
+    { "src": "*/index.js", "use": "@now/next" }
   ]
 }
