@@ -81,4 +81,4 @@ class NewUser extends React.Component {
   }
 }
 
-export default (NewUser);
+export default withAuth("admin")(NewUser);
