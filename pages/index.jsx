@@ -14,7 +14,9 @@ class Index extends React.Component {
     try {
       profiles = await getUserProfiles(req);
     } catch (err) {
-      error = err.response.status;
+      if (err.response.status) {
+        error = err.response.status;
+      }
     }
 
     return { profiles, error };
